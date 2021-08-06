@@ -84,7 +84,7 @@ authResultCode가 0000 으로 응답 되는 경우 결제창을 통한  인증�
 curl -X POST 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210729113550A095 
 -H 'Content-Type: application/json' 
 -H 'Authorization: Basic YWYwZDExNjIzNmRmNDM3ZjgzMTQ4M2VlOWM1MDBiYzQ6NDMzYTg0MjFiZTc1NGIzNDk4OTA0OGNmMTQ4YTVmZmM=' 
---data-raw '{
+-D '{
   "amount" : 1004
 }'
 ```
