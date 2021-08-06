@@ -124,7 +124,7 @@ Content-type: application/json
   "paidAt": "2021-07-29T12:01:50.000+0900",
   "failedAt": "0",
   "cancelledAt": "0",
-  "payMethod": "CARD",
+  "payMethod": "card",
   "amount": 1004,
   "balanceAmt": 1004,
   "goodsName": "나이스페이-상품",
