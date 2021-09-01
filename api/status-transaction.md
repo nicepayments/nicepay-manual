@@ -1,55 +1,68 @@
-# 웹훅
-
-[웹훅](#웹훅) | [더 알아보기](#더-알아보기)
+# 거래 조회
+[거래 조회](#거래-조회) | [더 알아보기](#더-알아보기)
 
 <br>
-
+	
 ## Over-view
-<img src="../image/payment-webhook.svg" width="800px"> 
-
-### 설명 
-나이스페이 API의 결제수단의 이벤트 발생시 등록된 🔔 웹훅 `End-point`로 이벤트 결과를 전달하는 기능입니다.  
-가상계좌 처럼 계좌 생성과 입금의 차이가 발생하는 결제 수단은 반드시 웹훅 개발이 필요 합니다.  
+거래 조회는 💳 결제(승인)요청 성공 혹은 실패에 따른 정보확인이 필요한 경우 활용 할 수 있습니다.
 
 <br>
 
-### 웹훅 발송 흐름
-- 등록된 웹훅 `End-point`로 이벤트 발생시 웹훅 전문 Post 
-- 가맹점은 Server에서 웹훅 전문 확인 후 비즈니스 로직을 처리
-- 비즈니스로직 처리 후 `Htpp status 200`과 `response body`에 “OK” 문자열을 print하여 응답
+#### 거래 조회 API가 필요한 경우
+- 결제(승인) API를 호출 후 `Http-client`의 [timeout](/common/preparations.md#타임아웃-정보)이 발생하여 [결제취소](/api/cancel.md#취소환불-1) 혹은 [망 취소](/api/cancel.md#망취소)를 고려해야하는 경우
+- 특정 결제(승인) 건의 데이터가 일부 유실되어 조회가 필요한 경우
+- 결제(승인) 건의 데이터 위변조가 의심되어 원본 데이터 정보 체크가 필요한 경우
 
 <br>
 
-### 웹훅 발송 시점
-- 💳 결제(승인) 되었을 때(모든 지불수단)
-- 가상계좌가 발급(채번) 되었을 때
-- 가상계좌에 결제금액이 입금 되었을 때
-- 결제가 취소 처리되었을 때 (API 또는 가맹점관리자 취소)
-
-<br>
-
-### 웹훅 기능 요약 
-- [추가](/management/admin.md#추가-1) : 결제수단을 선택하여 웹훅을 추가 하는 기능
-- [TEST 호출](/management/admin.md#test호출) : 웹훅 등록 후 등록된 `End-point`로 Test 전문을 전달하는 기능
-- [재전송](/management/admin.md#재전송) : 웹훅 전송 실패 처리 가이드
-- [로그](/management/admin.md#로그-1) : 전달된 웹훅의 로그 확인 가이드
-
-<br>
-
-> #### ⚠️ 중요
-> `Response body`에 “OK” 문자열이 없는 경우 실패로 처리되기 때문에 주의가 필요 합니다.  
-> [방화벽 정책](/common/preparations.md#방화벽-정책)을 통해 `Inboud IP` 를 제한하는 것을 권장하고 있습니다.   
-> 비즈니스 로직 처리 전 웹훅 전문에 포함된 위변조 검증값 `signature` 과 금액을 반드시 체크 해주세요.  
-
-<br>
-
-## 응답 명세
+### 샘플 코드
 ```bash
-POST
-Content-type: application/json;charset=utf-8
+curl -X GET 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210727200125A056' 
+-H 'Content-Type: application/json' 
+-H 'Authorization: Basic YWYwZDExNjIzNmRmNDM3ZjgzMT...'
 
 ```
 
+<br>
+
+## 요청 명세
+### 거래조회(tid 활용)
+```bash
+POST /v1/payments/{tid} HTTP/1.1
+Host: api.nicepay.co.kr 
+Authorization: Basic <credentials>  or Bearer <token>
+Content-type: application/json;charset=utf-8
+```
+| Parameter     | Type | 필수 | 크기 | 설명                                                      |
+|---------------|------|------|------|-----------------------------------------------------------|
+| ediDate       | S    | 　   | -    | 전문생성일시<br>ISO 8601 형식                                             |
+| signData      | S    | 　   | 256  | 위변조 검증 Data<br>생성규칙 : hex(sha256(tid + ediDate +   SecretKey))<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다. |
+| returnCharSet | S    | 　   | 10   | 응답파라메터 인코딩 방식<br>가맹점 서버의 encoding 방식 전달<br>예시) utf-8(Default) / euc-kr                             |
+
+<br>
+
+### 거래조회(orderId 활용)
+```bash
+POST /v1/payments/find/{orderId} HTTP/1.1
+Host: api.nicepay.co.kr 
+Authorization: Basic <credentials>  or Bearer <token>
+Content-type: application/json;charset=utf-8
+![image](https://user-images.githubusercontent.com/86043374/128659182-20b04881-49b6-49d2-9326-5059c1e1088e.png)
+```
+| Parameter     | Type | 필수 | 크기 | 설명                                                      |
+|---------------|------|------|------|-----------------------------------------------------------|
+| orderDate     | S    | O    | 8    | 주문일자<br>YYYYMMDD                                                  |
+| ediDate       | S    | 　   | -    | 전문생성일시<br> ISO 8601 형식                                             |
+| signData      | S    | 　   | 256  | 위변조 검증 Data<br>생성규칙 : hex(sha256(tid + ediDate +   SecretKey))<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다. |
+| returnCharSet | S    | 　   | 10   | 응답파라메터 인코딩 방식<br> 가맹점 서버의 encoding 방식 전달<br>예시) utf-8(Default) / euc-kr                             |
+
+<br>
+
+## 응답 명세 (공통)
+```bash
+POST
+Content-type: application/json
+```
 | Parameter         | Type    | 필수 | Byte | 설명                                                                                                           |
 |-------------------|---------|------|------|----------------------------------------------------------------------------------------------------------------|
 | resultCode        | String  | O    | 4    | 결제결과코드<br>0000 : 성공 / 그외 실패                                                                                        |
@@ -148,10 +161,9 @@ Content-type: application/json;charset=utf-8
 |           | receiptUrl  | String | O    | 200    | 취소에 대한<br>매출전표 확인 URL  |
 |           | couponAmt   | Int    | 　   | 12     | 쿠폰 취소금액      |
 
-  
-  
-  
-  
+<br>
+
+    
 ## 더 알아보기
 결제 개발을 위해 더 상세한 정보가 필요하다면📌 `공통` 탭의 정보를 활용하고,  
 API 개발을 위한 각 인터페이스의 개발 명세가 필요하다면 📚 `문서` 탭의 자료를 확인 해주세요.  

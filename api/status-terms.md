@@ -1,115 +1,60 @@
-# 개발 중 입니다
-
-<img src="/image/under_construction.svg">
-
-<!--
-
-# 거래·정산·대사	
-
-[거래대사](#거래대사) | [정산대사](#정산대사) | [입금대사](#입금대사) | [더 알아보기](#더-알아보기)
+# 약관 조회
+[약관 조회](#약관-조회) | [더 알아보기](#더-알아보기)
 
 <br>
 
-## 거래대사	
-### Over-view
-카드 무이자 조회 API는 카드사 무이자 정보를 응답 합니다.  
-무이자 조회 API를 통해 무이자 결제가 가능한 카드사와 금액구간 정보를 확인 할 수 있습니다. 
+## Over-view
+약관 조회 API는 결제 호출 전 사용자에게 노출 해야 하는 약관정보를 응답 합니다.  
+나이스페이 결제창을 활용하지 않는 결제수단의 경우 약관 정보 API를 활용하여 사용자에게 약관을 고지해야 합니다. 
 
 <br>
 
-### 샘플 코드
-```bash
-```
-
-<br>
-
-### 요청 명세
-```bash
-POST /v1/card/interest-free HTTP/1.1
-Host: api.nicepay.co.kr 
-Authorization: Basic <credentials>  or Bearer <token>
-Content-type: application/json;charset=utf-8
-
-```
-
-<br>
-
-### 응답 명세
-```bash
-POST
-Content-type: application/json
-
-```
-
-<br>
-
-## 정산대사	
-### Over-view
-카드 무이자 조회 API는 카드사 무이자 정보를 응답 합니다.  
-무이자 조회 API를 통해 무이자 결제가 가능한 카드사와 금액구간 정보를 확인 할 수 있습니다.  
+### 약관 조회 API 포함 약관
+- 전자금융거래 약관
+- 개인정보 수집 및 이용 약관
+- 개인정보 제 3자 제공약관
+- 통신과금서비스 이용약관
 
 <br>
 
 ### 샘플 코드
 ```bash
+curl -X GET 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210727200125A056' 
+-H 'Content-Type: application/json' 
+-H 'Authorization: Basic YWYwZDExNjIzNmRmNDM3ZjgzMT...'
+
 ```
 
 <br>
 
-### 요청 명세
+## 요청 명세
 ```bash
-POST /v1/card/interest-free HTTP/1.1
+POST /v1/terms HTTP/1.1
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials>  or Bearer <token>
 Content-type: application/json;charset=utf-8
-
 ```
+| Parameter     | Type   | 필수 | Byte | 설명                                                |
+|---------------|--------|------|------|-----------------------------------------------------|
+| termsType     | String | O    | 50   | 약관 유형<br>ElectronicFinancialTransactions:전자금융거래   약관<br>CollectPersonalInfo:개인정보 수집 및 이용 약관<br>SharingPersonalInformation:개인정보 제 3자 제공약관<br>TelecommunicationCharging:통신과금서비스 이용약관   |
+| returnCharSet | String | 　   | 10   | 응답파라메터 인코딩 방식<br>가맹점 서버의 encoding 방식 전달<br>예시) utf-8(Default) / euc-kr                       |
 
 <br>
 
-### 응답 명세
+## 응답 명세
 ```bash
 POST
 Content-type: application/json
-
 ```
+| Parameter  | Type   | 필수 | Byte  | 상세 설명               |
+|------------|--------|------|-------|-------------------------|
+| resultCode | String | O    | 4     | 결과코드<br>0000 : 성공 / 그외 실패 |
+| resultMsg  | String | O    | 100   | 결과메시지              |
+| termsTitle | String | O    | 100   | 약관제목                |
+| content    | String | O    | 30000 | 약관내용                |
 
 <br>
 
-## 입금대사	
-### Over-view
-카드 무이자 조회 API는 카드사 무이자 정보를 응답 합니다.  
-무이자 조회 API를 통해 무이자 결제가 가능한 카드사와 금액구간 정보를 확인 할 수 있습니다.  
-
-<br>
-
-### 샘플 코드
-```bash
-```
-
-<br>
-
-### 요청 명세
-```bash
-POST /v1/card/interest-free HTTP/1.1
-Host: api.nicepay.co.kr 
-Authorization: Basic <credentials>  or Bearer <token>
-Content-type: application/json;charset=utf-8
-
-```
-
-<br>
-
-### 응답 명세
-```bash
-POST
-Content-type: application/json
-
-```
-
-<br>
-
--->
     
 ## 더 알아보기
 결제 개발을 위해 더 상세한 정보가 필요하다면📌 `공통` 탭의 정보를 활용하고,  

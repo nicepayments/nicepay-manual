@@ -1,116 +1,61 @@
-# 개발 중 입니다
 
-<img src="/image/under_construction.svg">
 
-<!--
 
-# 거래·정산·대사	
+## Access token
 
-[거래대사](#거래대사) | [정산대사](#정산대사) | [입금대사](#입금대사) | [더 알아보기](#더-알아보기)
+### Over-view
+<img src="../image/payment-token.svg" width="800px">
+
+### 활용
+[Bearer token](../common/api.md#bearer-token)방식 authorization을 활용하여 API를 호출하는 경우 활용 합니다.
 
 <br>
 
-## 거래대사	
-### Over-view
-카드 무이자 조회 API는 카드사 무이자 정보를 응답 합니다.  
-무이자 조회 API를 통해 무이자 결제가 가능한 카드사와 금액구간 정보를 확인 할 수 있습니다. 
+> #### ⚠️ 중요  
+> [시크릿 키](../common/api.md#시크릿-키)를 [Basic auth](,,/common/api.md#basic-auth) 방식으로 생성한 경우 API 호출시 token 관리는 생략 할 수 있습니다.
 
 <br>
 
 ### 샘플 코드
 ```bash
+curl -X POST "https://api.nicepay.co.kr/v1/access-token" 
+-H "Content-Type: application/json" 
+-H "Authorization: Basic YWYwZDExNjIzNmRm..."
 ```
 
 <br>
 
-### 요청 명세
+### 요청 명세 (Body)
 ```bash
-POST /v1/card/interest-free HTTP/1.1
+POST /v1/access-token HTTP/1.1
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials>  or Bearer <token>
 Content-type: application/json;charset=utf-8
-
 ```
+|   Parameter  | type        |    필수    | byte |                             설명                           |
+|:------------:|:-----------:|:----------:|:----:|:-----------------------------------------------------------| 
+| returnCharSet|  String     |            |   10 | 응답 파라메터 인코딩 방식<br> 값: utf-8/euc-kr <br> Default:utf-7  |
 
 <br>
 
-### 응답 명세
+### 응답 명세 (Body)
 ```bash
 POST
 Content-type: application/json
-
 ```
-
-<br>
-
-## 정산대사	
-### Over-view
-카드 무이자 조회 API는 카드사 무이자 정보를 응답 합니다.  
-무이자 조회 API를 통해 무이자 결제가 가능한 카드사와 금액구간 정보를 확인 할 수 있습니다.  
-
-<br>
-
-### 샘플 코드
-```bash
-```
-
-<br>
-
-### 요청 명세
-```bash
-POST /v1/card/interest-free HTTP/1.1
-Host: api.nicepay.co.kr 
-Authorization: Basic <credentials>  or Bearer <token>
-Content-type: application/json;charset=utf-8
-
-```
-
-<br>
-
-### 응답 명세
-```bash
-POST
-Content-type: application/json
-
-```
-
-<br>
-
-## 입금대사	
-### Over-view
-카드 무이자 조회 API는 카드사 무이자 정보를 응답 합니다.  
-무이자 조회 API를 통해 무이자 결제가 가능한 카드사와 금액구간 정보를 확인 할 수 있습니다.  
-
-<br>
-
-### 샘플 코드
-```bash
-```
-
-<br>
-
-### 요청 명세
-```bash
-POST /v1/card/interest-free HTTP/1.1
-Host: api.nicepay.co.kr 
-Authorization: Basic <credentials>  or Bearer <token>
-Content-type: application/json;charset=utf-8
-
-```
-
-<br>
-
-### 응답 명세
-```bash
-POST
-Content-type: application/json
-
-```
-
-<br>
-
--->
-    
+|   Parameter  | type        |    필수    | byte |                             설명                           |
+|:------------:|:-----------:|:----------:|:----:|:-----------------------------------------------------------| 
+| resultCode  |  String     |     O      |   4  | 결과코드<br>0000: 성공/그외 실패  |
+| resultMsg   |  String     |     O      |   100 | 결과 메시지 |
+| accessToken |  String     |     O      |   40  | access token  |
+| tokenType   |  String     |     O      |   10  | 인증 스킴 유형<br> Bearer 고정  |
+| expiredAt   |  String     |     O      |       | Token 만료 시각<br>ISO 8601 형식  |
+| now         |  String     |     O      |       | 현재 시각<br> ISO 8601 형식  |
+  
+  
+  
+  
+  
 ## 더 알아보기
 결제 개발을 위해 더 상세한 정보가 필요하다면📌 `공통` 탭의 정보를 활용하고,  
 API 개발을 위한 각 인터페이스의 개발 명세가 필요하다면 📚 `문서` 탭의 자료를 확인 해주세요.  
