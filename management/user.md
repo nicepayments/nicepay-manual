@@ -8,7 +8,7 @@
 나이스페이는 API를 활용하기 위해 HTTP 클라이언트는 `TLS 1.2` 대응이 가능해야 하며,  
 모던한 개발환경 지원을 위해 다양한 옵션과 편의성을 제공 하고 있습니다.  
 
-- 다양한 개발언어 지원 👉 [Githib 바로가기](https://github.com/nicepayments/sample)  
+- 다양한 개발언어 지원
 - node.js, python, ruby, jsp, php, classic asp, .net
 - REST API
 - HTTP Status code
