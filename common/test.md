@@ -75,7 +75,6 @@ API요청이 실패하는 경우 상세로그를 확인하여 쉽게 디버깅 �
 
 ## 샘플코드	
 나이스페이는 개발편의를 위해 다양한 언어의 샘플코드를 제공하고 있습니다.  
-[Github](https://github.com/nicepayments/sample)에서 샘플코드를 확인 해주세요.  
 
 ### 지원되는 언어
 <div align="left"> 
