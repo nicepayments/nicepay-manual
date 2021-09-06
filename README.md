@@ -196,7 +196,36 @@ Content-type: application/json
   "cashReceipts": null
 }
 ```
+
+
+### 샘플코드
+아이콘을 클릭하면 언어별 샘플코드를 확인 할 수 있습니다.
+
+<div align="left"> 
+ <a href="https://github.com/nicepayments/nicepay-node">
+  <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=node.js&logoColor=white">
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-python">
+  <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> 
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-ruby">
+  <img src="https://img.shields.io/badge/ruby-CC342D?style=for-the-badge&logo=ruby&logoColor=white">
+ </a> 
+ <a href="https://github.com/nicepayments/nicepay-asp">
+  <img src="https://img.shields.io/badge/asp-007396?style=for-the-badge&logo=&logoColor=white">
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-java">
+  <img src="https://img.shields.io/badge/java-F7DF1E?style=for-the-badge&logo=&logoColor=white">
+ </a>  
+ <a href="https://github.com/nicepayments/nicepay-php">
+  <img src="https://img.shields.io/badge/php-777BB4?style=for-the-badge&logo=php&logoColor=white">
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-dotnet">
+  <img src="https://img.shields.io/badge/.net-512BD4?style=for-the-badge&logo=.net&logoColor=white">
+ </a>  
+</div>
   
+<br>
   
 ## 더 알아보기
 결제 개발을 위해 더 상세한 정보가 필요하다면📌 `공통` 탭의 정보를 활용하고,  

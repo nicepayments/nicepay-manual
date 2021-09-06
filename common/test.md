@@ -1,4 +1,27 @@
 # TEST·샘플코드
+<div align="left"> 
+ <a href="https://github.com/nicepayments/nicepay-node">
+  <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=node.js&logoColor=white">
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-python">
+  <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> 
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-ruby">
+  <img src="https://img.shields.io/badge/ruby-CC342D?style=for-the-badge&logo=ruby&logoColor=white">
+ </a> 
+ <a href="https://github.com/nicepayments/nicepay-asp">
+  <img src="https://img.shields.io/badge/asp-007396?style=for-the-badge&logo=&logoColor=white">
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-java">
+  <img src="https://img.shields.io/badge/java-F7DF1E?style=for-the-badge&logo=&logoColor=white">
+ </a>  
+ <a href="https://github.com/nicepayments/nicepay-php">
+  <img src="https://img.shields.io/badge/php-777BB4?style=for-the-badge&logo=php&logoColor=white">
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-dotnet">
+  <img src="https://img.shields.io/badge/.net-512BD4?style=for-the-badge&logo=.net&logoColor=white">
+ </a>  
+</div>
 
 [샌드박스 TEST](../common/test.md#샌드박스test) | [샌드박스 활용](../common/test.md#샌드박스-활용) | [웹로드 디버깅](../common/test.md#웹로그-디버깅) | [샘플코드](../common/test.md#샘플코드) | [더 알아보기](#더-알아보기)
 
@@ -78,13 +101,27 @@ API요청이 실패하는 경우 상세로그를 확인하여 쉽게 디버깅 �
 
 ### 지원되는 언어
 <div align="left"> 
- <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=node.js&logoColor=white"> 
- <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> 
- <img src="https://img.shields.io/badge/ruby-CC342D?style=for-the-badge&logo=ruby&logoColor=white">
- <img src="https://img.shields.io/badge/asp-007396?style=for-the-badge&logo=&logoColor=white">
- <img src="https://img.shields.io/badge/java-F7DF1E?style=for-the-badge&logo=&logoColor=white">
- <img src="https://img.shields.io/badge/php-777BB4?style=for-the-badge&logo=php&logoColor=white">
- <img src="https://img.shields.io/badge/.net-512BD4?style=for-the-badge&logo=.net&logoColor=white">
+ <a href="https://github.com/nicepayments/nicepay-node">
+  <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=node.js&logoColor=white">
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-python">
+  <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> 
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-ruby">
+  <img src="https://img.shields.io/badge/ruby-CC342D?style=for-the-badge&logo=ruby&logoColor=white">
+ </a> 
+ <a href="https://github.com/nicepayments/nicepay-asp">
+  <img src="https://img.shields.io/badge/asp-007396?style=for-the-badge&logo=&logoColor=white">
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-java">
+  <img src="https://img.shields.io/badge/java-F7DF1E?style=for-the-badge&logo=&logoColor=white">
+ </a>  
+ <a href="https://github.com/nicepayments/nicepay-php">
+  <img src="https://img.shields.io/badge/php-777BB4?style=for-the-badge&logo=php&logoColor=white">
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-dotnet">
+  <img src="https://img.shields.io/badge/.net-512BD4?style=for-the-badge&logo=.net&logoColor=white">
+ </a>  
 </div>
 
 <br>
