@@ -19,6 +19,30 @@
 ### 공통 
 개발 전 필요한 `공통`적인 가이드 입니다.  
 [개발 준비](common/preparations.md) | [API·JS SDK](common/api.md) | [TEST·샘플코드](common/test.md) | [코드집](common/code.md) | [더 알아보기](./common)
+
+<div align="left"> 
+ <a href="https://github.com/nicepayments/nicepay-node">
+  <img src="https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=node.js&logoColor=white">
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-python">
+  <img src="https://img.shields.io/badge/python-3776AB?style=for-the-badge&logo=python&logoColor=white"> 
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-ruby">
+  <img src="https://img.shields.io/badge/ruby-CC342D?style=for-the-badge&logo=ruby&logoColor=white">
+ </a> 
+ <a href="https://github.com/nicepayments/nicepay-asp">
+  <img src="https://img.shields.io/badge/asp-007396?style=for-the-badge&logo=&logoColor=white">
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-java">
+  <img src="https://img.shields.io/badge/java-F7DF1E?style=for-the-badge&logo=&logoColor=white">
+ </a>  
+ <a href="https://github.com/nicepayments/nicepay-php">
+  <img src="https://img.shields.io/badge/php-777BB4?style=for-the-badge&logo=php&logoColor=white">
+ </a>
+ <a href="https://github.com/nicepayments/nicepay-dotnet">
+  <img src="https://img.shields.io/badge/.net-512BD4?style=for-the-badge&logo=.net&logoColor=white">
+ </a>  
+</div>
   
 ### 문서
 `API 명세`와 `코드`가 포함된 기술문서 입니다.  
