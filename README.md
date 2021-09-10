@@ -95,7 +95,7 @@
 
 ## 결제창 호출
 JS SDK를 통해 결제창 Method 호출시 `clientId` 필드에 [클라이언트 키](common/api.md#클라이언트-키) 값을 셋팅 하면 준비가 완료 됩니다.  
-이 후 `AUTHNICE.requestPay()` Method를 호출하면 결제창이 호출 됩니다.  
+이 후 `AUTHNICE.requestPay()` Method를 호출하면 💡 결제창이 호출 됩니다.  
 
 <b>JS SDK 인증 - Server 승인 모델</b>
 ```bash
@@ -152,7 +152,7 @@ curl -X POST 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210729113550A0
   "amount" : 1004
 }'
 ```
-💡 결제창 인증 응답으로 전달된 tid를 `v1/payments/{tid}` API로 전달하면 결제(승인) 호출이 완료 됩니다.
+💡 결제창 인증 응답으로 전달된 tid를 `v1/payments/{tid}` API로 전달하면 💳 결제(승인) 호출이 완료 됩니다.
 
 ### Authorization basic credentials 알고리즘
 ```bash
