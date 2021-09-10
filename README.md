@@ -79,7 +79,7 @@
   
 ### 설명
 - 결제자가 브라우저에서 [JS SDK](/common/api.md#js-sdk-목록)의 Method인 `AUTHNICE.requestPay()` 를 통해 💡 결제창을 호출합니다.  
-- 이후 결제자는 결제창에서 카드사 및 결제 원천사로 접근해 인증을 진행합니다.
+- 이후 결제자는 💡 결제창에서 카드사 및 결제 원천사로 접근해 인증을 진행합니다.
 - 나이스페이는 결제자의 인증결과를 `AUTHNICE.requestPay()`의 object value로 전달된 `returnUrl`로 POST 합니다.  
 - 가맹점은 POST 데이터의 위변조 여부를 체크하고, 응답된 tid를 승인 API로 전달하면 💳 결제(승인)요청이 완료됩니다. 
 
@@ -138,8 +138,8 @@ Content-type: application/x-www-form-urlencoded
   signature: 'e7d734896c7754aea648f8e7305b2a7501437469670908ef92749941040f384d'
 }
 ```
-`authResultCode`가 `0000` 으로 응답 되는 경우 결제창을 통한  인증과정이 성공한 것을 의미 합니다.  
-인증과정이 성공한 경우 `tid(거래key)값`을 승인(결제) API로 전달하여 💳 결제(승인)을 요청 할 수 있습니다.  
+`authResultCode`가 `0000` 으로 응답 되는 경우 💡 결제창을 통한  인증과정이 성공한 것을 의미 합니다.  
+인증과정이 성공한 경우 `tid(거래key)값`을 💳 승인(결제) API로 전달하여 💳 결제(승인)을 요청 할 수 있습니다.  
 
 <br>  
 
