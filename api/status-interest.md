@@ -48,13 +48,13 @@ Content-type: application/json
 |------------|--------|------|------|----------------------------------------------------------------------|
 | resultCode | String | O    | 4    | 결과코드<br>0000 : 성공 / 그외 실패                                              |
 | resultMsg  | String | O    | 100  | 결과메시지                                                           |
-| ediDate    | String | O    | -    | 응답전문생성일시<br>ISO 8601 형식                                                        |
+| ediDate    | String |     | -    | 응답전문생성일시<br>ISO 8601 형식                                                        |
 | signature  | String | 　   | 256  | 위변조 검증 데이터<br>- 유효한 거래건에   한하여 응답<br>- 생성규칙 :   hex(sha256(ediDate+ SecretKey))<br>- 데이터 유효성 검증을 위해, 가맹점 수준에서 비교하는 로직 구현 권고<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.            |
 
 #### 무이자 할부정보 <img src="https://img.shields.io/badge/-Array-blueviolet"> 
 | Parameter        |                 |             | Type   | 필수 | Byte | 설명                                  |
 |------------------|-----------------|-------------|--------|------|------|---------------------------------------|
-| interestFreeList |                 |             | Array  |      | -    | 무이자 할부정보                       |
+| interestFree |                 |             | Array  |      | -    | 제공되는 모든 무이자 할부정보<br>- NICEPAY에서 기본제공하는 무이자와 상점무이자가 merge된 정보<br>- 카드코드별 하나의 무이자 Object가 응답됩니다.                       |
 |                  | cardCode        |             | String | O    | 3    | 카드사 코드<br>신용카드사별 코드                     |
 |                  | cardName        |             | String | O    | 20   | 카드사 이름<br>예) 비씨                              |
 |                  | freeInstallment |             | Array  | O    | -    | 무이자 할부 상세 정보                 |
