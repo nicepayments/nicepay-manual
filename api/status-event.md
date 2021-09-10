@@ -49,7 +49,7 @@ Content-type: application/json
 |------------|--------|------|------|----------------------------------------------------------------------|
 | resultCode | String | O    | 4    | 결과코드<br>0000 : 성공 / 그외 실패                                              |
 | resultMsg  | String | O    | 100  | 결과메시지                                                           |
-| ediDate    | String | O    | -    | 응답전문생성일시<br>ISO 8601 형식                                                        |
+| ediDate    | String |     | -    | 응답전문생성일시<br>ISO 8601 형식                                                        |
 | signature  | String | 　   | 256  | 위변조 검증 데이터<br>- 유효한 거래건에   한하여 응답<br>- 생성규칙 :   hex(sha256(ediDate+ SecretKey))<br>- 데이터 유효성 검증을 위해, 가맹점 수준에서 비교하는 로직 구현 권고<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.            |
 | cardPoint  | String | 　   | 　   | 포인트 결제 지원 카드<br>-콜론(:)을 구분자로 카드코드 나열<br>-카드사포인트는 amount에 관계 없이 이용가능한 카드사정보 제공<br>ex) 01:02:04:07<br>- 설명 : BC,국민,삼성,현대 카드는 카드사포인트 사용 가능          |
 
@@ -58,7 +58,7 @@ Content-type: application/json
 
 | Parameter        |                 | Type   | 필수 | Byte | 설명                                  |
 |------------------|-----------------|--------|------|------|---------------------------------------|
-| interestFreeList |                 | Array  |      | -    | 무이자 할부정보                       |
+| interestFreet |                 | Array  |      | -    | 제공되는 모든 무이자 할부정보<br>- NICEPAY에서 기본제공하는 무이자와 상점무이자가 merge된 정보<br>- 카드코드별 하나의 무이자 Object가 응답됩니다.                     |
 |                  | cardCode        | String | O    | 3    | 카드사 코드<br> 신용카드사별 코드|
 |                  | cardName        | String | O    | 20   | 카드사 이름<br>예) 비씨                           |
 |                  | freeInstallment | String | O    | 200  | 무이자 할부개월 <br>콜론(:)을 구분자로 할부개월 나열<br>ex) 02:03:04:05<br>- 설명 : 2,3,4,5개월 무이자 할부 제공    |
