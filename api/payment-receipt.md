@@ -82,7 +82,7 @@ Content-type: application/json
 | orderId    | String | O    | 64   | 상점 거래 고유번호                                                   |
 | approvedAt | String | O    | -    | 발급시점<br>ISO 8601 형식<br>발급완료가 아닐 경우 0                                               |
 | approveNo  | String | 　   | 30   | 현금영수증 국세청 발행번호<br>발급 성공시 리턴됩니다.                                              |
-| ediDate    | String | O    | 14   | 응답전문생성일시<br>ISO 8601 형식                                                        |
+| ediDate    | String |     | 14   | 응답전문생성일시<br>ISO 8601 형식                                                        |
 | signature  | String | 　   | 256  | 위변조 검증 데이터<br>- 유효한 거래건에   한하여 응답<br>- 생성규칙 :   hex(sha256(tid + orderId + ediDate+ SecretKey))<br>- 데이터 유효성 검증을 위해, 가맹점 수준에서 비교하는 로직 구현 권고<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.            |
 
 <br>
@@ -154,7 +154,7 @@ Content-type: application/json
 | balanceAmt  | Int    | O    | 12   | 취소 가능한 잔액<br>부분취소 거래인경우, 전체금액에서   현재까지 취소된 금액을 차감한 금액. |
 | cancelledAt | String | O    | -    | 취소시점<br>ISO 8601 형식<br>취소 실패일 경우 0                                                      |
 | approveNo   | String | 　   | 30   | 현금영수증 국세청 취소 승인번호<br>취소 성공시 리턴됩니다.                                                 |
-| ediDate     | String | O    | 14   | 응답전문생성일시<br>ISO 8601 형식                                                           |
+| ediDate     | String |     | 14   | 응답전문생성일시<br>ISO 8601 형식                                                           |
 | signature   | String | 　   | 256  | 위변조 검증 데이터<br>- 유효한 거래건에   한하여 응답<br>- 생성규칙 :   hex(sha256(tid + orderId + ediDate+ SecretKey))<br>- 데이터 유효성 검증을 위해, 가맹점 수준에서 비교하는 로직 구현 권고<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.               |
 
 <br>
@@ -220,7 +220,7 @@ Content-type: application/json
 | balanceAmt  | Int    | O    | 12   | 취소 가능한 잔액<br>부분취소 거래인경우, 전체금액에서   현재까지 취소된 금액을 차감한 금액. |
 | cancelledAt | String | O    | -    | 취소시점<br>ISO 8601 형식<br>취소 실패일 경우 0                                                      |
 | approveNo   | String | 　   | 30   | 현금영수증 국세청 취소 승인번호<br> 취소 성공시 리턴됩니다.                                                 |
-| ediDate     | String | O    | 14   | 응답전문생성일시<br>ISO 8601 형식                                                           |
+| ediDate     | String |     | 14   | 응답전문생성일시<br>ISO 8601 형식                                                           |
 | signature   | String | 　   | 256  | 위변조 검증 데이터<br>- 유효한 거래건에   한하여 응답<br>- 생성규칙 :   hex(sha256(tid + orderId + ediDate+ SecretKey))<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.               |
 
 
