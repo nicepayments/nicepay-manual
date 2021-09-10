@@ -223,7 +223,7 @@ Content-type: application/json
 | tid               | String  | O    | 30   | 결제 승인 키<br><br>최초 승인(가상계좌-채번)에 성공한   원거래의 NICEPAY 거래키 입니다.                              |
 | cancelledTid      | String  | 　   | 30   | 취소 거래 키 <br><br>NICEPAY가 발행하는 취소 응답 TID (부분취소시 tid와   다른 값이 응답됨)<br>- 취소 요청건에 한하여 응답됨<br>- cancels 객체에서 현재 취소된   거래정보를 찾을 때 사용 하시면 됩니다.                                     |
 | orderId           |  String  | O    | 64   | 상점 거래 고유번호                                                                                           |
-| ediDate           |  String  | O    | -    | 응답전문생성일시 ISO 8601 형식                                                                               |
+| ediDate           |  String  |     | -    | 응답전문생성일시 ISO 8601 형식                                                                               |
 | signature         |  String  | 　   | 256  | 위변조 검증 데이터<br><br>- 유효한 거래건에 한하여 응답<br>- 생성규칙 : hex(sha256(tid + amount +   ediDate+ SecretKey))<br>- 데이터 유효성 검증을 위해, 가맹점 수준에서 비교하는 로직 구현 권고<br>-   SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.                                                  |
 | status            |  String  | O    | 20   | 결제 처리상태<br><br>paid:결제완료, ready:준비됨, failed:결제실패, cancelled:취소됨, partialCancelled:부분 취소됨, expired:만료됨<br>['paid',   'ready', 'failed', 'cancelled', 'partialCancelled', 'expired']                                    |
 | paidAt            |  String  | O    | -    | 결제완료시점 ISO 8601 형식<br><br>결제완료가   아닐 경우 0                                             |
