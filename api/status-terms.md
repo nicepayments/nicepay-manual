@@ -29,7 +29,8 @@ curl -X GET 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210727200125A05
 
 ## 요청 명세
 ```bash
-POST /v1/terms HTTP/1.1
+POST /v1/terms  
+HTTP/1.1  
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials>  or Bearer <token>
 Content-type: application/json;charset=utf-8
