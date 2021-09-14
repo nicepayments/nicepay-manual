@@ -39,7 +39,8 @@ curl -X POST 'https://api.nicepay.co.kr/v1/subscribe/regist'
 
 ### 요청 명세 (Body)
 ```bash
-POST /v1/subscribe/regist HTTP/1.1
+POST /v1/subscribe/regist  
+HTTP/1.1  
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials> or Bearer <token>
 Content-type: application/json;charset=utf-8
@@ -136,7 +137,8 @@ curl -X POST 'https://api.nicepay.co.kr/v1/subscribe/BIKYnicuntct2m2107272028532
 
 ### 요청 명세 (Body)
 ```bash
-POST /v1/subscribe/{bid}/payments HTTP/1.1
+POST /v1/subscribe/{bid}/payments  
+HTTP/1.1  
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials> or Bearer <token>
 Content-type: application/json;charset=utf-8
@@ -247,7 +249,8 @@ curl -X POST 'https://api.nicepay.co.kr/v1/subscribe/BIKYnicuntct2m2107272028532
 
 ### 요청 명세 (Body)
 ```bash
-POST /v1/subscribe/{bid}/expire HTTP/1.1
+POST /v1/subscribe/{bid}/expire   
+HTTP/1.1  
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials> or Bearer <token>
 Content-type: application/json;charset=utf-8
