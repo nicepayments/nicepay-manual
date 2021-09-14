@@ -63,8 +63,8 @@ function serverAuth() {
 
 |   Parameter  | type        |    필수  | byte |                             설명                           |
 |:------------:|:-----------:|:--------:|:----:|:-----------------------------------------------------------| 
-| ClientId      | String     | O        | 50	 |  가맹점 식별코드, NICEPAY가 발급한 가맹점 식별 값 		| 
-| ClientId      | String     | O        | 20	 | 결제수단 <br> card : 신용카드 <br> directCard : 결제창 없이 카드사 바로 노출  <br> vbank : 가상계좌  <br>naverpayCard : 네이버페이-신용카드 전액결제(포인트 이용불가) <br> kakaopay : 카카오페이(카드전액 또는 포인트전액) <br>kakaopayCard : 카카오페이-신용카드 전액결제 <br>kakaopayMoney : 카카오페이-머니 전액결제 <br>samsungpayCard : 삼성페이 카드전액 결제 <br>payco : 페이코 <br>ssgpay : SSGPAY <br>cardAndEasyPay : 신용카드와 간편결제 노출 <br>*cardAndEasyPay인 경우, 아래 파라미터와 함께 사용불가* <br>- cardCode, cardQuota, shopInterest, quotaInterest | 
+| clientId      | String     | O        | 50	 |  가맹점 식별코드, NICEPAY가 발급한 가맹점 식별 값 		| 
+| method      | String     | O        | 20	 | 결제수단 <br> card : 신용카드 <br> directCard : 결제창 없이 카드사 바로 노출  <br> vbank : 가상계좌  <br>naverpayCard : 네이버페이-신용카드 전액결제(포인트 이용불가) <br> kakaopay : 카카오페이(카드전액 또는 포인트전액) <br>kakaopayCard : 카카오페이-신용카드 전액결제 <br>kakaopayMoney : 카카오페이-머니 전액결제 <br>samsungpayCard : 삼성페이 카드전액 결제 <br>payco : 페이코 <br>ssgpay : SSGPAY <br>cardAndEasyPay : 신용카드와 간편결제 노출 <br>*cardAndEasyPay인 경우, 아래 파라미터와 함께 사용불가* <br>- cardCode, cardQuota, shopInterest, quotaInterest | 
 | orderId      | String     | O         | 64	 |  가맹점에서 관리하는 Unique한 주문번호 또는 결제번호<br> 결제된 orderId로 재호출 불가| 
 | amount       | Int  	    | O         | 12	 |  결제금액 (숫자만)		| 
 | goodsName    | String     | O         | 40	 |  상품명<br> - doubleQuota(")와 pipLine(&brvbar;) 2가지 특수문자는 '-'로 대체 됩니다.| 
