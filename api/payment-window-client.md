@@ -217,7 +217,8 @@ curl -X POST 'https://api.nicepay.co.kr/v1/check-amount/nicuntct1m01012107272007
 
 ### 요청 명세 
 ```bash
-POST /v1/check-amount/{tid} HTTP/1.1
+POST /v1/check-amount/{tid}  
+HTTP/1.1  
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials> or Bearer <token>
 Content-type: application/json;charset=utf-8
