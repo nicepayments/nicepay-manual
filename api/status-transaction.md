@@ -47,7 +47,6 @@ POST /v1/payments/find/{orderId} HTTP/1.1
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials>  or Bearer <token>
 Content-type: application/json;charset=utf-8
-![image](https://user-images.githubusercontent.com/86043374/128659182-20b04881-49b6-49d2-9326-5059c1e1088e.png)
 ```
 | Parameter     | Type | 필수 | 크기 | 설명                                                      |
 |---------------|------|------|------|-----------------------------------------------------------|
