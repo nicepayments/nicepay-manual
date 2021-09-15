@@ -214,7 +214,7 @@ API 엑세스 방식은 생성된 시크릿키 인증방식에 따라 선택이 
 Authorization: Bearer <token>
 ```
 #### Access Token 생성 API  
-- [Access token](/payment-access-token.md#access-token)  
+- [Access token](/api/payment-access-token.md#access-token)  
 
 
 #### Bearer Token 생성 예시  
