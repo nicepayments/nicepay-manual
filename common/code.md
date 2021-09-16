@@ -23,13 +23,13 @@
 ## 카드코드
 | 코드 | 한글         | 영문         | 결제창                    | 대표 웹 사이트                   |
 |:------:|:--------------|:--------------|:---------------------------:|:----------------------------------|
-| 1    | 비씨         | BC           | O                         | https://www.bccard.com/          |
-| 2    | KB국민       | KB Kookmin   | O                         | https://card.kbcard.com/         |
-| 3    | 하나(외환)   | KEB Bank     | O                         | https://www.hanacard.co.kr/      |
-| 4    | 삼성         | SAMSUNG      | O                         | https://www.samsungcard.com/     |
-| 6    | 신한         | SHINHAN      | O                         | https://www.shinhancard.com/     |
-| 7    | 현대         | HYUNDAI      | O                         | https://www.hyundaicard.com/     |
-| 8    | 롯데         | LOTTE        | O                         | https://www.lottecard.co.kr/     |
+| 01    | 비씨         | BC           | O                         | https://www.bccard.com/          |
+| 02    | KB국민       | KB Kookmin   | O                         | https://card.kbcard.com/         |
+| 03    | 하나(외환)   | KEB Bank     | O                         | https://www.hanacard.co.kr/      |
+| 04    | 삼성         | SAMSUNG      | O                         | https://www.samsungcard.com/     |
+| 06    | 신한         | SHINHAN      | O                         | https://www.shinhancard.com/     |
+| 07    | 현대         | HYUNDAI      | O                         | https://www.hyundaicard.com/     |
+| 08    | 롯데         | LOTTE        | O                         | https://www.lottecard.co.kr/     |
 | 11   | 씨티         | CITI         | O                         | https://www.citibank.co.kr/      |
 | 12   | NH채움       | NH           | O                         | https://card.nonghyup.com/       |
 | 13   | 수협         | SUHYUP       | O                         | https://www.suhyup-bank.com/     |
