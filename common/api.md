@@ -165,7 +165,6 @@ function serverAuth() {
 API 엑세스 제어를 위해 `Basic` 인증 방식을 이용하는 방식 입니다.  
 `HTTP Authorization header`에 Basic 인증 스킴으로 약속된 `credentials` 전달하면 API 엑세스 인증이 완료 됩니다.  
 API 엑세스 방식은 생성된 시크릿키 인증방식에 따라 선택이 가능 합니다.  
-- [시크릿 키](/common/api.md#시크릿-키)  
 
 <br>
 
