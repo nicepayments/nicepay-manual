@@ -217,7 +217,7 @@ Authorization: Bearer <token>
 
 #### Bearer Token 생성 예시  
 `Bearer token` 생성을 위해 `Access token` API 호출 합니다.  
-API호출을 위해 Basic 인증 스킴이 활용되며, `Credentials` 생성 방법은 [Basic auth 가이드](/common/api.md#basic-auth)를 참고 해주세요.  
+Access token API호출을 위해 Basic 인증 스킴이 활용되며, `Credentials` 생성 방법은 [Basic auth 가이드](api.md#basic-auth)를 참고 해주세요.  
 
 ```cURL
 curl -X POST "https://api.nicepay.co.kr/v1/access-token" 
