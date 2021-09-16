@@ -205,7 +205,6 @@ API 접속을 위해 `access token`을 API 서버에 제출해서 인증을 하�
 `Bearer token` 인증을 위해 사용되는 token 발급을 위해 [Access token](/payment-access-token.md#access-token) API 호출이 선행 되어야 합니다.  
 API 엑세스 방식은 생성된 시크릿키 인증방식에 따라 선택이 가능 합니다.  
 
-[시크릿 키](/common/api.md#시크릿-키)  
 
 <br>
 
