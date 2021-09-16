@@ -5,9 +5,9 @@
 
 ## 회원가입
 회원가입을 하고 🔧 [샌드박스](/common/test.md#샌드박스test)를 활용하면 빠르게 개발 할 수 있어요.  
-[회원가입 페이지](https://start.nicepay.co.kr/merchant/login)로 이동 후 무료로 회원가입을 해보세요.  
+[회원가입 페이지](https://start.nicepay.co.kr/merchant/login/main.do)로 이동 후 무료로 회원가입을 해보세요.  
 
-- [회원가입](https://start.nicepay.co.kr/merchant/login)
+- [회원가입](https://start.nicepay.co.kr/merchant/login/main.do)
 - [샌드박스 준비](/common/test.md#샌드박스-준비)
 - [샌드박스 활용](/common/test.md#샌드박스-활용)
 
