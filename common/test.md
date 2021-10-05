@@ -99,7 +99,7 @@ Content-type: application/json;charset=utf-8
 | [취소 요청](/api/cancel.md#취소환불망취소)         |△|      `POST`     |     /v1/payments/{tid}/cancel       | 부분취소 불가 |
 | [거래조회-tid](/api/status-transaction.md#거래조회tid-활용)        |○|       `GET`     |     /v1/payments/{tid}              | |
 | [거래조회-orderId](/api/status-transaction.md#거래조회orderid-활용)      |○|      `GET`     |     /v1/payments/find/{orderId}     | |
-| [빌키발급](/api/payment-subscribe.md#빌키발급)          |○|      `POST`     |     /v1/subscribe/regist            | 임의 카드 값으로 빌키 발급 |
+| [빌키발급](/api/payment-subscribe.md#빌키발급)          |○|      `POST`     |     /v1/subscribe/regist            | 임의 값 응답 |
 | [빌키승인](/api/payment-subscribe.md#빌키승인)          |○|      `POST`     |     /v1/subscribe/{bid}/payments    | 임의 값 응답 | 
 | [빌키삭제](/api/payment-subscribe.md#빌키삭제)          |○|      `POST`     |     /v1/subscribe/{bid}/expire      | |
 | [약관조회](/api/status-terms.md#약관-조회)          |×|       `GET`     |     /v1/terms                       | |
