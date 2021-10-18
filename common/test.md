@@ -208,7 +208,7 @@ POST
 Content-type: application/json
 ```
 
-```json
+```bash
 {
   resultCode: '0000',
   resultMsg: '정상 처리되었습니다.',
