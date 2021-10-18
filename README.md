@@ -68,7 +68,6 @@
 - [샌드박스 준비](common/test.md#샌드박스-준비)
 
 > #### ⚠️ 중요
-> 인터넷이 가능한 환경에서 Test 하는 것을 권장 합니다.  
 > IP 제약이 있는 네트워크 환경에서 Test를 진행하는 경우 API호출을 위해 방화벽 작업이 필요할 수 있습니다.  
 >  👉 [방화벽 정책 확인하기](common/preparations.md#방화벽-정책)
 
@@ -90,7 +89,6 @@
 - `Server 승인` / `Basic` 인증 기준으로 결제창 TEST 개발흐름 예시를 설명 합니다.
 
 #### JS Include
-- 결제창 호출을 위한 JS SDK를 sandbox 도메인으로 변경합니다.
 - clientId는 가맹점관리자 TEST상점에서 발급한 `클라이언트키`를 사용 합니다.
 
 ```bash
@@ -109,7 +107,7 @@ function serverAuth() {
     orderId: random(),
     amount: 1004,
     goodsName: '나이스페이-상품',
-    returnUrl: 'http://localhost:3000/serverAuth',
+    returnUrl: 'http://localhost:3000/serverAuth', //API를 호출할 Endpoint 입력
     fnError: function (result) {
       alert('고객용메시지 : ' + result.msg + '\n개발자확인용 : ' + result.errorMsg + '')
     }
@@ -125,7 +123,10 @@ const random = (length = 8) => {
 <button onclick="serverAuth()">serverAuth 결제하기</button>
 
 ```  
-
+> #### ⚠️ 중요  
+> 샌드박스를 통한 TEST가 완료되어 운영계 반영이 필요하다면 아래 2가지 사항을 주의 해주세요.
+> 1) JS SDK, API 도메인을 운영계 도메인으로 변경 합니다.
+> 2) clientId, secretKey를 운영계로 변경 합니다.
 <br>  
 
 <b>결제창 응답</b>
@@ -162,7 +163,8 @@ curl -X POST 'https://sandbox-api.nicepay.co.kr/v1/payments/UT0000113m0101211005
   "amount" : 1004
 }'
 ```
-
+> #### ⚠️ 중요  
+> 샌드박스를 통한 TEST가 완료되면 운영계 도메인으로 변경 해주세요.
 <br>
 
 ### Authorization basic credentials 알고리즘
