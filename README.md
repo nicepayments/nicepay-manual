@@ -124,9 +124,9 @@ const random = (length = 8) => {
 
 ```  
 > #### ⚠️ 중요  
-> 샌드박스를 통한 TEST가 완료되어 운영계 반영이 필요하다면 아래 2가지 사항을 주의 해주세요.
-> 1) JS SDK, API 도메인을 운영계 도메인으로 변경 합니다.
-> 2) clientId, secretKey를 운영계로 변경 합니다.
+> 샌드박스를 통한 TEST가 완료되어 운영계 반영이 필요하다면 아래 2가지 사항을 주의 해주세요.  
+> 1) JS SDK, API 도메인을 운영계 도메인으로 변경 합니다.  
+> 2) clientId, secretKey를 운영계로 변경 합니다.  
 <br>  
 
 <b>결제창 응답</b>
@@ -164,7 +164,7 @@ curl -X POST 'https://sandbox-api.nicepay.co.kr/v1/payments/UT0000113m0101211005
 }'
 ```
 > #### ⚠️ 중요  
-> 샌드박스를 통한 TEST가 완료되면 운영계 도메인으로 변경 해주세요.
+> 샌드박스를 통한 TEST가 완료되면 운영계 도메인으로 변경 해주세요.  
 > 운영계  ex) api.nicepay.co.kr/v1/payments/UT0000113m01012110051656331001
 <br>
 
