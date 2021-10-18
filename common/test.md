@@ -129,12 +129,15 @@ javascript
 <script>
 function serverAuth() {
   AUTHNICE.requestPay({
-    clientId: ‘58e3b578555e45738d6b569e53d5ae54’,
-    method: ‘card’,
-    orderId: ‘b0980639-52db-4504-9e4d-97200827dc48’,
+    clientId: '58e3b578555e45738d6b569e53d5ae54',
+    method: 'card',
+    orderId: 'b0980639-52db-4504-9e4d-97200827dc48',
     amount: 1004,
-    goodsName: ‘나이스페이-상품’,
-    returnUrl: ‘http://localhost:3000/serverAuth’
+    goodsName: '나이스페이-상품',
+    returnUrl: 'http://localhost:3000/serverAuth',
+    fnError: function (result) {
+      alert('고객용메시지 : ' + result.msg + '\n개발자확인용 : ' + result.errorMsg + '')
+    }
  });
 }
 </script>
