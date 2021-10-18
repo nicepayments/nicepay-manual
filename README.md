@@ -111,7 +111,10 @@ function serverAuth() {
     orderId: ‘193ee313-28d4-4af1-928c-e5f0e1f1bf88’,
     amount: 1004,
     goodsName: ‘나이스페이-상품’,
-    returnUrl: ‘http://localhost:4567/serverAuth’
+    returnUrl: ‘http://localhost:4567/serverAuth’,
+    fnError: function (result) {
+      alert('고객용메시지 : ' + result.msg + '\n개발자확인용 : ' + result.errorMsg + '')
+    }    
  });
 }
 </script>
