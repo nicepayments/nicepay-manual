@@ -28,7 +28,7 @@ curl -X POST 'https://api.nicepay.co.kr/v1/receipt'
 -H 'Content-Type: application/json' 
 -H 'Authorization: Basic YWYwZDExNjIzNmRmNDM3ZjQ4...' 
 -D '{
-    "orderId" : “merchant-order-id",
+    "orderId" : "merchant-order-id",
     "amount" : 1000,
     "goodsName" : ＂나이스상품",
     "receiptType" : "individual",
@@ -56,7 +56,7 @@ Content-type: application/json;charset=utf-8
 | amount        | Int    | O    | 12   | 현금영수증 발행금액                                              |
 | goodsName     | String | O    | 40   | 상품명                                                           |
 | receiptType   | String | O    | 20   | 현금영수증 발급 유형<br> individual : 개인 소득공제용<br>company : 사업자 지출증빙용                                      |
-| receiptNo     | String | O    | 20   | 현금영수증 발행대상 식별정보<br>휴대폰번호(10 자리   또는 11 자리) 또는 사업자번호(10   자리)<br>- receiptType 이 individual 인경우 휴대폰번호 <br>- receiptType 이 company 인경우   사업자번호<br>- ’-‘없이 숫자만 입력                                            |
+| receiptNo     | String | O    | 20   | 현금영수증 발행대상 식별정보<br>휴대폰번호(10 자리   또는 11 자리) 또는 사업자번호(10   자리)<br>- receiptType 이 individual 인경우 휴대폰번호 <br>- receiptType 이 company 인경우   사업자번호<br>- '-'없이 숫자만 입력                                            |
 | supplyAmt     | Int    | O    | 12   | amount중 공급가액<br>전체 거래금액(amount)중에서   공급가액에 해당하는 금액<br>해당없을 경우 0                                                  |
 | goodsVat      | Int    | O    | 12   | amount중 부가가치세<br>전체 거래금액(amount)중에서   부가세에 해당하는 금액<br>해당없을 경우 0                                                  |
 | taxFreeAmt    | Int    | O    | 12   | amount중 면세공급가액<br> 전체 거래금액(amount)중에서   면세에 해당하는 금액<br>해당없을 경우 0                                                  |
@@ -111,8 +111,8 @@ curl -X POST 'https://api.nicepay.co.kr/v1/receipt/nicuntct1m0401210727203622141
 -H 'Content-Type: application/json' 
 -H 'Authorization: Basic YWYwZDExNjIzNmRmNDM3ZjgzMTQ4M2...' 
 -D '{
-    "orderId" : “merchant-order-id",
-    "reason" : “sample-code"
+    "orderId" : "merchant-order-id",
+    "reason" : "sample-code"
 }'
 ```
 

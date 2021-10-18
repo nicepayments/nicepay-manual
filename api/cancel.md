@@ -39,8 +39,8 @@ curl -X POST 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210727200125A0
 -H 'Content-Type: application/json' 
 -H 'Authorization: Basic YWYwZDExNjIzNmRmNDM3...' 
 -D '{
-    "reason" : “sample-code",
-    "orderId" : “merchant-order-id"
+    "reason" : "sample-code",
+    "orderId" : "merchant-order-id"
 }'
 
 ```
@@ -219,7 +219,7 @@ curl -X POST 'https://api.nicepay.co.kr/v1/payments/netcancel'
 -H 'Content-Type: application/json' 
 -H 'Authorization: Basic YWYwZDExNjIzNmRmNDM3...' 
 -D '{
-    “orderID" : “your-order-id”,
+    "orderID" : "your-order-id”,
 }'
 
 ```

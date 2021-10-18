@@ -125,13 +125,13 @@ JS SDK 모델에 따라 호출되는 JS SDK Include 방식과 Method 차이가 �
 <script>
 function serverAuth() {
   AUTHNICE.requestPay({
-    clientId: ‘af0d116236df437f831483ee9c500bc4’,
-    method: ‘vbank’,
-    orderId: ‘your-unique-orderid’,
+    clientId: 'af0d116236df437f831483ee9c500bc4',
+    method: 'vbank',
+    orderId: 'your-unique-orderid',
     amount: 1004,
-    goodsName: ‘나이스페이-상품’,
-    vbankHolder: ‘나이스’,
-    returnUrl: ‘http://localhost:4567/serverAuth’
+    goodsName: '나이스페이-상품',
+    vbankHolder: '나이스',
+    returnUrl: 'http://localhost:4567/serverAuth'
   });
 }
 </script>
@@ -145,13 +145,13 @@ function serverAuth() {
 <script>
 function serverAuth() {
   PAYNICE.requestPay({
-    clientId: ‘af0d116236df437f831483ee9c500bc4’,
-    method: ‘vbank’,
-    orderId: ‘your-unique-orderid’,
+    clientId: 'af0d116236df437f831483ee9c500bc4',
+    method: 'vbank',
+    orderId: 'your-unique-orderid',
     amount: 1004,
-    goodsName: ‘나이스페이-상품’,
-    vbankHolder: ‘나이스’
-    returnUrl: ‘http://localhost:4567/serverAuth’
+    goodsName: '나이스페이-상품',
+    vbankHolder: '나이스'
+    returnUrl: 'http://localhost:4567/serverAuth'
  });
 }
 </script>
@@ -181,14 +181,14 @@ Base64(`client-key:secret-key`)
 #### Credentials 생성 예시  
 `Credentials` 생성을 위해 먼저 클라이언트 키 + : + 시크릿키 구성으로 문자열을 생성 합니다.  
 ```bash
-clientKey = ‘af0d116236df437f831483ee9c500bc4’
-secretKey = ‘433a8421be754b34989048cf148a5ffc’
+clientKey = 'af0d116236df437f831483ee9c500bc4'
+secretKey = '433a8421be754b34989048cf148a5ffc'
 >> `af0d116236df437f831483ee9c500bc4:433a8421be754b34989048cf148a5ffc`
 ```
   
 생성된 문자열을 `Base64` encode 하면 `Credentials` 값이 생성됩니다.
 ```bash
-Base64(‘af0d116236df437f831483ee9c500bc4:433a8421be754b34989048cf148a5ffc’)
+Base64('af0d116236df437f831483ee9c500bc4:433a8421be754b34989048cf148a5ffc')
 >> `YWYwZDExNjIzNmRmNDM3ZjgzMTQ4M2VlOWM1MDBiYzQ6NDMzYTg0MjFiZTc1NGIzNDk4OTA0OGNmMTQ4YTVmZmM=`
 ```  
 생성된 `Credentials`를 `HTTP header`에 셋팅 하면 API 인증 준비가 완료 됩니다.   

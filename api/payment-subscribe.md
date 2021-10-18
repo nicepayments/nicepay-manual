@@ -241,7 +241,7 @@ curl -X POST 'https://api.nicepay.co.kr/v1/subscribe/BIKYnicuntct2m2107272028532
 -H 'Content-Type: application/json' 
 -H 'Authorization: Basic ZWVjOGQzNTA4Y2IwNDI1ZGI5NTViMzBiZjM...' 
 -D '{
-    "orderId": “merchant-order-id"
+    "orderId": "merchant-order-id"
 }'
 ```
 

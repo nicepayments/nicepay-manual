@@ -35,12 +35,12 @@
 <script>
 function serverAuth() {
   AUTHNICE.requestPay({
-    clientId: ‘af0d116236df437f831483ee9c500bc4’,
-    method: ‘card’,
-    orderId: ‘your-unique-orderid’,
+    clientId: 'af0d116236df437f831483ee9c500bc4',
+    method: 'card',
+    orderId: 'your-unique-orderid',
     amount: 1004,
-    goodsName: ‘나이스페이-상품’,
-    returnUrl: ‘http://localhost:4567/serverAuth’
+    goodsName: '나이스페이-상품',
+    returnUrl: 'http://localhost:4567/serverAuth'
  });
 }
 </script>
@@ -113,7 +113,7 @@ function serverAuth() {
 | Parameter         | Type   | 필수              | Byte | 설명                                                              |
 |-------------------|--------|-------------------|------|-------------------------------------------------------------------|
 | directReceiptType | String |                   | 20   | 현금영수증 발급 유형<br>unPublished : 미발행<br>individual : 개인 소득공제용<br>company : 사업자 지출증빙용|
-| directReceiptNo   | String | 네이버페이-포인트 | 20   | 현금영수증 발행대상 식별정보<br>휴대폰번호(10 자리 또는 11 자리) 또는 사업자번호(10 자리)<br>* directReceiptType 이 individual 또는 company 인 경우 필수<br>* directReceiptType 이 individual 인경우 휴대폰번호를 입력합니다.<br>* directReceiptType 이 company 인경우 사업자번호를 입력합니다.<br> * ’-‘없이 숫자만 입력|
+| directReceiptNo   | String | 네이버페이-포인트 | 20   | 현금영수증 발행대상 식별정보<br>휴대폰번호(10 자리 또는 11 자리) 또는 사업자번호(10 자리)<br>* directReceiptType 이 individual 또는 company 인 경우 필수<br>* directReceiptType 이 individual 인경우 휴대폰번호를 입력합니다.<br>* directReceiptType 이 company 인경우 사업자번호를 입력합니다.<br> * '-'없이 숫자만 입력|
 
 <br>
 

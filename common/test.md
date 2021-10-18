@@ -125,26 +125,37 @@ Content-type: application/json;charset=utf-8
 javascript
 ```
 ```javascript
-<script src="https://sandbox-pay.nicepay.co.kr/v1/js/"></script> //Server 승인 샌드박스
+<script src="https://sandbox-pay.nicepay.co.kr/v1/js/"></script> <!--Server 승인 샌드박스-->
+
+<!-- <script src="https://pay.nicepay.co.kr/v1/js/"></script> Server 승인 운영계-->
+
 <script>
 function serverAuth() {
   AUTHNICE.requestPay({
     clientId: '58e3b578555e45738d6b569e53d5ae54',
     method: 'card',
-    orderId: 'b0980639-52db-4504-9e4d-97200827dc48',
+    orderId: random(),
     amount: 1004,
     goodsName: '나이스페이-상품',
     returnUrl: 'http://localhost:3000/serverAuth',
     fnError: function (result) {
       alert('고객용메시지 : ' + result.msg + '\n개발자확인용 : ' + result.errorMsg + '')
     }
- });
+  });
 }
-</script>
 
-serverAuth() //결제창 호출
+//Test orderId 생성
+const random = (length = 8) => {
+  return Math.random().toString(16).substr(2, length);
+};	
+</script>
+  
+<button onclick="serverAuth()">serverAuth 결제하기</button>
 
 ```  
+
+> #### ⚠️ 중요  
+> 샌드박스를 통한 TEST가 완료되면 운영계 도메인으로 변경 해주세요.
 
 <br>  
 
@@ -183,6 +194,9 @@ curl -X POST 'https://sandbox-api.nicepay.co.kr/v1/payments/UT0000113m0101211005
 }'
 ```
 
+> #### ⚠️ 중요  
+> 샌드박스를 통한 TEST가 완료되면 운영계 도메인으로 변경 해주세요.
+
 <br>
 
 #### 결제(승인) 응답 예시
@@ -194,7 +208,7 @@ POST
 Content-type: application/json
 ```
 
-```javascript
+```json
 {
   resultCode: '0000',
   resultMsg: '정상 처리되었습니다.',
@@ -263,7 +277,7 @@ API요청이 실패하는 경우 상세로그를 확인하여 쉽게 디버깅 �
 ![image](https://user-images.githubusercontent.com/86043374/128304865-b0ba8f4a-adf7-45e7-b78a-53b0e01106fc.png)  
 
 - 로그를 확인 중 상세한 정보 확인이 필요한 경우 해당 로그를 클릭하면 상세한 정보 확인이 가능합니다.
-- 이슈 체크를 위해 로그 검토가 필요한 경우 ‘상세보기’ 버튼을 클릭하면 상세 로그 화면으로 이동 합니다.
+- 이슈 체크를 위해 로그 검토가 필요한 경우 '상세보기' 버튼을 클릭하면 상세 로그 화면으로 이동 합니다.
 - 로그 상세보기를 통해 디버깅에 필요한 상세 정보를 확인 할 수 있습니다.
   
 #### 개발정보

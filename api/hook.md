@@ -16,7 +16,7 @@
 ### 웹훅 발송 흐름
 - 등록된 웹훅 `End-point`로 이벤트 발생시 웹훅 전문 Post 
 - 가맹점은 Server에서 웹훅 전문 확인 후 비즈니스 로직을 처리
-- 비즈니스로직 처리 후 `Htpp status 200`과 `response body`에 “OK” 문자열을 print하여 응답
+- 비즈니스로직 처리 후 `Htpp status 200`과 `response body`에 "OK” 문자열을 print하여 응답
 
 <br>
 
@@ -37,7 +37,7 @@
 <br>
 
 > #### ⚠️ 중요
-> `Response body`에 “OK” 문자열이 없는 경우 실패로 처리되기 때문에 주의가 필요 합니다.  
+> `Response body`에 "OK” 문자열이 없는 경우 실패로 처리되기 때문에 주의가 필요 합니다.  
 > [방화벽 정책](/common/preparations.md#방화벽-정책)을 통해 `Inboud IP` 를 제한하는 것을 권장하고 있습니다.   
 > 비즈니스 로직 처리 전 웹훅 전문에 포함된 위변조 검증값 `signature` 과 금액을 반드시 체크 해주세요.  
 

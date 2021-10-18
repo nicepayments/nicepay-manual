@@ -36,12 +36,12 @@
 <script>
 function serverAuth() {
   PAYNICE.requestPay({
-    clientId: ‘af0d116236df437f831483ee9c500bc4’,
-    method: ‘card’,
-    orderId: ‘your-unique-orderid’,
+    clientId: 'af0d116236df437f831483ee9c500bc4',
+    method: 'card',
+    orderId: 'your-unique-orderid',
     amount: 1004,
-    goodsName: ‘나이스페이-상품’,
-    returnUrl: ‘http://localhost:4567/serverAuth’
+    goodsName: '나이스페이-상품',
+    returnUrl: 'http://localhost:4567/serverAuth'
  });
 }
 </script>
@@ -116,7 +116,7 @@ function serverAuth() {
 | Parameter         | Type   | 필수              | Byte | 설명                                                              |
 |-------------------|--------|-------------------|------|-------------------------------------------------------------------|
 | directReceiptType | String |                   | 20   | 현금영수증 발급 유형<br>unPublished : 미발행<br>individual : 개인 소득공제용<br>company : 사업자 지출증빙용|
-| directReceiptNo   | String | 네이버페이-포인트 | 20   | 현금영수증 발행대상 식별정보<br>휴대폰번호(10 자리 또는 11 자리) 또는 사업자번호(10 자리)<br>* directReceiptType 이 individual 또는 company 인 경우 필수<br>* directReceiptType 이 individual 인경우 휴대폰번호를 입력합니다.<br>* directReceiptType 이 company 인경우 사업자번호를 입력합니다.<br> * ’-‘없이 숫자만 입력|
+| directReceiptNo   | String | 네이버페이-포인트 | 20   | 현금영수증 발행대상 식별정보<br>휴대폰번호(10 자리 또는 11 자리) 또는 사업자번호(10 자리)<br>* directReceiptType 이 individual 또는 company 인 경우 필수<br>* directReceiptType 이 individual 인경우 휴대폰번호를 입력합니다.<br>* directReceiptType 이 company 인경우 사업자번호를 입력합니다.<br> * '-'없이 숫자만 입력|
 
 <br>
 
@@ -152,7 +152,7 @@ Content-type: application/x-www-form-urlencoded
 | resultCode        | String  | O    | 4    | 처리결과코드<br><br>0000 : 성공 / 그외 실패|
 | resultMsg         | String  | O    | 100  | 처리결과메시지|
 | amount            | Int     | O    | 12   | 결제 금액|
-| goodsName         | String  | O    | 40   | 상품명<br><br>상품이름 (“, * 특수문자 이용불가) |
+| goodsName         | String  | O    | 40   | 상품명<br><br>상품이름 (", * 특수문자 이용불가) |
 | channel           | String  | O    | 10   | pc:PC결제, mobile:모바일결제|
 | status            | String  |      | 20   | 결제 처리상태<br><br>paid:결제완료, ready:준비됨(가상계좌채번), failed:결제실패, cancelled:취소됨, partialCancelled:부분 취소됨, expired:만료됨<br>['paid', 'ready', 'failed', 'cancelled', 'partialCancelled', 'expired']                                                    |
 | ediDate           | String  |      | -    | 응답전문생성일시 <br><br>ISO 8601 형식|
@@ -194,7 +194,7 @@ Content-type: application/x-www-form-urlencoded
 ### 설명
 - Client승인 모델의 💡 결제창을 통해 결제 후 결제금액 체크에 대한 가이드 입니다.
 - 결제자는 💡 결제창을 통해 카드사 및 결제 원천사에 접근하여 인증과정을 진행 하고 나이스페이는 인증 및 💳 결제(승인) 처리 후 결과를 `PAYNICE.requestPay()`의 object value로 전달된 `returnUr`l로 POST 합니다.
-- 이후 금액 위변조 여부 검증을 위해 ‘승인 금액 검증’ API를 활용하여 💳 승인(결제)금액을 체크를 진행 합니다.
+- 이후 금액 위변조 여부 검증을 위해 '승인 금액 검증' API를 활용하여 💳 승인(결제)금액을 체크를 진행 합니다.
 - 발생된 승인(결제)응답의 금액과 승인금액검증 체크를 통한 금액이 상이한 경우 반드시 결제취소 진행 해야 합니다.
 
 > #### ⚠️ 중요

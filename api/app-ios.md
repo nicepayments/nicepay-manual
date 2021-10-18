@@ -43,13 +43,13 @@ App 내 웹뷰를 통해 결제창을 연동하는 경우, 웹 환경에서 결�
 <script>
 function serverAuth() {
   AUTHNICE.requestPay({
-	clientId: ‘af0d116236df437f831483ee9c500bc4’,
+	clientId: 'af0d116236df437f831483ee9c500bc4',
         appScheme: `nicepaysample://`,
-	method: ‘vbank’,
-	orderId: ‘your-unique-orderid’,
+	method: 'vbank',
+	orderId: 'your-unique-orderid',
 	amount: 1004,
-	goodsName: ‘나이스페이-상품’,
-	returnUrl: ‘http://localhost:4567/serverAuth’
+	goodsName: '나이스페이-상품',
+	returnUrl: 'http://localhost:4567/serverAuth'
  });
 }
 </script>
@@ -64,13 +64,13 @@ function serverAuth() {
 <script>
 function serverAuth() {
   PAYNICE.requestPay({
-	clientId: ‘af0d116236df437f831483ee9c500bc4’,
+	clientId: 'af0d116236df437f831483ee9c500bc4',
         appScheme: `nicepaysample://`,
-	method: ‘vbank’,
-	orderId: ‘your-unique-orderid’,
+	method: 'vbank',
+	orderId: 'your-unique-orderid',
 	amount: 1004,
-	goodsName: ‘나이스페이-상품’,
-	returnUrl: ‘http://localhost:4567/serverAuth’
+	goodsName: '나이스페이-상품',
+	returnUrl: 'http://localhost:4567/serverAuth'
  });
 }
 </script>

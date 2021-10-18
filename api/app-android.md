@@ -29,13 +29,13 @@ App 내 웹뷰를 통해 결제창을 연동하는 경우, 웹 환경에서 결�
 <script>
 function serverAuth() {
   AUTHNICE.requestPay({
-	clientId: ‘af0d116236df437f831483ee9c500bc4’,
-        appScheme: `nicepaysample://`,
-	method: ‘vbank’,
-	orderId: ‘your-unique-orderid’,
+    clientId: 'af0d116236df437f831483ee9c500bc4',
+    appScheme: `nicepaysample://`,
+	method: 'vbank',
+	orderId: 'your-unique-orderid',
 	amount: 1004,
-	goodsName: ‘나이스페이-상품’,
-	returnUrl: ‘http://localhost:4567/serverAuth’
+	goodsName: '나이스페이-상품',
+	returnUrl: 'http://localhost:4567/serverAuth'
  });
 }
 </script>
@@ -50,13 +50,13 @@ function serverAuth() {
 <script>
 function serverAuth() {
   PAYNICE.requestPay({
-	clientId: ‘af0d116236df437f831483ee9c500bc4’,
-        appScheme: `nicepaysample://`,
-	method: ‘vbank’,
-	orderId: ‘your-unique-orderid’,
+    clientId: 'af0d116236df437f831483ee9c500bc4',
+    appScheme: `nicepaysample://`,
+	method: 'vbank',
+	orderId: 'your-unique-orderid',
 	amount: 1004,
-	goodsName: ‘나이스페이-상품’,
-	returnUrl: ‘http://localhost:4567/serverAuth’
+	goodsName: '나이스페이-상품',
+	returnUrl: 'http://localhost:4567/serverAuth'
  });
 }
 </script>
@@ -73,14 +73,14 @@ AndroidManifast.xml
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
  
-  <application
-    android:allowBackup="true"
-    android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
-    android:roundIcon="@mipmap/ic_launcher_round"
-    android:supportsRtl="true"
-    android:theme="@style/AppTheme"
-    android:usesCleartextTraffic="true">
+<application
+  android:allowBackup="true"
+  android:icon="@mipmap/ic_launcher"
+  android:label="@string/app_name"
+  android:roundIcon="@mipmap/ic_launcher_round"
+  android:supportsRtl="true"
+  android:theme="@style/AppTheme"
+  android:usesCleartextTraffic="true">
 ```
 
 <br>
@@ -96,14 +96,14 @@ AndroidManifast.xml
 ```xml
 <uses-permission android:name="android.permission.INTERNET" />
  
-  <application
-    android:allowBackup="true"
-    android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
-    android:roundIcon="@mipmap/ic_launcher_round"
-    android:supportsRtl="true"
-    android:theme="@style/AppTheme"
-    android:usesCleartextTraffic="true">
+<application
+  android:allowBackup="true"
+  android:icon="@mipmap/ic_launcher"
+  android:label="@string/app_name"
+  android:roundIcon="@mipmap/ic_launcher_round"
+  android:supportsRtl="true"
+  android:theme="@style/AppTheme"
+  android:usesCleartextTraffic="true">
 ```
 
 <br>
@@ -151,12 +151,12 @@ Android-java
  
  //setup cookie
  if( android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {    //Android 5.0 이상
-        mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
-        CookieManager cookieManager = CookieManager.getInstance();
-        cookieManager.setAcceptCookie(true);
-        cookieManager.setAcceptThirdPartyCookies(mWebView, true);
+    mWebView.getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+    CookieManager cookieManager = CookieManager.getInstance();
+    cookieManager.setAcceptCookie(true);
+    cookieManager.setAcceptThirdPartyCookies(mWebView, true);
   } else {
-       CookieManager cookieManager = CookieManager.getInstance();
+    CookieManager cookieManager = CookieManager.getInstance();
   }
 
 ```
@@ -190,61 +190,60 @@ Android-java
 ```
 ```java
 private class WebViewClientClass extends WebViewClient {
-    @Override
-    public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        Log.i(TAG, "url : " + url); 
-        try {
-            if (url != null && (url.startsWith("intent:") ||
-                    url.contains("market://") ||
-                    url.contains("vguard") ||
-                    url.contains("droidxantivirus") ||
-                    url.contains("v3mobile") ||
-                    url.contains(".apk") ||
-                    url.contains("mvaccine") ||
-                    url.contains("smartwall://") ||
-                    url.contains("nidlogin://") ||
-                    url.contains("http://m.ahnlab.com/kr/site/download"))) {
-                Intent intent = null;
-                
-                try {
-                    intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
-                } catch (URISyntaxException ex) {
-                    Log.e(TAG, "[error] Bad request uri format : [" + url + "] =" + ex.getMessage());
-                    return false;
-                }
-                
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-                    if (getPackageManager().resolveActivity(intent, 0) == null) {
-                        String pkgName = intent.getPackage();
-                        if (pkgName != null) {
-                            Uri uri = Uri.parse("market://search?q=pname:" + pkgName);
-                            intent = new Intent(Intent.ACTION_VIEW, uri);
-                            startActivity(intent);
-                        }
-                    } else {
-                        Uri uri = Uri.parse(intent.getDataString());
-                        intent = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(intent);
+  @Override
+  public boolean shouldOverrideUrlLoading(WebView view, String url) {
+    Log.i(TAG, "url : " + url); 
+      try {
+        if (url != null && (url.startsWith("intent:") ||
+          url.contains("market://") ||
+          url.contains("vguard") ||
+          url.contains("droidxantivirus") ||
+          url.contains("v3mobile") ||
+          url.contains(".apk") ||
+          url.contains("mvaccine") ||
+          url.contains("smartwall://") ||
+          url.contains("nidlogin://") ||
+          url.contains("http://m.ahnlab.com/kr/site/download"))) {
+            Intent intent = null;
+                    
+            try {
+                intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME);
+            } catch (URISyntaxException ex) {
+                Log.e(TAG, "[error] Bad request uri format : [" + url + "] =" + ex.getMessage());
+                return false;
+            }
+                    
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                if (getPackageManager().resolveActivity(intent, 0) == null) {
+                String pkgName = intent.getPackage();
+                    if (pkgName != null) {
+                      Uri uri = Uri.parse("market://search?q=pname:" + pkgName);
+                      intent = new Intent(Intent.ACTION_VIEW, uri);
+                      startActivity(intent);
                     }
                 } else {
-                    try {
-                        startActivity(intent);
-                    } catch (ActivityNotFoundException e) {
-                        Uri uri = Uri.parse("market://search?q=pname:" + intent.getPackage());
-                        intent = new Intent(Intent.ACTION_VIEW, uri);
-                        startActivity(intent);
-                    }
+                  Uri uri = Uri.parse(intent.getDataString());
+                  intent = new Intent(Intent.ACTION_VIEW, uri);
+                  startActivity(intent);
                 }
-                
             } else {
-                view.loadUrl(url);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
+                try {
+                  startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                  Uri uri = Uri.parse("market://search?q=pname:" + intent.getPackage());
+                  intent = new Intent(Intent.ACTION_VIEW, uri);
+                  startActivity(intent);
+                }
+            } 
+          } else {
+            view.loadUrl(url);
+          }
+      } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+      }
         return true;
-    }
+  }
 }
 ```
 
@@ -253,7 +252,7 @@ private class WebViewClientClass extends WebViewClient {
 > #### ⚠️ 중요
 > Android 하위 버전으로 개발 시 카드사 보안, 백신 프로그램 어플 등은 `intent://` 방식이 아닌 scheme 호출 방식으로 처리 될 수 있습니다.  
 > 해당 문제가 발생되는 경우 scheme을 수동으로 추가해야 합니다  
-> Ex) `cloudpay://~` 로 들어올 경우 `if( url.startwith(“cloudpay”) 추가)` 
+> Ex) `cloudpay://~` 로 들어올 경우 `if( url.startwith("cloudpay”) 추가)` 
 
 
 ## Android-kotlin 웹뷰(web-view)개발 가이드
@@ -268,18 +267,18 @@ Android-kotlin
 
 ```kotlin
 class WebViewActivity : AppCompatActivity() {
-    companion object {
-        const val MERCHANT_URL = "https://web.nicepay.co.kr/demo/v3/mobileReq.jsp"
-    }
+  companion object {
+    const val MERCHANT_URL = "https://web.nicepay.co.kr/demo/v3/mobileReq.jsp"
+  }
  
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_webview)
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContentView(R.layout.activity_webview)
  
-        webview.webViewClient = WebViewClientClass()
+    webview.webViewClient = WebViewClientClass()
  
-        val settings = webview.settings
-        settings.javaScriptEnabled = true
+    val settings = webview.settings
+    settings.javaScriptEnabled = true
 ```
 
 <br>
@@ -307,11 +306,11 @@ Android-kotlin
 settings.cacheMode = WebSettings.LOAD_DEFAULT
  
 if( android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP ) {    //Android 5.0 이상
-    settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW)
-    CookieManager.getInstance().setAcceptCookie(true)
-    CookieManager.getInstance().setAcceptThirdPartyCookies(webview, true)
+  settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW)
+  CookieManager.getInstance().setAcceptCookie(true)
+  CookieManager.getInstance().setAcceptThirdPartyCookies(webview, true)
 } else {
-    CookieManager.getInstance().setAcceptCookie(true)
+  CookieManager.getInstance().setAcceptCookie(true)
 }
 ```
 
@@ -350,64 +349,65 @@ Android-kotlin
 ```kotlin
 
 private class WebViewClientClass : WebViewClient() {
-        override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
-            println("url : " + url)
+  override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+    println("url : " + url)
  
-            try {
-                if( url != null && (url.startsWith("intent:")
-                            || url.contains("market://")
-                            || url.contains("vguard")
-                            || url.contains("droidxantivirus")
-                            || url.contains("v3mobile")
-                            || url.contains(".apk")
-                            || url.contains("mvaccine")
-                            || url.contains("smartwall://")
-                            || url.contains("nidlogin://")
-                            || url.contains("http://m.ahnlab.com/kr/site/download")) ) {
+      try {
+        if( url != null && (url.startsWith("intent:")
+                           || url.contains("market://")
+                           || url.contains("vguard")
+                           || url.contains("droidxantivirus")
+                           || url.contains("v3mobile")
+                           || url.contains(".apk")
+                           || url.contains("mvaccine")
+                           || url.contains("smartwall://")
+                           || url.contains("nidlogin://")
+                           || url.contains("http://m.ahnlab.com/kr/site/download")) ) {
  
-                    var intent: Intent? = null
+          var intent: Intent? = null
  
-                    try {
-                        intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME)
-                    } catch (e: URISyntaxException) {
-                        println("error : " + e.printStackTrace())
-                    }
+          try {
+            intent = Intent.parseUri(url, Intent.URI_INTENT_SCHEME)
+          } catch (e: URISyntaxException) {
+            println("error : " + e.printStackTrace())
+          }
  
-                    if( Build.VERSION.SDK_INT < Build.VERSION_CODES.R ) {
-                        if( view?.context?.packageManager?.resolveActivity(intent!!, 0) == null ) {
-                            val pkgName = intent?.`package`
-                            if( pkgName != null ) {
-                                val uri = Uri.parse("market://search?q=pname:" + pkgName)
-                                intent = Intent(Intent.ACTION_VIEW, uri)
-                                view?.context?.startActivity(intent)
-                            }
-                        } else {
-                            val uri = Uri.parse(intent?.dataString)
-                            intent = Intent(Intent.ACTION_VIEW, uri)
-                            view?.context?.startActivity(intent)
-                        }
-                    } else {
-                        try {
-                            view?.context?.startActivity(intent)
-                        } catch (e: ActivityNotFoundException) {
-                            val pkgName = intent?.`package`
-                            if( pkgName != null ) {
-                                val uri = Uri.parse("market://search?q=pname:" + pkgName)
-                                intent = Intent(Intent.ACTION_VIEW, uri)
-                                view?.context?.startActivity(intent)
-                            }
-                        }
-                    }
-                } else {
-                    view?.loadUrl(url)
+          if( Build.VERSION.SDK_INT < Build.VERSION_CODES.R ) {
+            if( view?.context?.packageManager?.resolveActivity(intent!!, 0) == null ) {
+              val pkgName = intent?.`package`
+                if( pkgName != null ) {
+                  val uri = Uri.parse("market://search?q=pname:" + pkgName)
+                  intent = Intent(Intent.ACTION_VIEW, uri)
+                  view?.context?.startActivity(intent)
                 }
-            } catch (e: Exception) {
-                println("error : " + e.printStackTrace())
-                return false
+            } else {
+              val uri = Uri.parse(intent?.dataString)
+              intent = Intent(Intent.ACTION_VIEW, uri)
+              view?.context?.startActivity(intent)
             }
-            return true
+          } else {
+            try {
+              view?.context?.startActivity(intent)
+            } catch (e: ActivityNotFoundException) {
+              val pkgName = intent?.`package`
+                if( pkgName != null ) {
+                  val uri = Uri.parse("market://search?q=pname:" + pkgName)
+                  intent = Intent(Intent.ACTION_VIEW, uri)
+                  view?.context?.startActivity(intent)
+                }
+            }
+          }
+        } else {
+          view?.loadUrl(url)
         }
-    }
+
+        } catch (e: Exception) {
+          println("error : " + e.printStackTrace())
+          return false
+        }
+          return true
+        }
+}
 ```
 
 <br>
@@ -415,7 +415,7 @@ private class WebViewClientClass : WebViewClient() {
 > #### ⚠️ 중요
 > Android 하위 버전으로 개발 시 카드사 보안, 백신 프로그램 어플 등은 `intent://` 방식이 아닌 scheme 호출 방식으로 처리 될 수 있습니다.  
 > 해당 문제가 발생되는 경우 scheme을 수동으로 추가해야 합니다  
-> Ex) `cloudpay://~` 로 들어올 경우 `if( url.startwith(“cloudpay”) 추가)`
+> Ex) `cloudpay://~` 로 들어올 경우 `if( url.startwith("cloudpay”) 추가)`
 
 
 <br>

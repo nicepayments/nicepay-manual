@@ -7,7 +7,7 @@ curl -X POST "https://api.nicepay.co.kr/v1/epay/" 
 -H 'Content-Type: application/json' 
 -H 'Authorization: Basic ZWVjOGQzNTA4Y2IwNDI1ZGI5NTViMzBiZjM...' 
 -D '{
-    "orderId": “merchant-order-id",
+    "orderId": "merchant-order-id",
     "encData": "3e5219ba1e488866a3552695e9...",
     "amount": 1004,
     "goodsName": "나이스상품",
@@ -84,10 +84,10 @@ Case1. AES128
 | 비씨   | 2        | 37+REAL_CARD_NUM+=+유효기간 | TR_ID -> TRID <br>REAL_CARD_NUM -> cardNo  | authFlag=2<br>cardNo=9100123412341234<br>track2Data=379100123412341234=2502<br>cardExpire=2502<br>TRID=1000031234                                    |
 | 삼성   | 0        | 37+REAL_CARD_NUM+=+0000     | CAVV -> CAVV<br>XID -> XID<br>ECI -> ECI<br>REAL_CARD_NUM -> cardNo | authFlag=0<br>cardNo=5310123412341234<br> track2Data=375310123412341234=0000<br>cardExpire=0000<br>CAVV=AAABCGkWZSAhBwIIGRZlBSAAAAA=<br> XID=MjAyMTA3MDIwNzEyNTQ2MzE5OTg=<br>ECI=05                            |
 | 현대   | 0        | 37+REAL_CARD_NUM+=+0000     | CAVV -> CAVV<br>XID -> XID<br>ECI -> ECI<br>REAL_CARD_NUM -> cardNo                         | authFlag=0<br>cardNo=9490123412341234<br>track2Data=379490123412341234=0000<br>cardExpire=0000<br>CAVV=AAABCGkWZSAhBwIIGRZlBSAAAAA=<br>XID=MjAyMTA3MDIwNzEyNTQ2MzE5OTg=<br>ECI=05                                             |
-| 롯데   | 0        | 37+REAL_CARD_NUM+=+9999     | CAVV -> CAVV<br>ECI(’05’고정) -> ECI<br>REAL_CARD_NUM -> cardNo                           | authFlag=0<br>cardNo=5217123412341234<br>track2Data=375217123412341234=9999<br>cardExpire=9999<br>CAVV=AAABCGkWZSAhBwIIGRZlBSAAAAA=<br>ECI=05                           |
-| 신한   | 2        | 37+OTC_NUM                  | OTC_NUM 중 ‘=’앞 15~16자리 cardNo 셋팅 | authFlag=2<br>cardNo=4450123412341234<br>track2Data=374450123412341234=22011234123400100000<br>cardExpire=9999                                    |
-| 하나   | 2        | 37+OTC_NUM                  | OTC_NUM 중 ‘=’앞 15~16자리 cardNo 셋팅 | authFlag=2<br>cardNo=9417123412341234<br>track2Data=379417123412341234=22011234123400100000<br>cardExpire=9999                                    |
-| 농협   | 2        | 37+OTC_NUM                  | OTC_NUM 중 ‘=’앞 15~16자리 cardNo 셋팅 | authFlag=2<br>cardNo=5461123412341234<br>track2Data=375461123412341234=22011234123400100000<br>cardExpire=9999                                    |
+| 롯데   | 0        | 37+REAL_CARD_NUM+=+9999     | CAVV -> CAVV<br>ECI('05'고정) -> ECI<br>REAL_CARD_NUM -> cardNo                           | authFlag=0<br>cardNo=5217123412341234<br>track2Data=375217123412341234=9999<br>cardExpire=9999<br>CAVV=AAABCGkWZSAhBwIIGRZlBSAAAAA=<br>ECI=05                           |
+| 신한   | 2        | 37+OTC_NUM                  | OTC_NUM 중 '='앞 15~16자리 cardNo 셋팅 | authFlag=2<br>cardNo=4450123412341234<br>track2Data=374450123412341234=22011234123400100000<br>cardExpire=9999                                    |
+| 하나   | 2        | 37+OTC_NUM                  | OTC_NUM 중 '='앞 15~16자리 cardNo 셋팅 | authFlag=2<br>cardNo=9417123412341234<br>track2Data=379417123412341234=22011234123400100000<br>cardExpire=9999                                    |
+| 농협   | 2        | 37+OTC_NUM                  | OTC_NUM 중 '='앞 15~16자리 cardNo 셋팅 | authFlag=2<br>cardNo=5461123412341234<br>track2Data=375461123412341234=22011234123400100000<br>cardExpire=9999                                    |
 | 국민   | 2        | 37+OTC_NUM+=+8911           | OTC_NUM이 21 자리 인 경우<br>앞 16자리만 cardNo 셋팅              | authFlag=2<br>cardNo=5570123412341234<br>track2Data=375570123412341234=8911<br>cardExpire=8911                                    |
 
 <br>

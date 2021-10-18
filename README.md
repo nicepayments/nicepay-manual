@@ -85,45 +85,52 @@
 
 <br>  
   
-### JS Include
-먼저 결제창 호출을 위해 JS SDK를 Include 해주세요.  
-```javascript
-<script src="https://pay.nicepay.co.kr/v1/js/"></script> //Server 승인
-```
 
-<br>
+### 샌드박스를 통한 TEST 개발 예시
+- `Server 승인` / `Basic` 인증 기준으로 결제창 TEST 개발흐름 예시를 설명 합니다.
 
-## 결제창 호출
-JS SDK를 통해 결제창 Method 호출시 `clientId` 필드에 [클라이언트 키](common/api.md#클라이언트-키) 값을 셋팅 하면 준비가 완료 됩니다.  
-이 후 `AUTHNICE.requestPay()` Method를 호출하면 💡 결제창이 호출 됩니다.  
+#### JS Include
+- 결제창 호출을 위한 JS SDK를 sandbox 도메인으로 변경합니다.
+- clientId는 가맹점관리자 TEST상점에서 발급한 `클라이언트키`를 사용 합니다.
 
-<b>JS SDK 인증 - Server 승인 모델</b>
 ```bash
 javascript
 ```
 ```javascript
-<script src="https://pay.nicepay.co.kr/v1/js/"></script> //Server 승인 
+<script src="https://sandbox-pay.nicepay.co.kr/v1/js/"></script> <!--Server 승인 샌드박스-->
+
+<!-- <script src="https://pay.nicepay.co.kr/v1/js/"></script> Server 승인 운영계-->
+
 <script>
 function serverAuth() {
   AUTHNICE.requestPay({
-    clientId: ‘af0d116236df437f831483ee9c500bc4’,
-    method: ‘card’,
-    orderId: ‘193ee313-28d4-4af1-928c-e5f0e1f1bf88’,
+    clientId: '58e3b578555e45738d6b569e53d5ae54',
+    method: 'card',
+    orderId: random(),
     amount: 1004,
-    goodsName: ‘나이스페이-상품’,
-    returnUrl: ‘http://localhost:4567/serverAuth’,
+    goodsName: '나이스페이-상품',
+    returnUrl: 'http://localhost:3000/serverAuth',
     fnError: function (result) {
       alert('고객용메시지 : ' + result.msg + '\n개발자확인용 : ' + result.errorMsg + '')
-    }    
- });
+    }
+  });
 }
-</script>
 
-serverAuth() //결제창 호출
+//Test orderId 생성
+const random = (length = 8) => {
+  return Math.random().toString(16).substr(2, length);
+};	
+</script>
+  
+<button onclick="serverAuth()">serverAuth 결제하기</button>
 
 ```  
 
+<br>  
+
 <b>결제창 응답</b>
+- 카드사 인증을 성공하면 authResultCode가 `0000`으로 응답 됩니다.
+
 ```bash
 POST
 Content-type: application/x-www-form-urlencoded
@@ -132,30 +139,31 @@ Content-type: application/x-www-form-urlencoded
 {
   authResultCode: '0000',
   authResultMsg: '인증 성공',
-  tid: 'nicuntct1m0101210729113550A095',
-  clientId: 'af0d116236df437f831483ee9c500bc4',
-  orderId: '193ee313-28d4-4af1-928c-e5f0e1f1bf88',
+  tid: 'UT0000113m01012110051656331001',
+  clientId: '58e3b578555e45738d6b569e53d5ae54',
+  orderId: 'b0980639-52db-4504-9e4d-97200827dc48',
   amount: '1004',
-  mallReserved: 'null',
-  authToken: 'NICEUNTTF6455CE3275BB65088CDB0E76D92313F',
-  signature: 'e7d734896c7754aea648f8e7305b2a7501437469670908ef92749941040f384d'
+  mallReserved: '',
+  authToken: 'NICEUNTT9FBBD87FD2393AFEE45A7DCA61C194AA',
+  signature: '7cc95c592e2a12f0292e1a20d68dd9eb8132fd3c0af675b981a4c1c2ce63a93b'
 }
 ```
-`authResultCode`가 `0000` 으로 응답 되는 경우 💡 결제창을 통한  인증과정이 성공한 것을 의미 합니다.  
-인증과정이 성공한 경우 `tid(거래key)값`을 💳 승인(결제) API로 전달하여 💳 결제(승인)을 요청 할 수 있습니다.  
+`authResultCode`가 `0000` 으로 응답된 경우 결제창을 통한 인증과정이 성공된 것을 의미합니다.  
+인증과정이 성공한 경우 `tid(거래key)값`을 승인(결제) API로 전달하여 💳 결제(승인)을 요청 할 수 있습니다.  
 
 <br>  
 
-### 결제(승인) API 호출
+#### 결제(승인) API 호출
 ```bash
-curl -X POST 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210729113550A095 
+curl -X POST 'https://sandbox-api.nicepay.co.kr/v1/payments/UT0000113m01012110051656331001'
 -H 'Content-Type: application/json' 
--H 'Authorization: Basic YWYwZDExNjIzNmRmNDM3ZjgzMTQ4M2VlOWM1MDBiYzQ6NDMzYTg0MjFiZTc1NGIzNDk4OTA0OGNmMTQ4YTVmZmM=' 
+-H 'Authorization: Basic NThlM2I1Nzg1NTVlNDU3MzhkNmI1NjllNTNkNWFlNTQ6NGYxM2NhMjY3ZGZhNGZjNjk2NDE0OGJlZGNkYTE1ZWY=' 
 -D '{
   "amount" : 1004
 }'
 ```
-💡 결제창 인증 응답으로 전달된 tid를 `v1/payments/{tid}` API로 전달하면 💳 결제(승인) 호출이 완료 됩니다.
+
+<br>
 
 ### Authorization basic credentials 알고리즘
 ```bash
@@ -164,12 +172,12 @@ Base64(`client-key`:`secret-key`)
 API 호출을 위해 `Authorization basic credentials` 생성은 클라이언트키 + : + 시크릿키 문자열을 `Base64` 인코딩하여 생성 합니다. 
 
 ```bash
-clientKey = ‘af0d116236df437f831483ee9c500bc4’
-secretKey = ‘433a8421be754b34989048cf148a5ffc’
->> `af0d116236df437f831483ee9c500bc4:433a8421be754b34989048cf148a5ffc`
+clientKey = '58e3b578555e45738d6b569e53d5ae54'
+secretKey = '4f13ca267dfa4fc6964148bedcda15ef'
+>> `58e3b578555e45738d6b569e53d5ae54:4f13ca267dfa4fc6964148bedcda15ef`
 
-Base64(‘af0d116236df437f831483ee9c500bc4:433a8421be754b34989048cf148a5ffc’)
->> `YWYwZDExNjIzNmRmNDM3ZjgzMTQ4M2VlOWM1MDBiYzQ6NDMzYTg0MjFiZTc1NGIzNDk4OTA0OGNmMTQ4YTVmZmM=`
+Base64('58e3b578555e45738d6b569e53d5ae54:4f13ca267dfa4fc6964148bedcda15ef')
+>> `NThlM2I1Nzg1NTVlNDU3MzhkNmI1NjllNTNkNWFlNTQ6NGYxM2NhMjY3ZGZhNGZjNjk2NDE0OGJlZGNkYTE1ZWY=`
 ```
 예시처럼 최종 생성된 credentials을 API 호출 시 활용 합니다. 
 
@@ -180,47 +188,47 @@ Content-type: application/json
 ```
 ```json
 {
-  "resultCode": "0000",
-  "resultMsg": "정상 처리되었습니다.",
-  "tid": "nicuntct1m0101210729113550A095",
-  "cancelledTid": null,
-  "orderId": "193ee313-28d4-4af1-928c-e5f0e1f1bf88",
-  "ediDate": "2021-07-29T12:01:51.205+0900",
-  "signature": "68bd99a53d1d19e3ff7aedef99fc2bead165aa905f9a9e8f63cdc4da9702828b",
-  "status": "paid",
-  "paidAt": "2021-07-29T12:01:50.000+0900",
-  "failedAt": "0",
-  "cancelledAt": "0",
-  "payMethod": "card",
-  "amount": 1004,
-  "balanceAmt": 1004,
-  "goodsName": "나이스페이-상품",
-  "mallReserved": null,
-  "useEscrow": false,
-  "currency": "KRW",
-  "channel": "pc",
-  "approveNo": "12015016",
-  "buyerName": null,
-  "buyerTel": null,
-  "buyerEmail": "test@abc.com",
-  "receiptUrl": "https://npg.nicepay.co.kr/issue/issueLoader.do?type=0&innerWin=Y&TID=nicuntct1m0101210729113550A095",
-  "mallUserId": null,
-  "issuedCashReceipt": false,
-  "coupon": null,
-  "card": {
-    "cardCode": "07",
-    "cardName": "현대",
-    "cardNum": "****6800****7607",
-    "cardQuota": 0,
-    "isInterestFree": false,
-    "cardType": "credit",
-    "canPartCancel": true,
-    "acquCardCode": "07",
-    "acquCardName": "현대"
+  resultCode: '0000',
+  resultMsg: '정상 처리되었습니다.',
+  tid: 'UT0000113m01012110051656331001',
+  cancelledTid: null,
+  orderId: 'b0980639-52db-4504-9e4d-97200827dc48',
+  ediDate: '2021-10-05T16:56:34.447+0900',
+  signature: '28c2e8bae912847541d4885db17648f963c7cc8e8249ff010097d6f1395df993',
+  status: 'paid',
+  paidAt: '2021-10-05T16:56:34.000+0900',
+  failedAt: '0',
+  cancelledAt: '0',
+  payMethod: 'card',
+  amount: 1004,
+  balanceAmt: 1004,
+  goodsName: '나이스페이-상품',
+  mallReserved: null,
+  useEscrow: false,
+  currency: 'KRW',
+  channel: 'pc',
+  approveNo: '000000',
+  buyerName: null,
+  buyerTel: null,
+  buyerEmail: null,
+  receiptUrl: 'https://npg.nicepay.co.kr/issue/IssueLoader.do?type=0&innerWin=Y&TID=UT0000113m01012110051656331001',
+  mallUserId: null,
+  issuedCashReceipt: false,
+  coupon: null,
+  card: {
+    cardCode: '04',
+    cardName: '삼성',
+    cardNum: '12341234****1234',
+    cardQuota: 0,
+    isInterestFree: false,
+    cardType: 'credit',
+    canPartCancel: true,
+    acquCardCode: '04',
+    acquCardName: '삼성'
   },
-  "vbank": null,
-  "cancels": null,
-  "cashReceipts": null
+  vbank: null,
+  cancels: null,
+  cashReceipts: null
 }
 ```
 
