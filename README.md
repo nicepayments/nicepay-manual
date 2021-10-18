@@ -188,7 +188,7 @@ Base64('58e3b578555e45738d6b569e53d5ae54:4f13ca267dfa4fc6964148bedcda15ef')
 POST
 Content-type: application/json
 ```
-```json
+```bash
 {
   resultCode: '0000',
   resultMsg: '정상 처리되었습니다.',
