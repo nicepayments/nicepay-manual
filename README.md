@@ -165,6 +165,7 @@ curl -X POST 'https://sandbox-api.nicepay.co.kr/v1/payments/UT0000113m0101211005
 ```
 > #### ⚠️ 중요  
 > 샌드박스를 통한 TEST가 완료되면 운영계 도메인으로 변경 해주세요.
+> 운영계  ex) api.nicepay.co.kr/v1/payments/UT0000113m01012110051656331001
 <br>
 
 ### Authorization basic credentials 알고리즘
