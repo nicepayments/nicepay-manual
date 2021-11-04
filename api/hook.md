@@ -128,11 +128,11 @@ Content-type: application/json;charset=utf-8
 | Parameter |              | Type   | 필수 | Byte | 설명                        |
 |-----------|--------------|--------|------|------|-----------------------------|
 | vbank     | 　           | Object | 　   | 　   | 가상계좌 정보               |
-| 　        | vbankCode    | String | O    | 3    | 입금받을 가상계좌 은행코드  |
-|           | vbankName    | String | O    | 20   | 입금받을 가상계좌 은행명    |
-|           | vbankNumber  | String | O    | 20   | 입금받을 가상계좌 번호      |
+| 　        | vbankCode    | String | O    | 3    | 가상계좌 은행코드  |
+|           | vbankName    | String | O    | 20   | 가상계좌 은행명    |
+|           | vbankNumber  | String | O    | 20   | 가상계좌 번호      |
 |           | vbankExpDate | String | O    | -    | 가상계좌 입금 만료일<br>ISO 8601                    |
-|           | vbankHolder  | String | O    | 40   | 입금받을 가상계좌 예금주명  |
+|           | vbankHolder  | String | O    | 40   | 가상계좌 예금주명  |
 
 <br>
 
