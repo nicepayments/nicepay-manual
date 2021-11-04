@@ -51,7 +51,7 @@ Content-type: application/json;charset=utf-8
 | orderId       | String | O    | 64   | 상점 주문번호<br>가맹점에서 관리하는 Unique한 주문번호 또는 결제번호                       |
 | buyerName     | String | 　   | 30   | 구매자                                                                    |
 | buyerEmail    | String | 　   | 60   | 구매자 이메일주소                                                         |
-| buyerTel      | String | 　   | 40   | 구매자 전화번호<br> '-' 없이 숫자만 입력                                                      |
+| buyerTel      | String | 　   | 20   | 구매자 전화번호<br> '-' 없이 숫자만 입력                                                      |
 | encMode       | String | 　   | 10   | 암호화 모드<br>encData 필드의 암호화 알고리즘 정의<br><br> A2 : AES256<br>•암호화 알고리즘 : AES256<br>•암호화 상세 : AES/CBC/PKCS5padding <br>•암호결과 인코딩 : Hex Encoding <br> •암호 KEY : SecretKey (32byte)<br>•IV : SecretKey 앞 16자리                                                 |
 | ediDate       | String | 　   | -    | 전문생성일시<br> ISO 8601 형식                                                             |
 | signData      | Int    | 　   | 256  | 위변조 검증 Data<br>생성규칙 : hex(sha256(orderId + ediDate +   SecretKey))<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.|
@@ -151,7 +151,7 @@ Content-type: application/json;charset=utf-8
 | cardQuota       | Int     | O    | 2    | 할부개월<br> 0:일시불, 2:2개월, 3:3개월   …                                   |
 | useShopInterest | Boolean | O    | -    | 상점분담무이자 사용여부 (현재 false만 사용 가능)<br>false : 유이자                                                   |
 | buyerName       | String  | 　   | 30   | 구매자 이름                                                      |
-| buyerTel        | String  | 　   | 40   | 구매자 전화번호<br>하이픈(-) 없이 숫자만   입력                                     |
+| buyerTel        | String  | 　   | 20   | 구매자 전화번호<br>하이픈(-) 없이 숫자만   입력                                     |
 | buyerEmail      | String  | 　   | 60   | 구매자 이메일                                                    |
 | taxFreeAmt      | Int     | 　   | 12   | 면세공급가액<br>전체 거래금액(amount)중에서   면세에 해당하는 금액을 설정합니다. |
 | mallReserved    | String  | 　   | 500  | 상점 정보 전달용 예비필드<br><br>승인응답 또는 webhook 시점에 요청 원문을 전달 합니다.<br> JSON string format으로 이용하시기를 권고 드립니다.<br>단, 큰따옴표(")는 이용불가                                       |
@@ -189,7 +189,7 @@ Content-type: application/json
 | channel           | String  | 　   | 10   | pc:PC결제, mobile:모바일결제<br>['pc', 'mobile', 'null']                                                                                       |
 | approveNo         | String  | 　   | 30   | 제휴사 승인 번호<br>신용카드, 계좌이체, 휴대폰                                                                                     |
 | buyerName         | String  | 　   | 30   | 구매자 명                                                                                                      |
-| buyerTel          | String  | 　   | 40   | 구매자 전화번호                                                                                                |
+| buyerTel          | String  | 　   | 20   | 구매자 전화번호                                                                                                |
 | buyerEmail        | String  | 　   | 60   | 구매자 이메일                                                                                                  |
 | issuedCashReceipt | Boolean | 　   | -    | 현금영수증 발급여부<br>true:발행 /   false:미발행                                                                                     |
 | receiptUrl        | String  | 　   | 200  | 매출전표 확인 URL                                                                                            |
