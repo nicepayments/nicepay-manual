@@ -89,35 +89,29 @@
 - `Server 승인` / `Basic` 인증 기준으로 결제창 TEST 개발흐름 예시를 설명 합니다.
 
 #### JS Include
-- clientId는 가맹점관리자 TEST상점에서 발급한 `클라이언트키`를 사용 합니다.
+- `clientId`는 가맹점관리자 TEST상점에서 발급한 `클라이언트키`를 사용 합니다.
+- 테스트상점(샌드박스)에서 `clientId`를 발급하면 즉시 TEST가 가능합니다.
 
 ```bash
 javascript
 ```
 ```javascript
-<script src="https://sandbox-pay.nicepay.co.kr/v1/js/"></script> <!--Server 승인 샌드박스-->
-
-<!-- <script src="https://pay.nicepay.co.kr/v1/js/"></script> Server 승인 운영계-->
+<script src="https://pay.nicepay.co.kr/v1/js/"></script> <!-- 나이스페이 결제창 JS SDK -->
 
 <script>
 function serverAuth() {
   AUTHNICE.requestPay({
-    clientId: '58e3b578555e45738d6b569e53d5ae54',
+    clientId: 'S2_af4543a0be4d49a98122e01ec2059a56',
     method: 'card',
-    orderId: random(),
+    orderId: '유니크한-주문번호',
     amount: 1004,
     goodsName: '나이스페이-상품',
     returnUrl: 'http://localhost:3000/serverAuth', //API를 호출할 Endpoint 입력
     fnError: function (result) {
-      alert('고객용메시지 : ' + result.msg + '\n개발자확인용 : ' + result.errorMsg + '')
+      alert('개발자확인용 : ' + result.errorMsg + '')
     }
   });
 }
-
-//Test orderId 생성
-const random = (length = 8) => {
-  return Math.random().toString(16).substr(2, length);
-};	
 </script>
   
 <button onclick="serverAuth()">serverAuth 결제하기</button>
@@ -140,13 +134,13 @@ Content-type: application/x-www-form-urlencoded
 {
   authResultCode: '0000',
   authResultMsg: '인증 성공',
-  tid: 'UT0000113m01012110051656331001',
-  clientId: '58e3b578555e45738d6b569e53d5ae54',
-  orderId: 'b0980639-52db-4504-9e4d-97200827dc48',
+  tid: 'UT0000113m01012111051714341073',
+  clientId: 'S2_af4543a0be4d49a98122e01ec2059a56',
+  orderId: 'c74a5960-830b-4cd8-82a9-fa1ce739a18f',
   amount: '1004',
   mallReserved: '',
-  authToken: 'NICEUNTT9FBBD87FD2393AFEE45A7DCA61C194AA',
-  signature: '7cc95c592e2a12f0292e1a20d68dd9eb8132fd3c0af675b981a4c1c2ce63a93b'
+  authToken: 'NICEUNTTB06096FF8F653AA366E7EEED1101AAAE',
+  signature: '99ea68bf15681741e793ece56ab87891b9bdc94cd54abdcb55b2884f4336155a'
 }
 ```
 `authResultCode`가 `0000` 으로 응답된 경우 결제창을 통한 인증과정이 성공된 것을 의미합니다.  
@@ -156,16 +150,16 @@ Content-type: application/x-www-form-urlencoded
 
 #### 결제(승인) API 호출
 ```bash
-curl -X POST 'https://sandbox-api.nicepay.co.kr/v1/payments/UT0000113m01012110051656331001'
+curl -X POST 'https://sandbox-api.nicepay.co.kr/v1/payments/UT0000113m01012111051714341073'
 -H 'Content-Type: application/json' 
--H 'Authorization: Basic NThlM2I1Nzg1NTVlNDU3MzhkNmI1NjllNTNkNWFlNTQ6NGYxM2NhMjY3ZGZhNGZjNjk2NDE0OGJlZGNkYTE1ZWY=' 
+-H 'Authorization: Basic UzJfYWY0NTQzYTBiZTRkNDlhOTgxMjJlMDFlYzIwNTlhNTY6OWViODU2MDcxMDM2NDZkYTlmOWMwMmIxMjhmMmU1ZWU=' 
 -D '{
   "amount" : 1004
 }'
 ```
 > #### ⚠️ 중요  
 > 샌드박스를 통한 TEST가 완료되면 운영계 도메인으로 변경 해주세요.  
-> 운영계  ex) api.nicepay.co.kr/v1/payments/UT0000113m01012110051656331001
+> 운영계  ex) api.nicepay.co.kr/v1/payments/UT0000113m01012111051714341073
 <br>
 
 ### Authorization basic credentials 알고리즘
@@ -175,12 +169,12 @@ Base64(`client-key`:`secret-key`)
 API 호출을 위해 `Authorization basic credentials` 생성은 클라이언트키 + : + 시크릿키 문자열을 `Base64` 인코딩하여 생성 합니다. 
 
 ```bash
-clientKey = '58e3b578555e45738d6b569e53d5ae54'
-secretKey = '4f13ca267dfa4fc6964148bedcda15ef'
->> `58e3b578555e45738d6b569e53d5ae54:4f13ca267dfa4fc6964148bedcda15ef`
+clientKey = 'S2_af4543a0be4d49a98122e01ec2059a56'
+secretKey = '9eb85607103646da9f9c02b128f2e5ee'
+>> `S2_af4543a0be4d49a98122e01ec2059a56:9eb85607103646da9f9c02b128f2e5ee`
 
-Base64('58e3b578555e45738d6b569e53d5ae54:4f13ca267dfa4fc6964148bedcda15ef')
->> `NThlM2I1Nzg1NTVlNDU3MzhkNmI1NjllNTNkNWFlNTQ6NGYxM2NhMjY3ZGZhNGZjNjk2NDE0OGJlZGNkYTE1ZWY=`
+Base64('S2_af4543a0be4d49a98122e01ec2059a56:9eb85607103646da9f9c02b128f2e5ee')
+>> `UzJfYWY0NTQzYTBiZTRkNDlhOTgxMjJlMDFlYzIwNTlhNTY6OWViODU2MDcxMDM2NDZkYTlmOWMwMmIxMjhmMmU1ZWU=`
 ```
 예시처럼 최종 생성된 credentials을 API 호출 시 활용 합니다. 
 
@@ -193,13 +187,13 @@ Content-type: application/json
 {
   resultCode: '0000',
   resultMsg: '정상 처리되었습니다.',
-  tid: 'UT0000113m01012110051656331001',
+  tid: 'UT0000113m01012111051714341073',
   cancelledTid: null,
-  orderId: 'b0980639-52db-4504-9e4d-97200827dc48',
-  ediDate: '2021-10-05T16:56:34.447+0900',
-  signature: '28c2e8bae912847541d4885db17648f963c7cc8e8249ff010097d6f1395df993',
+  orderId: 'c74a5960-830b-4cd8-82a9-fa1ce739a18f',
+  ediDate: '2021-11-05T17:14:35.150+0900',
+  signature: '63b251b31c909eebef1a9f4fcc19e77bdcb8f64fc1066a29670f8627186865cd',
   status: 'paid',
-  paidAt: '2021-10-05T16:56:34.000+0900',
+  paidAt: '2021-11-05T17:14:35.000+0900',
   failedAt: '0',
   cancelledAt: '0',
   payMethod: 'card',
@@ -214,7 +208,7 @@ Content-type: application/json
   buyerName: null,
   buyerTel: null,
   buyerEmail: null,
-  receiptUrl: 'https://npg.nicepay.co.kr/issue/IssueLoader.do?type=0&innerWin=Y&TID=UT0000113m01012110051656331001',
+  receiptUrl: 'https://npg.nicepay.co.kr/issue/IssueLoader.do?type=0&innerWin=Y&TID=UT0000113m01012111051714341073',
   mallUserId: null,
   issuedCashReceipt: false,
   coupon: null,
@@ -234,6 +228,10 @@ Content-type: application/json
   cashReceipts: null
 }
 ```
+> #### ⚠️ 중요  
+> 샌드박스를 통해 TEST를 진행하는 경우 승인(결제)가 발생되지 않아 편리하게 TEST를 할수 있습니다.
+> 또한 실제 승인(결제)가 발생되지 않기 때문에 임의 값이 응답됩니다. 
+<br>
 
 
 ### 샘플코드
