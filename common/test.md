@@ -75,8 +75,8 @@
 
 |모델|설명|
 |:---:|:--|
-|Server 승인| Endpoint: https://sandbox-pay.nicepay.co.kr/v1/js/ <br> 결제창 호출(인증)과 결제(승인) API호출이 독립적으로 분리된 모델 |
-|Client 승인| Endpont: https://sandbox-pay.nicepay.co.kr/v1/js/pay/  <br> 결제창 호출(인증)후 결제(승인)이 자동으로 처리되는 모델 |
+|Server 승인| Endpoint: https://pay.nicepay.co.kr/v1/js/ <br> 결제창 호출(인증)과 결제(승인) API호출이 독립적으로 분리된 모델 |
+|Client 승인| Endpont: https://pay.nicepay.co.kr/v1/js/pay/  <br> 결제창 호출(인증)후 결제(승인)이 자동으로 처리되는 모델 |
 
 > #### ⚠️ 중요  
 > 요청 파라미터는 운영/샌드박스 모두 동일 합니다.  
@@ -125,9 +125,7 @@ Content-type: application/json;charset=utf-8
 javascript
 ```
 ```javascript
-<script src="https://sandbox-pay.nicepay.co.kr/v1/js/"></script> <!--Server 승인 샌드박스-->
-
-<!-- <script src="https://pay.nicepay.co.kr/v1/js/"></script> Server 승인 운영계-->
+<script src="https://pay.nicepay.co.kr/v1/js/"></script>
 
 <script>
 function serverAuth() {
