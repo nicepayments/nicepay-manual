@@ -35,7 +35,7 @@
 ```Javascript
 <script src="https://pay.nicepay.co.kr/v1/js/"></script> //Server 승인 
 <script>
-function serverAuth() {
+function clientAuth() {
   AUTHNICE.requestPay({
     clientId: 'af0d116236df437f831483ee9c500bc4',
     method: 'card',
