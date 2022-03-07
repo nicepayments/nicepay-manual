@@ -8,9 +8,11 @@
 ### Over-view
 <img src="../image/payment-client-authorization.svg" width="800px"> 
 
+
 ### 설명
-결제자가 브라우저에서 `pay.nicepay.co.kr/v1/js/pay/` JS SDK의 `PAYNICE.requestPay()` Method 호출시 결제창이 노출 됩니다.  
-결제자는 💡 결제창을 통해 카드사 및 결제 원천사에 접근하여 인증과정을 진행 하고 나이스페이는 인증 및 💳 결제(승인) 처리 후 결과를 `PAYNICE.requestPay()`의 object value로 전달된 `returnUrl`로 `POST` 합니다.  
+- 결제자가 브라우저에서 `pay.nicepay.co.kr/v1/js/` JS SDK의 `AUTHNICE.requestPay()` method 호출시 결제창이 노출 됩니다.  
+- 결제자는 결제창을 통해 카드사 및 결제 원천사에 접근하여 인증과정을 진행 하고 나이스페이는 인증결과를 `AUTHNICE.requestPay()`의 object value로 전달된 `returnUrl`로 POST 합니다.  
+- 가맹점은 POST 데이터의 금액 및 위변조 여부를 체크하고 응답된 tid을 승인 API로 전달 하면 💳 결제(승인)요청 처리가 완료 됩니다. 
 
 <br>
 
@@ -30,12 +32,11 @@
 <br>
 
 ### 샘플 코드
- 
-```javascript
-<script src="https://pay.nicepay.co.kr/v1/js/pay/"></script> //Client 승인 
+```Javascript
+<script src="https://pay.nicepay.co.kr/v1/js/"></script> //Server 승인 
 <script>
 function serverAuth() {
-  PAYNICE.requestPay({
+  AUTHNICE.requestPay({
     clientId: 'af0d116236df437f831483ee9c500bc4',
     method: 'card',
     orderId: 'your-unique-orderid',
@@ -47,10 +48,14 @@ function serverAuth() {
 </script>
 
 ```
-- 먼저 https://pay.nicepay.co.kr/v1/js/pay/ 를 Inclue 합니다.
-- clientId 필드에 [클라이언트 키](../common/api.md#클라이언트-키) 값을 셋팅 하면 준비가 완료 됩니다.
-- `PAYNICE.requestPay()` method 호출시 결제창이 노출 됩니다.
-- 💳 결제(승인)결과는 `returnUrl`로 전달된 `end-point`로 post 됩니다.
+
+<br>
+
+- 먼저 https://pay.nicepay.co.kr/v1/js/ 를 Inclue 합니다.
+- `clientId` 필드에 [클라이언트 키](../common/api.md#클라이언트-키) 값을 셋팅 하면 준비가 완료 됩니다.
+- `AUTHNICE.requestPay()` method 호출시 결제창이 노출 됩니다.
+- 결제(승인)결과는 `returnUrl`로 전달된 `end-point`로 post 됩니다.
+- 응답된 post 데이터를 결제(승인)API로 전달하면 💳 결제(승인) 처리가 진행 됩니다.
 
 <br>
 
