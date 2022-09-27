@@ -205,7 +205,6 @@ resultCode가 `0000`으로 응답되면 TEST성공 입니다.
 POST
 Content-type: application/json
 ```
-
 ```json
 {
   resultCode: '0000',

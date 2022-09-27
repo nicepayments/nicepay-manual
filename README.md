@@ -184,7 +184,7 @@ Base64('S2_af4543a0be4d49a98122e01ec2059a56:9eb85607103646da9f9c02b128f2e5ee')
 POST
 Content-type: application/json
 ```
-```bash
+```json
 {
   resultCode: '0000',
   resultMsg: '정상 처리되었습니다.',
@@ -215,7 +215,7 @@ Content-type: application/json
   coupon: null,
   card: {
     cardCode: '04',
-    cardName: '삼성',
+    cardName: '삼성', // (샌드박스) 응답 결과는 삼성카드로 고정
     cardNum: '12341234****1234',
     cardQuota: 0,
     isInterestFree: false,
