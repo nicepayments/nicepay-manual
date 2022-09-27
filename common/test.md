@@ -73,10 +73,10 @@
 
 - 결제창 JS 호출방식을 선택 후 샌드박스 도메인으로 변경 해주세요. 
 
-|모델|설명|
-|:---:|:--|
-|Server 승인| Endpoint: https://pay.nicepay.co.kr/v1/js/ <br> 결제창 호출(인증)과 결제(승인) API호출이 독립적으로 분리된 모델 |
-|Client 승인| Endpont: https://pay.nicepay.co.kr/v1/js/pay/  <br> 결제창 호출(인증)후 결제(승인)이 자동으로 처리되는 모델 |
+|모델| 설명                                                                                      |
+|:---:|:----------------------------------------------------------------------------------------|
+|Server 승인| Endpoint: https://pay.nicepay.co.kr/v1/js/ <br> 결제창 호출(인증)과 결제(승인) API호출이 독립적으로 분리된 모델  |
+|Client 승인| Endpont: https://pay.nicepay.co.kr/v1/js/  <br> 결제창 호출(인증)후 결제(승인)이 자동으로 처리되는 모델        |
 
 > #### ⚠️ 중요  
 > 요청 파라미터는 운영/샌드박스 모두 동일 합니다.  
@@ -92,24 +92,24 @@ Authorization: Basic <credentials> or Bearer <token>
 Content-type: application/json;charset=utf-8
 ```
 
-|              API            | 샌드박스 지원여부 |     Method    |               Endpoint              | 제약사항 |
-|:---------------------------:|:---------------:|:-------------:|:-----------------------------------|:----------|
-| [AccessToken 발급](/api/payment-access-token.md)      |○|      `POST`     |     /v1/access-token                | |
-| [결제창 승인](/api/payment-window-server.md#승인)    |○|      `POST`     |     /v1/payments/{tid}              | 임의 값 응답 |
-| [취소 요청](/api/cancel.md#취소환불망취소)         |△|      `POST`     |     /v1/payments/{tid}/cancel       | 부분취소 불가 |
-| [거래조회-tid](/api/status-transaction.md#거래조회tid-활용)        |○|       `GET`     |     /v1/payments/{tid}              | |
-| [거래조회-orderId](/api/status-transaction.md#거래조회orderid-활용)      |○|      `GET`     |     /v1/payments/find/{orderId}     | |
-| [빌키발급](/api/payment-subscribe.md#빌키발급)          |○|      `POST`     |     /v1/subscribe/regist            | 임의 값 응답 |
-| [빌키승인](/api/payment-subscribe.md#빌키승인)          |○|      `POST`     |     /v1/subscribe/{bid}/payments    | 임의 값 응답 | 
-| [빌키삭제](/api/payment-subscribe.md#빌키삭제)          |○|      `POST`     |     /v1/subscribe/{bid}/expire      | |
-| [약관조회](/api/status-terms.md#약관-조회)          |×|       `GET`     |     /v1/terms                       | |
-| [N정통Epay승인](/api/payment-epay.md#epay)       |×|      `POST`     |     /v1/epay                        | |
-| [현금영수증 발급](/api/payment-receipt.md#현금영수증-발급)      |○|      `POST`    |     /v1/receipt/                    | |
-| [현금영수증 취소](/api/payment-receipt.md#현금영수증-취소)      |×|      `POST`     |     /v1/receipt/{tid}/cancel        | |
-| [현금영수증 거래조회](/api/payment-receipt.md#현금영수증-조회)    |○|       `GET`     |     /v1/receipt/{tid}               | | 
-| [카드 이벤트 조회](/api/status-event.md#카드-이벤트)      |×|       `GET`     |     /v1/card/event                  | |
-| [카드 무이자정보 조회](/api/status-interest.md#카드-무이자-조회)    |×|       `GET`     |     /v1/card/interest-free          | |
-| [승인금액검증](/api/payment-window-client.md#승인-금액-검증)        |○|      `POST`     |     /v1/check-amount/{tid}          | |
+| API                                                       | 샌드박스 지원여부 | Method | Endpoint                     | 제약사항    |
+|:----------------------------------------------------------|:---------:|:------:|:-----------------------------|:--------|
+| [AccessToken 발급](/api/payment-access-token.md)            |     ○     | `POST` | /v1/access-token             |         |
+| [결제창 승인](/api/payment-window-server.md#승인)                |     ○     | `POST` | /v1/payments/{tid}           | 임의 값 응답 |
+| [취소 요청](/api/cancel.md#취소환불망취소)                           |     △     | `POST` | /v1/payments/{tid}/cancel    | 부분취소 불가 |
+| [거래조회-tid](/api/status-transaction.md#거래조회tid-활용)         |     ○     | `GET`  | /v1/payments/{tid}           |         |
+| [거래조회-orderId](/api/status-transaction.md#거래조회orderid-활용) |     ○     | `GET`  | /v1/payments/find/{orderId}  |         |
+| [빌키발급](/api/payment-subscribe.md#빌키발급)                    |     ○     | `POST` | /v1/subscribe/regist         | 임의 값 응답 |
+| [빌키승인](/api/payment-subscribe.md#빌키승인)                    |     ○     | `POST` | /v1/subscribe/{bid}/payments | 임의 값 응답 | 
+| [빌키삭제](/api/payment-subscribe.md#빌키삭제)                    |     ○     | `POST` | /v1/subscribe/{bid}/expire   |         |
+| [약관조회](/api/status-terms.md#약관-조회)                        |     ×     | `GET`  | /v1/terms                    |         |
+| [N정통Epay승인](/api/payment-epay.md#epay)                    |     ×     | `POST` | /v1/epay                     |         |
+| [현금영수증 발급](/api/payment-receipt.md#현금영수증-발급)              |     ○     | `POST` | /v1/receipt/                 |         |
+| [현금영수증 취소](/api/payment-receipt.md#현금영수증-취소)              |     ×     | `POST` | /v1/receipt/{tid}/cancel     |         |
+| [현금영수증 거래조회](/api/payment-receipt.md#현금영수증-조회)            |     ○     | `GET`  | /v1/receipt/{tid}            |         | 
+| [카드 이벤트 조회](/api/status-event.md#카드-이벤트)                  |     ×     | `GET`  | /v1/card/event               |         |
+| [카드 무이자정보 조회](/api/status-interest.md#카드-무이자-조회)          |     ×     | `GET`  | /v1/card/interest-free       |         |
+| [승인금액검증](/api/payment-window-client.md#승인-금액-검증)          |     ○     | `POST` | /v1/check-amount/{tid}       |         |
 
 
 <br>
@@ -124,7 +124,7 @@ Content-type: application/json;charset=utf-8
 ```bash
 javascript
 ```
-```javascript
+```html
 <script src="https://pay.nicepay.co.kr/v1/js/"></script>
 
 <script>
@@ -164,7 +164,7 @@ const random = (length = 8) => {
 POST
 Content-type: application/x-www-form-urlencoded
 ```
-```javascript
+```json
 {
   authResultCode: '0000',
   authResultMsg: '인증 성공',
@@ -199,14 +199,14 @@ curl -X POST 'https://sandbox-api.nicepay.co.kr/v1/payments/UT0000113m0101211005
 
 #### 결제(승인) 응답 예시
 승인 API호출에 성공하면 실제 결제가 발생하지 않고, 임의 값이 응답됩니다.  
-resultCode가 `0000`으로 응답되면 TEST성공 입니다.  
+resultCode가 `0000`으로 응답되면 TEST성공 입니다.
 
 ```bash
 POST
 Content-type: application/json
 ```
 
-```bash
+```json
 {
   resultCode: '0000',
   resultMsg: '정상 처리되었습니다.',
@@ -237,7 +237,7 @@ Content-type: application/json
   coupon: null,
   card: {
     cardCode: '04',
-    cardName: '삼성',
+    cardName: '삼성', // (샌드박스) 응답 결과는 삼성카드로 고정 
     cardNum: '12341234****1234',
     cardQuota: 0,
     isInterestFree: false,
@@ -332,7 +332,7 @@ API 개발을 위한 각 인터페이스의 개발 명세가 필요하다면 �
 `API 명세`와 `코드`가 포함된 기술문서 입니다.  
 - [결제·발급](/api/payment.md#) 👉 [결제창](/api/payment-window-server.md) | [빌링](/api/payment-subscribe.md) | [현금영수증](/api/payment-receipt.md) | [Access token](/api/payment-access-token.md)
 - [조회](/api/status.md) 👉 [거래 조회](/api/status-transaction.md) | [약관 조회](/api/status-terms.md) | [카드 이벤트 조회](/api/status-event.md) | [카드 무이자 조회](/api/status-interest.md)
-- [거래·정산·대사](/api/reconciliation.md) 👉 [거래대사](/api/reconciliation.md#거래대사) | [정산대사](/api/reconciliation.md#정산대사) | [입금대사](/api/reconciliation.md#입금대사)
+
 - [취소·환불·망취소](/api/cancel.md) 👉  [취소·환불](/api/cancel.md#취소환불) | [망 취소](/api/cancel.md#망취소)
 - [웹훅](/api/hook.md) 👉 [웹훅](/api/hook.md#웹훅)
 - [APP](/api/app.md) 👉 [iOS](/api/app-ios.md#ios) | [iOS Swift](/api/app-ios.md#ios-swift-웹뷰web-view개발-가이드) | [iOS Objective-c](/api/app-ios.md#ios-objective-c-웹뷰web-view개발-가이드) | [Android](/api/app-android.md#) | [Android java](/api/app-android.md#android-java-웹뷰web-view개발-가이드) | [Android kotlin](/api/app-android.md#android-kotlin-웹뷰web-view개발-가이드)

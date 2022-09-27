@@ -12,24 +12,24 @@ Authorization : Basic or Bearer
 Content-Type : application/json
 ```
 
-|              API            |     Method    |               Endpoint              |
-|:---------------------------:|:-------------:|:-----------------------------------|
-|[AccessToken 발급](/api/payment-access-token.md)      |      `POST`     |     /v1/access-token                |
-|[결제창 승인](/api/payment-window-server.md#승인)    |      `POST`     |     /v1/payments/{tid}              |
-|           [취소 요청](/api/cancel.md#취소환불망취소)         |      `POST`     |     /v1/payments/{tid}/cancel       |
-|         [거래조회-tid](/api/status-transaction.md#거래조회tid-활용)        |       `GET`     |     /v1/payments/{tid}              |
-|       [거래조회-orderId](/api/status-transaction.md#거래조회orderid-활용)      |       `GET`     |     /v1/payments/find/{orderId}     |
-|           [빌키발급](/api/payment-subscribe.md#빌키발급)          |      `POST`     |     /v1/subscribe/regist            |
-|           [빌키승인](/api/payment-subscribe.md#빌키승인)          |      `POST`     |     /v1/subscribe/{bid}/payments    |
-|           [빌키삭제](/api/payment-subscribe.md#빌키삭제)          |      `POST`     |     /v1/subscribe/{bid}/expire      |
-|           [약관조회](/api/status-terms.md#약관-조회)          |       `GET`     |     /v1/terms                       |
-|         [N정통Epay승인](/api/payment-epay.md#epay)       |      `POST`     |     /v1/epay                        |
-|        [현금영수증 발급](/api/payment-receipt.md#현금영수증-발급)      |      `POST`    |     /v1/receipt/                    |
-|        [현금영수증 취소](/api/payment-receipt.md#현금영수증-취소)      |      `POST`     |     /v1/receipt/{tid}/cancel        |
-|      [현금영수증 거래조회](/api/payment-receipt.md#현금영수증-조회)    |       `GET`     |     /v1/receipt/{tid}               |
-|       [카드 이벤트 조회](/api/status-event.md#카드-이벤트)      |       `GET`     |     /v1/card/event                  |
-|     [카드 무이자정보 조회](/api/status-interest.md#카드-무이자-조회)    |       `GET`     |     /v1/card/interest-free          |
-|         [승인금액검증](/api/payment-window-client.md#승인-금액-검증)        |      `POST`     |     /v1/check-amount/{tid}          |
+| API                                                                 |     Method    |               Endpoint              |
+|:--------------------------------------------------------------------|:-------------:|:-----------------------------------|
+| [AccessToken 발급](/api/payment-access-token.md)                      |      `POST`     |     /v1/access-token                |
+| [결제창 승인](/api/payment-window-server.md#승인)                          |      `POST`     |     /v1/payments/{tid}              |
+| [취소 요청](/api/cancel.md#취소환불망취소)                                     |      `POST`     |     /v1/payments/{tid}/cancel       |
+| [거래조회-tid](/api/status-transaction.md#거래조회tid-활용)                   |       `GET`     |     /v1/payments/{tid}              |
+| [거래조회-orderId](/api/status-transaction.md#거래조회orderid-활용)           |       `GET`     |     /v1/payments/find/{orderId}     |
+| [빌키발급](/api/payment-subscribe.md#빌키발급)                              |      `POST`     |     /v1/subscribe/regist            |
+| [빌키승인](/api/payment-subscribe.md#빌키승인)                              |      `POST`     |     /v1/subscribe/{bid}/payments    |
+| [빌키삭제](/api/payment-subscribe.md#빌키삭제)                              |      `POST`     |     /v1/subscribe/{bid}/expire      |
+| [약관조회](/api/status-terms.md#약관-조회)                                  |       `GET`     |     /v1/terms                       |
+| [N정통Epay승인](/api/payment-epay.md#epay)                              |      `POST`     |     /v1/epay                        |
+| [현금영수증 발급](/api/payment-receipt.md#현금영수증-발급)                        |      `POST`    |     /v1/receipt/                    |
+| [현금영수증 취소](/api/payment-receipt.md#현금영수증-취소)                        |      `POST`     |     /v1/receipt/{tid}/cancel        |
+| [현금영수증 거래조회](/api/payment-receipt.md#현금영수증-조회)                      |       `GET`     |     /v1/receipt/{tid}               |
+| [카드 이벤트 조회](/api/status-event.md#카드-이벤트)                            |       `GET`     |     /v1/card/event                  |
+| [카드 무이자정보 조회](/api/status-interest.md#카드-무이자-조회)                    |       `GET`     |     /v1/card/interest-free          |
+| [승인금액검증](/api/payment-window-client.md#승인-금액-검증)                    |      `POST`     |     /v1/check-amount/{tid}          |
 
 <br>
 
@@ -45,7 +45,7 @@ JS SDK호출은 [클라이언트 키](/common/api.md#클라이언트-키)의 인
 |모델|설명|
 |:---:|:--|
 |Server 승인| Endpoint: https://pay.nicepay.co.kr/v1/js/ <br> 결제창 호출(인증)과 결제(승인) API호출이 독립적으로 분리된 모델 |
-|Client 승인|Endpont: https://pay.nicepay.co.kr/v1/js/pay/  <br> 결제창 호출(인증)후 결제(승인)이 자동으로 처리되는 모델 |
+|Client 승인|Endpont: https://pay.nicepay.co.kr/v1/js/  <br> 결제창 호출(인증)후 결제(승인)이 자동으로 처리되는 모델 |
 
 <br>
 
@@ -119,13 +119,14 @@ JS SDK호출은 [클라이언트 키](/common/api.md#클라이언트-키)의 인
 JS SDK를 통해 💡 결제창 Method 호출시 `clientId` 필드에 [클라이언트 키](/common/api.md#클라이언트-키)값을 셋팅 하면 준비가 완료 됩니다.  
 JS SDK 모델에 따라 호출되는 JS SDK Include 방식과 Method 차이가 있습니다. 관련 부분은 하단 소스코드를 참조 해주세요.  
 
-### JS SDK 인증-Server 승인 모델  
-```Javascript  
+### JS SDK 인증-Server & Client 승인 모델
+
+```html
 <script src="https://pay.nicepay.co.kr/v1/js/"></script> //Server 승인 
 <script>
 function serverAuth() {
   AUTHNICE.requestPay({
-    clientId: 'af0d116236df437f831483ee9c500bc4',
+    clientId: 'af0d116236df437f831483ee9c500bc4', // clientId에 따라 Server / Client 방식 분리
     method: 'vbank',
     orderId: 'your-unique-orderid',
     amount: 1004,
@@ -133,26 +134,6 @@ function serverAuth() {
     vbankHolder: '나이스',
     returnUrl: 'http://localhost:4567/serverAuth'
   });
-}
-</script>
-```
-
-<br>
-
-### JS SDK 인증-Client 승인 모델  
-```Javascript  
-<script src="https://pay.nicepay.co.kr/v1/js/pay/"></script> //Client 승인 
-<script>
-function serverAuth() {
-  PAYNICE.requestPay({
-    clientId: 'af0d116236df437f831483ee9c500bc4',
-    method: 'vbank',
-    orderId: 'your-unique-orderid',
-    amount: 1004,
-    goodsName: '나이스페이-상품',
-    vbankHolder: '나이스'
-    returnUrl: 'http://localhost:4567/serverAuth'
- });
 }
 </script>
 ```
@@ -228,7 +209,7 @@ curl -X POST "https://api.nicepay.co.kr/v1/access-token" 
 <br>
 
 #### Access token API 응답 예시
-```bash
+```json
 {
   "resultCode": "0000",
   "resultMsg": "정상 처리되었습니다.",
@@ -269,7 +250,7 @@ API 개발을 위한 각 인터페이스의 개발 명세가 필요하다면 �
 `API 명세`와 `코드`가 포함된 기술문서 입니다.  
 - [결제·발급](/api/payment.md#) 👉 [결제창](/api/payment-window-server.md) | [빌링](/api/payment-subscribe.md) | [현금영수증](/api/payment-receipt.md) | [Access token](/api/payment-access-token.md)
 - [조회](/api/status.md) 👉 [거래 조회](/api/status-transaction.md) | [약관 조회](/api/status-terms.md) | [카드 이벤트 조회](/api/status-event.md) | [카드 무이자 조회](/api/status-interest.md)
-- [거래·정산·대사](/api/reconciliation.md) 👉 [거래대사](/api/reconciliation.md#거래대사) | [정산대사](/api/reconciliation.md#정산대사) | [입금대사](/api/reconciliation.md#입금대사)
+
 - [취소·환불·망취소](/api/cancel.md) 👉  [취소·환불](/api/cancel.md#취소환불) | [망 취소](/api/cancel.md#망취소)
 - [웹훅](/api/hook.md) 👉 [웹훅](/api/hook.md#웹훅)
 - [APP](/api/app.md) 👉 [iOS](/api/app-ios.md#ios) | [iOS Swift](/api/app-ios.md#ios-swift-웹뷰web-view개발-가이드) | [iOS Objective-c](/api/app-ios.md#ios-objective-c-웹뷰web-view개발-가이드) | [Android](/api/app-android.md#) | [Android java](/api/app-android.md#android-java-웹뷰web-view개발-가이드) | [Android kotlin](/api/app-android.md#android-kotlin-웹뷰web-view개발-가이드)

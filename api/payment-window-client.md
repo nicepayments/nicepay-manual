@@ -69,25 +69,25 @@ function clientAuth() {
 
 ### 공통
 
-|   Parameter  | type        |    필수  | byte |                             설명                           |
-|:------------:|:-----------:|:--------:|:----:|:-----------------------------------------------------------| 
-| ClientId      | String     | O        | 50	 |  가맹점 식별코드, NICEPAY가 발급한 가맹점 식별 값 		| 
-| ClientId      | String     | O        | 20	 | 결제수단 <br> card : 신용카드 <br> directCard : 결제창 없이 카드사 바로 노출  <br> vbank : 가상계좌  <br>naverpayCard : 네이버페이-신용카드 전액결제(포인트 이용불가) <br> kakaopay : 카카오페이(카드전액 또는 포인트전액) <br>kakaopayCard : 카카오페이-신용카드 전액결제 <br>kakaopayMoney : 카카오페이-머니 전액결제 <br>samsungpayCard : 삼성페이 카드전액 결제 <br>payco : 페이코 <br>ssgpay : SSGPAY <br>cardAndEasyPay : 신용카드와 간편결제 노출 <br>*cardAndEasyPay인 경우, 아래 파라미터와 함께 사용불가* <br>- cardCode, cardQuota, shopInterest, quotaInterest | 
-| orderId      | String     | O         | 64	 |  가맹점에서 관리하는 Unique한 주문번호 또는 결제번호<br> 결제된 orderId로 재호출 불가| 
-| amount       | Int  	    | O         | 12	 |  결제금액 (숫자만)		| 
-| goodsName    | String     | O         | 40	 |  상품명<br> - doubleQuota(")와 pipLine(&brvbar;) 2가지 특수문자는 '-'로 대체 됩니다.| 
-| returnUrl    | String     | O         | 500	 |  인증 처리 후 redirect 되는 url 		| 
-| mallReserved | String     |           | 500	 |  상점 정보 전상점 정보 전달용 예비필드<br>returnUrl로 redirect되는 시점에 반환 됩니다.<br>JSON string format으로 이용하시기를 권고 드립니다.<br>단, 큰따옴표(")는 이용불가| 
-| mallUserId   | String     |           | 20	 |  상점에서 관리하는 사용자 아이디 		| 
-| buyerName    | String     |           | 30	 |  구매자 이름 		| 
-| buyerTel     | String     |           | 40	 |  구매자 전화번호<br> (-) 없이 숫자만 입력 		| 
-| buyerEmail   | String     |           | 60	 |  구매자 이메일 		| 
-| useEscrow    | Boolean    |           | -	 | true: 에스크로 거래 / false: 일반거래(default) 		| 
-| currency     | String     |           | 3	 |  KRW:원화, USD:미화달러, CNY:위안화 		| 
-| logoImgUrl   | String     |           | 100	 |  로고 이미지의 full URL 전달<br>  ex) https://youre.site.com/image/logo.jpg<br> *채널별 사이즈 (단위 : pixel)*<br>모바일 : width 50 X height 50<br> 웹표준 : width 94 X height 25| 
-| language     | String     |           | 2	 |EN : 영문 / CN : 중문 / KO : 국문(Default)<br>NICEPAY 결제창 내 다국어를 지원<br>*sample)*<br>lang=EN -> 결제창 영문표기<br>lang=CN -> 결제창 중문표기| 
-| returnCharSet| String     |           | 10	 |  가맹점 서버의 encoding 방식 전달<br> - utf-8(Default) / euc-kr		| 
-| skinType     | String     |           | 10	 |  결제창 스킨 설정<br>지원 옵션 red/green/purple/gray/dark| 
+|   Parameter   | type        |    필수  | byte | 설명                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+|:-------------:|:-----------:|:--------:|:----:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------| 
+|   ClientId    | String     | O        | 50	 | 가맹점 식별코드, NICEPAY가 발급한 가맹점 식별 값 		                                                                                                                                                                                                                                                                                                                                                                                                                                                    | 
+|    method     | String     | O        | 20	 | 결제수단 <br> card : 신용카드 <br> bank : 계좌이체 <br> directCard : 결제창 없이 카드사 바로 노출  <br> vbank : 가상계좌  <br> cellphone : 휴대폰 <br>naverpayCard : 네이버페이-신용카드 전액결제(포인트 이용불가) <br> kakaopay : 카카오페이(카드전액 또는 포인트전액) <br>kakaopayCard : 카카오페이-신용카드 전액결제 <br>kakaopayMoney : 카카오페이-머니 전액결제 <br>samsungpayCard : 삼성페이 카드전액 결제 <br>payco : 페이코 <br>ssgpay : SSGPAY <br>cardAndEasyPay : 신용카드와 간편결제 노출 <br>*cardAndEasyPay인 경우, 아래 파라미터와 함께 사용불가* <br> - cardCode, cardQuota, shopInterest, quotaInterest | 
+|    orderId    | String     | O         | 64	 | 가맹점에서 관리하는 Unique한 주문번호 또는 결제번호<br> 결제된 orderId로 재호출 불가                                                                                                                                                                                                                                                                                                                                                                                                                               | 
+|    amount     | Int  	    | O         | 12	 | 결제금액 (숫자만)		                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 
+|   goodsName   | String     | O         | 40	 | 상품명<br> - doubleQuota(")와 pipLine(&brvbar;) 2가지 특수문자는 '-'로 대체 됩니다.                                                                                                                                                                                                                                                                                                                                                                                                                    | 
+|   returnUrl   | String     | O         | 500	 | 인증 처리 후 redirect 되는 url 		                                                                                                                                                                                                                                                                                                                                                                                                                                                            | 
+| mallReserved  | String     |           | 500	 | 상점 정보 전상점 정보 전달용 예비필드<br>returnUrl로 redirect되는 시점에 반환 됩니다.<br>JSON string format으로 이용하시기를 권고 드립니다.<br>단, 큰따옴표(")는 이용불가                                                                                                                                                                                                                                                                                                                                                                | 
+|  mallUserId   | String     |           | 20	 | 상점에서 관리하는 사용자 아이디 		                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | 
+|   buyerName   | String     |           | 30	 | 구매자 이름 		                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | 
+|   buyerTel    | String     |           | 40	 | 구매자 전화번호<br> (-) 없이 숫자만 입력 		                                                                                                                                                                                                                                                                                                                                                                                                                                                         | 
+|  buyerEmail   | String     |           | 60	 | 구매자 이메일 		                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | 
+|   useEscrow   | Boolean    |           | -	 | true: 에스크로 거래 / false: 일반거래(default) 		                                                                                                                                                                                                                                                                                                                                                                                                                                               | 
+|   currency    | String     |           | 3	 | KRW:원화, USD:미화달러, CNY:위안화 		                                                                                                                                                                                                                                                                                                                                                                                                                                                          | 
+|  logoImgUrl   | String     |           | 100	 | 로고 이미지의 full URL 전달<br>  ex) https://youre.site.com/image/logo.jpg<br> *채널별 사이즈 (단위 : pixel)*<br>모바일 : width 50 X height 50<br> 웹표준 : width 94 X height 25                                                                                                                                                                                                                                                                                                                            | 
+|   language    | String     |           | 2	 | EN : 영문 / CN : 중문 / KO : 국문(Default)<br>NICEPAY 결제창 내 다국어를 지원<br>*sample)*<br>lang=EN -> 결제창 영문표기<br>lang=CN -> 결제창 중문표기                                                                                                                                                                                                                                                                                                                                                              | 
+| returnCharSet | String     |           | 10	 | 가맹점 서버의 encoding 방식 전달<br> - utf-8(Default) / euc-kr		                                                                                                                                                                                                                                                                                                                                                                                                                                | 
+|   skinType    | String     |           | 10	 | 결제창 스킨 설정<br>지원 옵션 red/green/purple/gray/dark                                                                                                                                                                                                                                                                                                                                                                                                                                         | 
 
 <br>
 
@@ -100,6 +100,7 @@ function clientAuth() {
 <br>
 
 ### 신용카드 & 간편결제
+
 |   Parameter  | type        |     필수     | byte |                             설명                           |
 |:------------:|:-----------:|:------------:|:----:|:-----------------------------------------------------------| 
 | cardQuata      | String     |            | 100	 |할부개월 설정<br><br>[공통]<br>선택할 수 있는 할부기간을 제한한다.<br><br>[카드일반+PAYCO+네이버페이]<br>- 단독 설정 가능<br>- ','를 구분자로 할부개월 나열<br>- 일시불은 반드시 "00"으로 설정할것<br>- 2자리의 할부기간 설정 (3개월일 경우 반드시 '03' 으로 설정)<br>Ex) cardQuota=03 <br>- 설명 : 3 개월 할부만 가능하도록 함.<br>최소금액 : 50,000원 이상<br><br>[카카오페이, 삼성페이, SSGPAY]<br> - 단독 설정 사용불가. 반드시 cardCode와 함께 설정되어야 사용가능.<br> - 할부개월 복수설정 불가| 
@@ -114,6 +115,14 @@ function clientAuth() {
 | vbankHolder     | String | 가상계좌 | 40   | 가상계좌 (가맹점 상호명, 사용자명)                                                 |
 | vbankValidHours | Int    |          | 4    | 가상계좌 유효시간<br>- 시간단위로 입력.<br>- Default 값 D+7일<br>- vbankValidHours와 vbankExpDate가 함께 요청된경우 vbankValidHours가 우선함<br>ex) 10 을 입력하면, 가상계좌 발급후 10시간동안 해당 가상계좌를 이용할 수 있습니다.                                           |
 | vbankExpDate	  |Int |          |      | 가상계좌 입금 만료일                                                            |
+
+<br>
+
+### 휴대폰
+
+|  Parameter  |  Type  |   필수    |  Byte  | 설명             |
+|:-----------:|:------:|:-------:|:------:|:---------------|
+|  isDigital  |  Int   |  휴대폰결제  |   1    | 0: 컨텐츠, 1: 실물  |
 
 <br>
 
@@ -146,48 +155,50 @@ function clientAuth() {
 POST
 Content-type: application/x-www-form-urlencoded
 ```
-| Parameter         | Type    | 필수 | Byte | 설명                                                                                                                       |
-|-------------------|---------|------|------|----------------------------------------------------------------------------------------------------------------------------|
-| success           | Boolean |      |      | 결제 성공 여부<br><br>true : 결제성공 또는 가상계좌 채번 성공, false:결재실패 또는 인증실패                                                      |
-| authToken         | String  | O    | 40   | 인증 TOKEN<br><br>인증거래 Unique Key<br>- 인증 실패된 거래의 가맹점과 NICE간의 매핑 키로 사용 가능합니다.                                                          |
-| tid               | String  |      | 30   | 결제 승인 키<br><br>인증성공후 승인이 시도된 경우 리턴됩니다.<br>승인(가상계좌-채번)에 사용된 NICEPAY 거래키 입니다.<br>- 승인성공 또는 승인실패 : tid<br>- 인증실패 : "" (빈값)|
-| orderId           | String  | O    | 64   | 상점 거래 고유번호|
-| clientId          | String  | O    | 50   | 가맹점 식별코드<br>NICEPAY가 발급한 가맹점 식별값|
-| mallReserved      | String  |      | 500  | 상점 예약필드<br><br>상점 정보 전달용 예비필드<br>returnUrl로 redirect되는 시점에 반환 됩니다.<br>JSON string format으로 이용하시기를 권고 드립니다.<br>단, 큰따옴표(")는 이용불가|
-| resultCode        | String  | O    | 4    | 처리결과코드<br><br>0000 : 성공 / 그외 실패|
-| resultMsg         | String  | O    | 100  | 처리결과메시지|
-| amount            | Int     | O    | 12   | 결제 금액|
-| goodsName         | String  | O    | 40   | 상품명<br><br>상품이름 (", * 특수문자 이용불가) |
-| channel           | String  | O    | 10   | pc:PC결제, mobile:모바일결제|
-| status            | String  |      | 20   | 결제 처리상태<br><br>paid:결제완료, ready:준비됨(가상계좌채번), failed:결제실패, cancelled:취소됨, partialCancelled:부분 취소됨, expired:만료됨<br>['paid', 'ready', 'failed', 'cancelled', 'partialCancelled', 'expired']                                                    |
-| ediDate           | String  |      | -    | 응답전문생성일시 <br><br>ISO 8601 형식|
-| signature         | String  |      | 256  | 위변조 검증 데이터<br><br>- 승인 성공 거래건에 한하여 응답<br>- 생성규칙 : hex(sha256(tid + amount + ediDate+ SecretKey))<br>- 데이터 유효성 검증을 위해, 가맹점 수준에서 비교하는 로직 구현 권고<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.|
-| paidAt            | String  |      | -    | 결제완료시점<br><br>ISO 8601 형식<br> 결제완료가 아닐 경우 0    |
-| failedAt          | String  |      | -    | 결제실패시점<br><br>ISO 8601 형식<br>결제실패가 아닐 경우 0|
-| payMethod         | String  | O    | 10   | 결제수단<br><br>CARD:신용카드, VBANK:가상계좌,<br>naverpay=네이버페이, kakaopay=카카오페이, payco=페이코, ssgpay=SSGPAY, samsungpay=삼성페이                                 |
-| useEscrow         | Boolean |      | -    | 에스크로 거래 여부<br><br>false:일반거래 / true:에스크로 거래|
-| currency          | String  |      | 3    | 결제승인화폐단위<br><br>KRW:원화, USD:미화달러, CNY:위안화                                                                                         |
-| approveNo         | String  |      | 30   | 제휴사 승인 번호<br>신용카드, 계좌이체, 휴대폰                                                                                                 |
-| couponAmt         | Int     |      | 12   | 즉시할인 적용된 금액                                                                                                       |
-| buyerName         | String  |      | 30   | 구매자 명                                                                                                                  |
-| buyerTel          | String  |      | 40   | 구매자 전화번호                                                                                                            |
-| buyerEmail        | String  |      | 60   | 구매자 이메일                                                                                                              |
-| issuedCashReceipt | Boolean |      | -    | 현금영수증 발급여부<br><br>true:발행 / false:미발행                                                                                                   |
-| receiptUrl        | String  |      | 200  | 매출전표 확인 URL                                                                                                          |
-| mallUserId        | String  |      | 20   | 상점 사용자 아이디<br><br>상점에서 관리하는 사용자 아이디                                                                                            |
-| cardCode          | String  |      | 3    | 결제 카드사 코드                                                                                                           |
-| cardName          | String  |      | 20   | 결제 카드사 이름                                                                                                           |
-| cardQuota         | Int     |      | 3    | 할부개월<br><br>0:일시불, 2:2개월, 3:3개월 …                                                                                               |
-| isInterestFree    | Boolean |      | -    | 상점분담무이자 여부                                                                                                        |
-| cardType          | String  |      | 1    | 카드 구분                                                                                                                  |
-| canPartCancel     | String  |      | -    | 부분취소 가능 여부                                                                                                         |
-| acquCardCode      | String  |      | 3    | 매입카드사코드                                                                                                             |
-| acquCardName      | String  |      | 100  | 매입카드사명                                                                                                               |
-| vbankCode         | String  |      | 3    | 입금받을 가상계좌 은행코드                                                                                                 |
-| vbankName         | String  |      | 20   | 입금받을 가상계좌 은행명                                                                                                   |
-| vbankNumber       | String  |      | 20   | 입금받을 가상계좌 번호                                                                                                     |
-| vbankExpDate      | String  |      | -    | 가상계좌 입금 만료일<br><br>ISO 8601                                                                                                                   |
-| vbankHolder       | String  |      | 40   | 입금받을 가상계좌 예금주명|
+| Parameter         | Type    | 필수 | Byte | 설명                                                                                                                                                                                       |
+|-------------------|---------|------|-----|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| success           | Boolean |      |     | 결제 성공 여부<br><br>true : 결제성공 또는 가상계좌 채번 성공, false:결재실패 또는 인증실패                                                                                                                            |
+| authToken         | String  | O    | 40  | 인증 TOKEN<br><br>인증거래 Unique Key<br>- 인증 실패된 거래의 가맹점과 NICE간의 매핑 키로 사용 가능합니다.                                                                                                              |
+| tid               | String  |      | 30  | 결제 승인 키<br><br>인증성공후 승인이 시도된 경우 리턴됩니다.<br>승인(가상계좌-채번)에 사용된 NICEPAY 거래키 입니다.<br>- 승인성공 또는 승인실패 : tid<br>- 인증실패 : "" (빈값)                                                                  |
+| orderId           | String  | O    | 64  | 상점 거래 고유번호                                                                                                                                                                               |
+| clientId          | String  | O    | 50  | 가맹점 식별코드<br>NICEPAY가 발급한 가맹점 식별값                                                                                                                                                         |
+| mallReserved      | String  |      | 500 | 상점 예약필드<br><br>상점 정보 전달용 예비필드<br>returnUrl로 redirect되는 시점에 반환 됩니다.<br>JSON string format으로 이용하시기를 권고 드립니다.<br>단, 큰따옴표(")는 이용불가                                                           |
+| resultCode        | String  | O    | 4   | 처리결과코드<br><br>0000 : 성공 / 그외 실패                                                                                                                                                          |
+| resultMsg         | String  | O    | 100 | 처리결과메시지                                                                                                                                                                                  |
+| amount            | Int     | O    | 12  | 결제 금액                                                                                                                                                                                    |
+| goodsName         | String  | O    | 40  | 상품명<br><br>상품이름 (", * 특수문자 이용불가)                                                                                                                                                         |
+| channel           | String  | O    | 10  | pc:PC결제, mobile:모바일결제                                                                                                                                                                    |
+| status            | String  |      | 20  | 결제 처리상태<br><br>paid:결제완료, ready:준비됨(가상계좌채번), failed:결제실패, cancelled:취소됨, partialCancelled:부분 취소됨, expired:만료됨<br>['paid', 'ready', 'failed', 'cancelled', 'partialCancelled', 'expired'] |
+| ediDate           | String  |      | -   | 응답전문생성일시 <br><br>ISO 8601 형식                                                                                                                                                             |
+| signature         | String  |      | 256 | 위변조 검증 데이터<br><br>- 승인 성공 거래건에 한하여 응답<br>- 생성규칙 : hex(sha256(tid + amount + ediDate+ SecretKey))<br>- 데이터 유효성 검증을 위해, 가맹점 수준에서 비교하는 로직 구현 권고<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.    |
+| paidAt            | String  |      | -   | 결제완료시점<br><br>ISO 8601 형식<br> 결제완료가 아닐 경우 0                                                                                                                                              |
+| failedAt          | String  |      | -   | 결제실패시점<br><br>ISO 8601 형식<br>결제실패가 아닐 경우 0                                                                                                                                               |
+| payMethod         | String  | O    | 10  | 결제수단<br><br>CARD:신용카드, VBANK:가상계좌,<br>naverpay=네이버페이, kakaopay=카카오페이, payco=페이코, ssgpay=SSGPAY, samsungpay=삼성페이                                                                          |
+| useEscrow         | Boolean |      | -   | 에스크로 거래 여부<br><br>false:일반거래 / true:에스크로 거래                                                                                                                                              |
+| currency          | String  |      | 3   | 결제승인화폐단위<br><br>KRW:원화, USD:미화달러, CNY:위안화                                                                                                                                                |
+| approveNo         | String  |      | 30  | 제휴사 승인 번호<br>신용카드, 계좌이체, 휴대폰                                                                                                                                                             |
+| couponAmt         | Int     |      | 12  | 즉시할인 적용된 금액                                                                                                                                                                              |
+| buyerName         | String  |      | 30  | 구매자 명                                                                                                                                                                                    |
+| buyerTel          | String  |      | 40  | 구매자 전화번호                                                                                                                                                                                 |
+| buyerEmail        | String  |      | 60  | 구매자 이메일                                                                                                                                                                                  |
+| issuedCashReceipt | Boolean |      | -   | 현금영수증 발급여부<br><br>true:발행 / false:미발행                                                                                                                                                    |
+| receiptUrl        | String  |      | 200 | 매출전표 확인 URL                                                                                                                                                                              |
+| mallUserId        | String  |      | 20  | 상점 사용자 아이디<br><br>상점에서 관리하는 사용자 아이디                                                                                                                                                      |
+| cardCode          | String  |      | 3   | 결제 카드사 코드                                                                                                                                                                                |
+| cardName          | String  |      | 20  | 결제 카드사 이름                                                                                                                                                                                |
+| cardQuota         | Int     |      | 3   | 할부개월<br><br>0:일시불, 2:2개월, 3:3개월 …                                                                                                                                                        |
+| isInterestFree    | Boolean |      | -   | 상점분담무이자 여부                                                                                                                                                                               |
+| cardType          | String  |      | 1   | 카드 구분                                                                                                                                                                                    |
+| canPartCancel     | String  |      | -   | 부분취소 가능 여부                                                                                                                                                                               |
+| acquCardCode      | String  |      | 3   | 매입카드사코드                                                                                                                                                                                  |
+| acquCardName      | String  |      | 100 | 매입카드사명                                                                                                                                                                                   |
+| vbankCode         | String  |      | 3   | 입금받을 가상계좌 은행코드                                                                                                                                                                           |
+| vbankName         | String  |      | 20  | 입금받을 가상계좌 은행명                                                                                                                                                                            |
+| vbankNumber       | String  |      | 20  | 입금받을 가상계좌 번호                                                                                                                                                                             |
+| vbankExpDate      | String  |      | -   | 가상계좌 입금 만료일<br><br>ISO 8601                                                                                                                                                              |
+| vbankHolder       | String  |      | 40  | 입금받을 가상계좌 예금주명                                                                                                                                                                           |
+| bankCode          | String  | O    | 3   | 결제은행코드(은행 코드 참조)                                                                                                                                                                         |
+| bankName          | String  | O    | 20  | 결제은행명(euc-kr)                                                                                                                                                                            |
 
 <br>
 
@@ -198,7 +209,7 @@ Content-type: application/x-www-form-urlencoded
 
 ### 설명
 - Client승인 모델의 💡 결제창을 통해 결제 후 결제금액 체크에 대한 가이드 입니다.
-- 결제자는 💡 결제창을 통해 카드사 및 결제 원천사에 접근하여 인증과정을 진행 하고 나이스페이는 인증 및 💳 결제(승인) 처리 후 결과를 `PAYNICE.requestPay()`의 object value로 전달된 `returnUr`l로 POST 합니다.
+- 결제자는 💡 결제창을 통해 카드사 및 결제 원천사에 접근하여 인증과정을 진행 하고 나이스페이는 인증 및 💳 결제(승인) 처리 후 결과를 `AUTHNICE.requestPay()`의 object value로 전달된 `returnUr`l로 POST 합니다.
 - 이후 금액 위변조 여부 검증을 위해 '승인 금액 검증' API를 활용하여 💳 승인(결제)금액을 체크를 진행 합니다.
 - 발생된 승인(결제)응답의 금액과 승인금액검증 체크를 통한 금액이 상이한 경우 반드시 결제취소 진행 해야 합니다.
 
@@ -271,7 +282,7 @@ API 개발을 위한 각 인터페이스의 개발 명세가 필요하다면 �
 `API 명세`와 `코드`가 포함된 기술문서 입니다.  
 - [결제·발급](/api/payment.md#) 👉 [결제창](/api/payment-window-server.md) | [빌링](/api/payment-subscribe.md) | [현금영수증](/api/payment-receipt.md) | [Access token](/api/payment-access-token.md)
 - [조회](/api/status.md) 👉 [거래 조회](/api/status-transaction.md) | [약관 조회](/api/status-terms.md) | [카드 이벤트 조회](/api/status-event.md) | [카드 무이자 조회](/api/status-interest.md)
-- [거래·정산·대사](/api/reconciliation.md) 👉 [거래대사](/api/reconciliation.md#거래대사) | [정산대사](/api/reconciliation.md#정산대사) | [입금대사](/api/reconciliation.md#입금대사)
+
 - [취소·환불·망취소](/api/cancel.md) 👉  [취소·환불](/api/cancel.md#취소환불) | [망 취소](/api/cancel.md#망취소)
 - [웹훅](/api/hook.md) 👉 [웹훅](/api/hook.md#웹훅)
 - [APP](/api/app.md) 👉 [iOS](/api/app-ios.md#ios) | [iOS Swift](/api/app-ios.md#ios-swift-웹뷰web-view개발-가이드) | [iOS Objective-c](/api/app-ios.md#ios-objective-c-웹뷰web-view개발-가이드) | [Android](/api/app-android.md#) | [Android java](/api/app-android.md#android-java-웹뷰web-view개발-가이드) | [Android kotlin](/api/app-android.md#android-kotlin-웹뷰web-view개발-가이드)
