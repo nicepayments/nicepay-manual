@@ -32,7 +32,7 @@
 <br>
 
 ### 샘플 코드
-```Javascript
+```html
 <script src="https://pay.nicepay.co.kr/v1/js/"></script> //Server 승인 
 <script>
 function clientAuth() {

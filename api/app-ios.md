@@ -38,7 +38,7 @@ App 내 웹뷰를 통해 결제창을 연동하는 경우, 웹 환경에서 결�
 <br>
 
 ### appScheme 설정- Server 승인 모델
-```javascript
+```html
 <script src="https://pay.nicepay.co.kr/v1/js/"></script> //Server 승인 
 <script>
 function serverAuth() {
