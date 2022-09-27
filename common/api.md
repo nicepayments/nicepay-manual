@@ -209,7 +209,7 @@ curl -X POST "https://api.nicepay.co.kr/v1/access-token" 
 <br>
 
 #### Access token API 응답 예시
-```json
+```bash
 {
   "resultCode": "0000",
   "resultMsg": "정상 처리되었습니다.",

@@ -164,7 +164,7 @@ const random = (length = 8) => {
 POST
 Content-type: application/x-www-form-urlencoded
 ```
-```json
+```bash
 {
   authResultCode: '0000',
   authResultMsg: '인증 성공',
@@ -205,7 +205,7 @@ resultCode가 `0000`으로 응답되면 TEST성공 입니다.
 POST
 Content-type: application/json
 ```
-```json
+```bash
 {
   resultCode: '0000',
   resultMsg: '정상 처리되었습니다.',
@@ -326,7 +326,7 @@ API 개발을 위한 각 인터페이스의 개발 명세가 필요하다면 �
 - [API·JS SDK](/common/api.md) 👉 [URI 목록](/common/api.md#uri-목록) | [JS SDK목록](/common/api.md#js-sdk-목록) | [API KEY](/common/api.md#api-key) | [API·JS SDK인증](/common/api.md#apijs-sdk인증) | [Basic auth](/common/api.md#basic-auth) | [Bearer token](/common/api.md#bearer-token)
 - [TEST·샘플코드](/common/test.md) 👉 [샌드박스 TEST](/common/test.md#샌드박스test) | [샌드박스 활용](/common/test.md#샌드박스-활용) | [웹로그 디버깅](/common/test.md#웹로그-디버깅) | [샘플코드](/common/test.md#샘플코드)
 - [코드집](/common/code.md) 👉 [HTTP-상태코드](/common/code.md#http-상태코드) | [카드코드](/common/code.md#카드코드) | [은행코드](/common/code.md#은행코드) | [JS SDK 응답코드](/common/code.md#js-sdk-응답코드) | [API 응답코드](/common/code.md#api-응답코드)
-  
+
 ### 📚 문서
 `API 명세`와 `코드`가 포함된 기술문서 입니다.  
 - [결제·발급](/api/payment.md#) 👉 [결제창](/api/payment-window-server.md) | [빌링](/api/payment-subscribe.md) | [현금영수증](/api/payment-receipt.md) | [Access token](/api/payment-access-token.md)
