@@ -12,7 +12,7 @@
 <br>
 
 > #### ⚠️ 중요  
-> [시크릿 키](../common/api.md#시크릿-키)를 [Basic auth](,,/common/api.md#basic-auth) 방식으로 생성한 경우 API 호출시 token 관리는 생략 할 수 있습니다.
+> [시크릿 키](../common/api.md#시크릿-키)를 [Basic auth](../common/api.md#basic-auth) 방식으로 생성한 경우 API 호출시 token 관리는 생략 할 수 있습니다.
 
 <br>
 
