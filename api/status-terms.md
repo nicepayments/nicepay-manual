@@ -29,8 +29,7 @@ curl -X GET 'https://api.nicepay.co.kr/v1/terms?termsType={약관유형}'
 
 ## 요청 명세
 ```bash
-GET /v1/terms?termsType={약관 유형}
-HTTP/1.1  
+GET /v1/terms?termsType={약관 유형} HTTP/1.1  
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials>  or Bearer <token>
 Content-type: application/json;charset=utf-8
