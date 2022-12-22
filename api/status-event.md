@@ -14,7 +14,7 @@
 
 ### 샘플 코드
 ```bash
-curl -X GET 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210727200125A056' 
+curl -X GET 'https://api.nicepay.co.kr/v1/card/event?amount={금액}&useAuth=false&ediDate={ISO 8601 형식}&...' 
 -H 'Content-Type: application/json' 
 -H 'Authorization: Basic YWYwZDExNjIzNmRmNDM3ZjgzMT...'
 ```
@@ -23,8 +23,7 @@ curl -X GET 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210727200125A05
 
 ## 요청 명세
 ```bash
-POST /v1/card/event   
-HTTP/1.1  
+GET /v1/card/event?amount={금액}&useAuth=false&ediDate={ISO 8601 형식}&...   HTTP/1.1  
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials>  or Bearer <token>
 Content-type: application/json;charset=utf-8
