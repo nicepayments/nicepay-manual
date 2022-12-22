@@ -41,7 +41,6 @@ Content-type: application/json;charset=utf-8
 
 ### 응답 명세 (Body)
 ```bash
-POST
 Content-type: application/json
 ```
 |   Parameter  | type        |    필수    | byte |                             설명                           |
