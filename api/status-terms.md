@@ -19,7 +19,7 @@
 
 ### 샘플 코드
 ```bash
-curl -X POST 'https://api.nicepay.co.kr/v1/terms'
+curl -X GET 'https://api.nicepay.co.kr/v1/terms'
 -H 'Content-Type: application/json' 
 -H 'Authorization: Basic YWYwZDExNjIzNmRmNDM3ZjgzMT...'
 
@@ -29,7 +29,7 @@ curl -X POST 'https://api.nicepay.co.kr/v1/terms'
 
 ## 요청 명세
 ```bash
-POST /v1/terms  
+GET /v1/terms  
 HTTP/1.1  
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials>  or Bearer <token>
