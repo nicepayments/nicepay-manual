@@ -86,7 +86,7 @@
 - API 호출시 제약사항을 체크하고, API Host는 샌드박스 도메인(sandbox-api.nicepay.co.kr)을 사용 합니다.
 
 ```bash
-HTTP/1.1  
+GET/POST {URL} HTTP/1.1 
 Host: sandbox-api.nicepay.co.kr 
 Authorization: Basic <credentials> or Bearer <token>
 Content-type: application/json;charset=utf-8
@@ -161,9 +161,9 @@ const random = (length = 8) => {
 - 카드사 인증을 성공하면 authResultCode가 `0000`으로 응답 됩니다.
 
 ```bash
-POST
 Content-type: application/x-www-form-urlencoded
 ```
+
 ```bash
 {
   authResultCode: '0000',
@@ -202,9 +202,9 @@ curl -X POST 'https://sandbox-api.nicepay.co.kr/v1/payments/UT0000113m0101211005
 resultCode가 `0000`으로 응답되면 TEST성공 입니다.
 
 ```bash
-POST
 Content-type: application/json
 ```
+
 ```bash
 {
   resultCode: '0000',
