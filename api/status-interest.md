@@ -12,7 +12,7 @@
 ### 샘플 코드
 ```bash
 
-curl -X GET 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210727200125A056' 
+curl -X GET 'https://api.nicepay.co.kr/v1/card/interest-free?clientId={client_id}&secret={secret_key}&useAuth=true&ediDate={ISO 8601 형식 날짜 표현}' 
 -H 'Content-Type: application/json' 
 -H 'Authorization: Basic YWYwZDExNjIzNmRmNDM3ZjgzMT...'
 
@@ -22,7 +22,7 @@ curl -X GET 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210727200125A05
 
 ## 요청 명세
 ```bash
-GET /v1/card/interest-free  
+GET /v1/card/interest-free?clientId={..}&secret={..}&useAuth=false&ediDate={..}
 HTTP/1.1  
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials>  or Bearer <token>
