@@ -19,7 +19,7 @@
 
 ### 샘플 코드
 ```bash
-curl -X GET 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210727200125A056' 
+curl -X POST 'https://api.nicepay.co.kr/v1/terms'
 -H 'Content-Type: application/json' 
 -H 'Authorization: Basic YWYwZDExNjIzNmRmNDM3ZjgzMT...'
 
@@ -44,8 +44,9 @@ Content-type: application/json;charset=utf-8
 
 ## 응답 명세
 ```bash
-POST
+
 Content-type: application/json
+
 ```
 | Parameter  | Type   | 필수 | Byte  | 상세 설명               |
 |------------|--------|------|-------|-------------------------|
