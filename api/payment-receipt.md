@@ -44,8 +44,7 @@ curl -X POST 'https://api.nicepay.co.kr/v1/receipt'
 
 ### 요청 명세 (Body)
 ``` bash
-POST /v1/receipt/  
-HTTP/1.1  
+POST /v1/receipt/  HTTP/1.1  
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials> or Bearer <token>
 Content-type: application/json;charset=utf-8
@@ -72,8 +71,9 @@ Content-type: application/json;charset=utf-8
 
 ### 응답 명세 (Body)
 ```bash
-POST
+
 Content-type: application/json
+
 ```
 | Parameter  | TYPE   | 필수 | 크기 | 설명                                                                 |
 |------------|--------|------|------|----------------------------------------------------------------------|
@@ -143,8 +143,9 @@ Content-type: application/json;charset=utf-8
 
 ### 응답 명세 (Body)
 ``` bash
-POST
+
 Content-type: application/json
+
 ```
 | Parameter   | Type   | 필수 | 크기 | 상세 설명                                                               |
 |-------------|--------|------|------|-------------------------------------------------------------------------|
@@ -187,7 +188,7 @@ curl -X GET 'https://api.nicepay.co.kr/v1/receipt/nicuntct1m04012107272036221413
 
 ### 요청 명세 (Body)
 ``` bash
-GET /receipt/{tid}/cancel   
+GET /v1/receipt/{tid}   
 HTTP/1.1  
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials>  or Bearer <token>
@@ -210,7 +211,7 @@ Content-type: application/json;charset=utf-8
 
 ### 응답 명세 (Body)
 ``` bash
-GET
+POST
 Content-type: application/json
 ```
 | Parameter   | Type   | 필수 | Byte | 설명                                                                    |
