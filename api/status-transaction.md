@@ -17,7 +17,7 @@
 
 ### 샘플 코드
 ```bash
-curl -X GET 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210727200125A056' 
+curl -X POST 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210727200125A056' 
 -H 'Content-Type: application/json' 
 -H 'Authorization: Basic YWYwZDExNjIzNmRmNDM3ZjgzMT...'
 
@@ -28,8 +28,7 @@ curl -X GET 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210727200125A05
 ## 요청 명세
 ### 거래조회(tid 활용)
 ```bash
-POST /v1/payments/{tid}  
-HTTP/1.1  
+POST /v1/payments/{tid} HTTP/1.1  
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials>  or Bearer <token>
 Content-type: application/json;charset=utf-8
@@ -44,8 +43,7 @@ Content-type: application/json;charset=utf-8
 
 ### 거래조회(orderId 활용)
 ```bash
-POST /v1/payments/find/{orderId}  
-HTTP/1.1  
+POST /v1/payments/find/{orderId} HTTP/1.1  
 Host: api.nicepay.co.kr 
 Authorization: Basic <credentials>  or Bearer <token>
 Content-type: application/json;charset=utf-8
@@ -61,7 +59,6 @@ Content-type: application/json;charset=utf-8
 
 ## 응답 명세 (공통)
 ```bash
-POST
 Content-type: application/json
 ```
 | Parameter         | Type    | 필수 | Byte | 설명                                                                                                           |
