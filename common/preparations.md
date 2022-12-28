@@ -41,13 +41,13 @@ API KEY는 결제창과 API를 호출할 때 사용 됩니다.
 원활한 통신을 위해 서버의 HTTP 클라이언트가 `TLS 1.2`에 대응되는지 확인 해주세요.  
 서버에서 결제 API호출을 위해 필요한 서비스의 IP를 방화벽에서 허용 해주세요.  
 
-| 서비스                     | 도메인                    | 공인 IP Address    | 방향     |
-|----------------------------|---------------------------|--------------------|----------|
-| 결제창 연동 SDK (운영계)   | pay.nicepay.co.kr         | 210.108.219.205/27 | OUTBOUND |
-| 결제창 연동 SDK (샌드박스) | sandbox-pay.nicepay.co.kr | 210.108.219.203/27 | OUTBOUND |
-| RESTful API (운영계)       | api.nicepay.co.kr         | 210.108.219.202/27 | OUTBOUND |
-| RESTful   API (샌드박스)   | sandbox-api.nicepay.co.kr | 210.108.219.203/27 | OUTBOUND |
-| 웹훅                       | -                         | 210.108.219.200    | INBOUND  |
+| 서비스                     | 도메인                    | 공인 IP Address                        | 방향     |
+|----------------------------|---------------------------|--------------------------------------|----------|
+| 결제창 연동 SDK (운영계)   | pay.nicepay.co.kr         | 210.108.219.205/27                   | OUTBOUND |
+| 결제창 연동 SDK (샌드박스) | sandbox-pay.nicepay.co.kr | 210.108.219.203/27                   | OUTBOUND |
+| RESTful API (운영계)       | api.nicepay.co.kr         | 210.108.219.202/27                   | OUTBOUND |
+| RESTful   API (샌드박스)   | sandbox-api.nicepay.co.kr | 210.108.219.203/27                   | OUTBOUND |
+| 웹훅                       | -                         | 210.108.219.200 <br> 210.108.219.206 | INBOUND  |
 
 <br>
 
