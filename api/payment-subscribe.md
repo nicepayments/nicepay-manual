@@ -24,20 +24,21 @@
 <br>
 
 ### 샘플 코드
+
 ```bash
 curl -X POST 'https://api.nicepay.co.kr/v1/subscribe/regist' 
 -H 'Content-Type: application/json' 
 -H 'Authorization: Basic ZWVjOGQzNTA4Y2IwNDI1ZGI5NTViMzBiZjM5...' 
 -D '{
-    "encData": "C41346B71984...",
-    "orderId": "merchant-order-id",
-    "encMode" : "A2"
+	"encData":"{암호화된 결제정보 데이터}"
+	,"orderId":"{상점 거래 고유번호}"
 }'
 ```
 
 <br>
 
 ### 요청 명세 (Body)
+
 ```bash
 POST /v1/subscribe/regist  
 HTTP/1.1  
@@ -45,10 +46,11 @@ Host: api.nicepay.co.kr
 Authorization: Basic <credentials> or Bearer <token>
 Content-type: application/json;charset=utf-8
 ```
+
 | Parameter     | Type   | 필수 | Byte | 설명                                                                      |
 |---------------|--------|------|------|---------------------------------------------------------------------------|
 | encData       | String | O    | 512  | 결제정보 암호화 데이터<br>- 암호화 알고리즘 :   AES128<br>- 암호화 상세 :   AES/CBC/PKCS5padding<br>- 암호결과 인코딩 :   Hex Encoding<br>- 암호 KEY :   SecretKey 앞 16자리<br>- IV : SecretKey 앞 16자리<br>-   Hex(AES(cardNo=value&expYear=YY&expMonth=MM&idNo=value&cardPw=value))<br>*상세 명세는 하단 참조*|
-| orderId       | String | O    | 64   | 상점 주문번호<br>가맹점에서 관리하는 Unique한 주문번호 또는 결제번호                       |
+| orderId       | String | O    | 64   | 상점 거래 고유번호<br>가맹점에서 관리하는 Unique한 주문번호 또는 결제번호                       |
 | buyerName     | String | 　   | 30   | 구매자                                                                    |
 | buyerEmail    | String | 　   | 60   | 구매자 이메일주소                                                         |
 | buyerTel      | String | 　   | 20   | 구매자 전화번호<br> '-' 없이 숫자만 입력                                                      |
@@ -60,6 +62,7 @@ Content-type: application/json;charset=utf-8
 <br>
 
 ### encData 필드 상세
+
 | Parameter | Type   | 필수       | Byte | 설명                                       |
 |-----------|--------|----------|------|------------------------------------------|
 | cardNo    | String | O        | 16   | 카드번호<br>숫자만 입력                           |
@@ -71,6 +74,7 @@ Content-type: application/json;charset=utf-8
 <br>
 
 ### encData 필드 암호화 예시 (AES-128)
+
 ```bash
 - 평문  : cardNo=1234567890123456&expYear=25&expMonth=12&idNo=800101&cardPw=12
 - 암호키 : 2dcc2a0d63bf4694 (SecretKey 앞16자리)
@@ -81,6 +85,7 @@ Content-type: application/json;charset=utf-8
 <br>
 
 ### encData 필드 암호화 예시 (AES-256)
+
 ```bash
 - 평문 : cardNo=1234567890123456&expYear=25&expMonth=12&idNo=800101&cardPw=12
 - 암호키 : 2dcc2a0d63bf469490bb19a201be3735
@@ -91,9 +96,21 @@ Content-type: application/json;charset=utf-8
 <br>
 
 ### 응답 명세 (Body)
+
 ```bash
 POST
 Content-type: application/json
+
+{
+    "ResultCode":"0000"
+    ,"ResultMsg":"빌키가 정상적으로 생성되었습니다."
+    ,"BID":"{발급된 빌키}"
+    ,"AuthDate":"20230214"
+    ,"CardCode":"06"
+    ,"CardName":"[신한]"
+    ,"TID":"{빌키발급 거래번호}"
+}
+
 ```
 | Parameter  | Type | 필수 | Byte | 설명                                                                           |
 |------------|------|------|------|--------------------------------------------------------------------------------|
@@ -121,21 +138,22 @@ Content-type: application/json
 
 ### 샘플 코드
 ```bash
-curl -X POST 'https://api.nicepay.co.kr/v1/subscribe/BIKYnicuntct2m2107272028532670/payments' 
+curl -X POST 'https://api.nicepay.co.kr/v1/subscribe/{bid}/payments' 
 -H 'Content-Type: application/json' 
 -H 'Authorization: Basic ZWVjOGQzNTA4Y2IwNDI1ZGI5NTViMzBi...' 
 -D '{
-    "orderId": "merchant-order-id",
-    "amount": 1004,
-    "goodsName": ＂나이스상품",
-    "cardQuota": 0,
-    "useShopInterest": false
+	"orderId":"{상점 거래 고유번호}"
+	,"amount":500
+	,"goodsName":"테스트 상품"
+	,"cardQuota":0
+	,"useShopInterest":false
 }'
 ```
 
 <br>
 
 ### 요청 명세 (Body)
+
 ```bash
 POST /v1/subscribe/{bid}/payments  
 HTTP/1.1  
@@ -143,6 +161,7 @@ Host: api.nicepay.co.kr
 Authorization: Basic <credentials> or Bearer <token>
 Content-type: application/json;charset=utf-8
 ```
+
 | Parameter       | Type    | 필수 | Byte | 설명                                                             |
 |-----------------|---------|------|------|------------------------------------------------------------------|
 | orderId         | String  | O    | 64   | 상점 거래 고유번호<br>가맹점에서 관리하는 Unique한 주문번호 또는 결제번호<br>결제된 orderId로   재호출 불가            |
@@ -165,6 +184,37 @@ Content-type: application/json;charset=utf-8
 ```bash
 POST
 Content-type: application/json
+
+{
+    "resultCode":"0000"
+    ,"resultMsg":"정상 처리되었습니다."
+    ,"tid":"{빌키 승인 거래번호 }"
+    ,"orderId":"{상점 거래 고유번호}"
+    ,"ediDate":"2023-02-14T18:41:26.100+0900"
+    ,"status":"paid"
+    ,"paidAt":"2023-02-14T18:41:25.000+0900"
+    ,"failedAt":"0"
+    ,"cancelledAt":"0"
+    ,"payMethod":"card"
+    ,"amount":500
+    ,"balanceAmt":500
+    ,"goodsName":"테스트 상품"
+    ,"useEscrow":false
+    ,"currency":"KRW"
+    ,"receiptUrl":"{매출전표 확인 URL}"
+    ,"issuedCashReceipt":false
+    ,"card":{
+        "cardCode":"06"
+        ,"cardName":"신한"
+        ,"cardNum":"{카드번호}"
+        ,"cardQuota":0
+        ,"isInterestFree":false
+        ,"cardType":"credit"
+        ,"canPartCancel":true
+        ,"acquCardCode":"06"
+        ,"acquCardName":"신한"
+    }
+}
 ```
 | Parameter         | Type    | 필수 | Byte | 설명                                                                                                           |
 |-------------------|---------|------|------|----------------------------------------------------------------------------------------------------------------|
@@ -237,11 +287,11 @@ Content-type: application/json
 
 ### 샘플 코드
 ``` bash
-curl -X POST 'https://api.nicepay.co.kr/v1/subscribe/BIKYnicuntct2m2107272028532670/expire' 
+curl -X POST 'https://api.nicepay.co.kr/v1/subscribe/{bid}/expire' 
 -H 'Content-Type: application/json' 
 -H 'Authorization: Basic ZWVjOGQzNTA4Y2IwNDI1ZGI5NTViMzBiZjM...' 
 -D '{
-    "orderId": "merchant-order-id"
+    "orderId": "{상점 거래 고유번호}"
 }'
 ```
 
@@ -268,13 +318,23 @@ Content-type: application/json;charset=utf-8
 ```bash
 POST
 Content-type: application/json
+
+{
+    "resultCode":"0000"
+    ,"resultMsg":"정상 처리되었습니다."
+    ,"tid":"{거래번호}"
+    ,"orderId":"{상점 거래 고유번호}"
+    ,"bid":"{삭제처리된 빌키}"
+    ,"authDate":"2023-02-14T18:43:41.712+0900"
+}
+
 ```
 | Parameter  | TYPE   | 필수 | 크기 | 설명                                    |
 |------------|--------|------|------|-----------------------------------------|
 | resultCode | String | O    | 4    | 결제결과코드<br>0000 : 성공 / 그외 실패                 |
 | resultMsg  | String | O    | 100  | 결제결과메시지<br>예시) 빌키가 정상적으로 생성되었습니다. |
 | tid        | String | O    | 30   | 거래를 구분하는 transaction ID<br>예시) nictest00m01011104191651325596    |
-| orderId    | String | O    | 64   | 상점 주문번호                           |
+| orderId    | String | O    | 64   | 상점 거래 고유번호                           |
 | bid        | String | O    | 30   | 빌키<br>NICEPAY가 발급한 빌링 아이디            |
 | authDate   | String | 　   | -    | ISO 8601 형식<br>처리에 성공한경우 리턴됩니다.           |
 
