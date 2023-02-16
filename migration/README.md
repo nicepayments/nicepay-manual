@@ -322,7 +322,8 @@ Content-type: application/x-www-form-urlencoded
 - API 호출시 제약사항을 체크하고, API Host는 샌드박스 도메인(`sandbox-api.nicepay.co.kr`)을 사용 합니다.
 
 ```bash
-GET/POST {URL} HTTP/1.1 
+GET/POST {URL} 
+HTTP/1.1 
 Host: sandbox-api.nicepay.co.kr 
 Authorization: Basic <credentials> or Bearer <token>
 Content-type: application/json;charset=utf-8
