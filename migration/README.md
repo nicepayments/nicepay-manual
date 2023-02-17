@@ -13,7 +13,7 @@
 
 ![image](https://user-images.githubusercontent.com/86043374/128664778-73f6915a-f131-44a5-98a6-b76eccf4ed2d.png)
 
-## KEY정보
+## KEY 정보
 개발정보 탭의 🔑 KEY 정보는 결제창 `승인 모델의 선택`과 `API 인증 방식`을 선택하여 KEY를 발급 및 삭제 할 수 있습니다.
 
 ![image](https://user-images.githubusercontent.com/86043374/128665135-7e576957-c6bc-4540-94b5-df99eef0a6e5.png)
@@ -171,14 +171,14 @@ HTTP 클라이언트 구성 시 타임아웃 예외 처리에 대한 정보 입�
 
 ## 토큰 기반 인증
 
-### Basic auth
+### Basic Authentication
 API 엑세스 제어를 위해 `Basic` 인증 방식을 이용하는 방식 입니다.  
 `HTTP Authorization header`에 Basic 인증 스킴으로 약속된 `credentials` 전달하면 API 엑세스 인증이 완료 됩니다.  
 API 엑세스 방식은 생성된 시크릿키 인증방식에 따라 선택이 가능 합니다.
 
 <br>
 
-#### HTTP header Basic 인증 스킴
+#### HTTP header Basic Authentication Scheme
 ```bash
 Authorization: Basic <credentials>
 ```
@@ -208,13 +208,13 @@ Base64('af0d116236df437f831483ee9c500bc4:433a8421be754b34989048cf148a5ffc')
 Authorization: Basic YWYwZDExNjIzNmRmNDM3ZjgzMTQ4M2VlOWM1MDBiYzQ6NDMzYTg0MjFiZTc1NGIzNDk4OTA0OGNmMTQ4YTVmZmM= 
 ```
 
-### Bearer token
+### Bearer Authentication
 API 엑세스 제어를 위해  `OAuth` 기반 `Bearer` 인증 스킴을 이용하는 방식 입니다.  
 API 접속을 위해 `access token`을 API 서버에 제출해서 인증을 하게 되며,  
 `Bearer token` 인증을 위해 사용되는 token 발급을 위해 [Access token](#access-token) API 호출이 선행 되어야 합니다.  
 API 엑세스 방식은 생성된 시크릿키 인증방식에 따라 선택이 가능 합니다.
 
-#### HTTP header Bearer 인증 스킴
+#### HTTP header Bearer Authentication Scheme
 ```bash
 Authorization: Bearer <token>
 ```
@@ -255,7 +255,7 @@ Authorization: Bearer 6d0a7caa1b7358c8aa06ef3706e01bb1feb2c65dacc7147b258dfdd619
 
 <br>
 
-### 샌드박스를 통한 TEST 개발 예시
+### 샌드박스를 통한 테스트 개발 예시
 - `Basic 인증` / `Server 승인` 기준으로 결제창 TEST 개발 흐름 예시를 설명 합니다.
 
 #### 결제창 호출을 위한 JS include
@@ -322,8 +322,7 @@ Content-type: application/x-www-form-urlencoded
 - API 호출시 제약사항을 체크하고, API Host는 샌드박스 도메인(`sandbox-api.nicepay.co.kr`)을 사용 합니다.
 
 ```bash
-GET/POST {URL} 
-HTTP/1.1 
+GET/POST {URL} HTTP/1.1 
 Host: sandbox-api.nicepay.co.kr 
 Authorization: Basic <credentials> or Bearer <token>
 Content-type: application/json;charset=utf-8
@@ -406,7 +405,7 @@ Content-type: application/json
 
 ## 로그
 
-### 웹로그 디버깅
+### 웹 로그 디버깅
 
 나이스페이는 개발과 디버깅의 편의성을 위해 💿 웹로그를 제공하고 있습니다.
 로그는 단순한 호출 기록과, 상세기록을 나누어 확인 할 수 있습니다.  
@@ -426,7 +425,7 @@ API요청이 실패하는 경우 상세로그를 확인하여 쉽게 디버깅 �
 상세한 `Request` / `Response body` 정보를 제공하는 기능 입니다.  
 상세보기는 다음과 같은 기능을 제공 합니다.
 
-### 로그의 검색
+### 로그 검색
 
 - 선택된 로그의 상세 `Request` / `Response body` 제공
 - 선택된 거래와 연관된 거래의 Timeline
@@ -669,7 +668,7 @@ function serverAuth() {
 
 <br>
 
-#### 다이렉트
+#### 현금영수
 | Parameter          |   Type   |         필수          |  Byte  | 설명                                                                                                                                                                                                                                          |
 |:-------------------|:--------:|:-------------------:|:------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | directReceiptType  |  String  |                     |   20   | 현금영수증 발급 유형<br>unPublished : 미발행<br>individual : 개인 소득공제용<br>company : 사업자 지출증빙용                                                                                                                                                            |
@@ -1000,7 +999,8 @@ Content-type: application/json
 
 <br>
 
-#### 다이렉트
+#### 현금영수증
+
 | Parameter         |  Type  |    필수     | Byte | 설명                                                                                                                                                                                                                                           |
 |:------------------|:------:|:---------:|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | directReceiptType | String |           |  20  | 현금영수증 발급 유형<br>unPublished : 미발행<br>individual : 개인 소득공제용<br>company : 사업자 지출증빙용                                                                                                                                                             |
@@ -1009,6 +1009,7 @@ Content-type: application/json
 <br>
 
 #### PC 옵션
+
 | Parameter       |   Type    |   필수   |  Byte  | 설명                                                                                                                                   |
 |:----------------|:---------:|:------:|:------:|:-------------------------------------------------------------------------------------------------------------------------------------|
 | disableScroll   |  Boolean  |        |   -    | 결제창 스크롤 생성여부<br><br>true : 스크롤 생성 안함(Default : true)<br>false : 스크롤 생성                                                               |
@@ -1018,6 +1019,7 @@ Content-type: application/json
 <br>
 
 #### Mobile 옵션
+
 | Parameter  |   Type   |  필수   |  Byte  | 설명                                                                                                                                                                                                                              |
 |:-----------|:--------:|:-----:|:------:|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | appScheme  |  String  |       |  200   | 모바일 App Scheme 값 (APP 연동인 경우만 사용)<br>가맹점 독립 APP을 이용하여 개발시 (Webview 연동)<br>카드사를 포함한 제휴사 인증 완료 후 결과에대한 focus가 <br>가맹점 APP으로 돌아오기 위해 설정하는 가맹점 APP의 scheme 값을 설정<br>예) 가맹점 App 스킴이 nicepaysample인 경우<br>appScheme=nicepaysample://  |
@@ -1145,13 +1147,13 @@ Content-type: application/json
 
 ## 빌링
 
-- [빌키발급](#빌키발급)
-- [빌키승인](#빌키승인)
-- [빌키삭제](#빌키삭제)
+- [빌키발급](#빌키-발급)
+- [빌키승인](#빌키-승인)
+- [빌키삭제](#빌키-삭제)
 
 <br>
 
-## 빌키발급
+## 빌키 발급
 
 빌링 서비스는 정기결제(한번의 카드 등록을 통해 반복적인 결제)를 구현할 수 있는 서비스 입니다.  
 빌링 서비스는 크게 3가지 파트 [빌키발급](#빌키발급), [빌키승인](#빌키승인), [빌키삭제](#빌키삭제) 부분으로 나뉘어 설명되며,  
@@ -1261,7 +1263,7 @@ Content-type: application/json
 <br>
 
 
-## 빌키승인
+## 빌키 승인
 
 - 빌키 승인은 발급된 bid(빌키)를 통해 💳 결제(승인) 처리를 의미 합니다.
 - 등록된 빌키를 통해 `/v1/subscribe/{bid}/payments` API를 호출하면 💳 결제(승인) 처리가 됩니다.
@@ -1385,7 +1387,7 @@ Content-type: application/json
 <br>
 
 
-## 빌키삭제
+## 빌키 삭제
 
 빌키 삭제는 발급된 bid(빌키)를 삭제는 과정을 의미 합니다.  
 등록된 빌키를  통해 `/v1/subscribe/{bid}/expire` API를 호출하면 빌키 삭제 처리가 됩니다.  
@@ -1451,7 +1453,7 @@ Content-type: application/json
 - [현금영수증 취소](#현금영수증-취소)
 - [현금영수증 조회](#현금영수증-조회)
 
-## 현금영수증 발급
+### 현금영수증 발급
 
 현금영수증은 [발급](#현금영수증-발급), [취소](#현금영수증-취소), [조회](#현금영수증-조회) 과정을 통해 관리가 가능 합니다.  
 현금영수증 발급요청이 성공하면 정보는 다음날 국세청으로 전달되고 현금영수증 발급을 처리를 진행 합니다.  
@@ -1461,7 +1463,7 @@ Content-type: application/json
 <br>
 
 
-### Over-view
+#### Over-view
 <img src="../image/payment-receipt-issue.svg" width="800px">
 
 > #### ⚠️ 중요
@@ -1470,7 +1472,7 @@ Content-type: application/json
 
 <br>
 
-### 샘플 코드
+#### 샘플 코드
 
 ```bash
 curl -X POST 'https://api.nicepay.co.kr/v1/receipt' 
@@ -1491,7 +1493,7 @@ curl -X POST 'https://api.nicepay.co.kr/v1/receipt'
 
 <br>
 
-### 요청 명세 (Body)
+#### 요청 명세 (Body)
 
 ``` bash
 POST /v1/receipt/  
@@ -1521,7 +1523,7 @@ Content-type: application/json;charset=utf-8
 <br>
 
 
-### 응답 명세 (Body)
+#### 응답 명세 (Body)
 
 ```bash
 Content-type: application/json
@@ -1547,7 +1549,7 @@ Content-type: application/json
 
 <br>
 
-### Over-view
+#### Over-view
 <img src="../image/payment-receipt-cancel.svg" width="800px">
 
 > #### ⚠️ 중요
@@ -1556,7 +1558,7 @@ Content-type: application/json
 
 <br>
 
-### 샘플 코드
+#### 샘플 코드
 
 ``` bash
 curl -X POST 'https://api.nicepay.co.kr/v1/receipt/nicuntct1m04012107272036221413/cancel' 
@@ -1570,7 +1572,7 @@ curl -X POST 'https://api.nicepay.co.kr/v1/receipt/nicuntct1m0401210727203622141
 
 <br>
 
-### 요청 명세 (Body)
+#### 요청 명세 (Body)
 
 ``` bash
 POST /v1/receipt/{tid}/cancel  
@@ -1595,7 +1597,7 @@ Content-type: application/json;charset=utf-8
 
 <br>
 
-### 응답 명세 (Body)
+#### 응답 명세 (Body)
 
 ``` bash
 Content-type: application/json
@@ -1616,23 +1618,22 @@ Content-type: application/json
 
 <br>
 
-## 현금영수증 조회
+### 현금영수증 조회
 
-### Over-view
-<img src="../image/payment-receipt-get.svg" width="800px">  
-
-### 설명
 현금영수증 조회는 현금영수증 요청 건의 조회를 의미 합니다.  
 현금영수증 발급요청 성공시 응답받은 tid `/v1/receipt/{tid}` API에 전달하는 것으로 조회 처리 됩니다.
-
-<br>
 
 > #### ⚠️ 중요
 > 국세청으로 발급처리 요청과 발급여부 조회까지의 시간간격은 영업일 기준 최대 ⏱️ D+2일 발생합니다.
 
 <br>
 
-### 샘플 코드
+#### Over-view
+<img src="../image/payment-receipt-get.svg" width="800px">  
+
+<br>
+
+#### 샘플 코드
 
 ``` bash
 curl -X GET 'https://api.nicepay.co.kr/v1/receipt/nicuntct1m04012107272036221413' 
@@ -1642,7 +1643,7 @@ curl -X GET 'https://api.nicepay.co.kr/v1/receipt/nicuntct1m04012107272036221413
 
 <br>
 
-### 요청 명세 (Body)
+#### 요청 명세 (Body)
 
 ``` bash
 GET /v1/receipt/{tid}   
@@ -1667,7 +1668,7 @@ Content-type: application/json;charset=utf-8
 
 <br>
 
-### 응답 명세 (Body)
+#### 응답 명세 (Body)
 
 ``` bash
 POST
@@ -1887,9 +1888,9 @@ curl -X GET 'https://api.nicepay.co.kr/v1/payments/nicuntct1m0101210727200125A05
 
 <br>
 
-## 요청 명세
+### 요청 명세
 
-### 거래조회(with tid)
+#### 거래조회(with tid)
 
 ```bash
 GET /v1/payments/{tid} 
@@ -1907,7 +1908,7 @@ Content-type: application/json;charset=utf-8
 
 <br>
 
-### 거래조회(with orderId)
+#### 거래조회(with orderId)
 
 ```bash
 GET /v1/payments/find/{orderId} HTTP/1.1  
@@ -1925,8 +1926,9 @@ Content-type: application/json;charset=utf-8
 
 <br>
 
-## 응답 명세 (공통)
+### 응답 명세 (Body)
 
+#### 공통
 ```bash
 Content-type: application/json
 ```
@@ -1962,7 +1964,7 @@ Content-type: application/json
 
 <br>
 
-### 할인 정보 <img src="https://img.shields.io/badge/-Object-yellow"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
+#### 할인정보 <img src="https://img.shields.io/badge/-Object-yellow"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
 
 | Parameter |           |   Type   |  필수   |  　Byte  | 설명            |
 |:----------|:----------|:--------:|:-----:|:-------:|:--------------|
@@ -1971,7 +1973,7 @@ Content-type: application/json
 
 <br>
 
-### 카드 <img src="https://img.shields.io/badge/-Object-yellow"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
+#### 카드 <img src="https://img.shields.io/badge/-Object-yellow"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
 
 | Parameter |                |   Type    |  필수   |  　Byte  | 설명                                                                                            |
 |:----------|:---------------|:---------:|:-----:|:-------:|:----------------------------------------------------------------------------------------------|
@@ -1988,7 +1990,7 @@ Content-type: application/json
 
 <br>
 
-### 현금영수증 <img src="https://img.shields.io/badge/-Array-blueviolet"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
+#### 현금영수증 <img src="https://img.shields.io/badge/-Array-blueviolet"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
 
 | Parameter    |             |  Type   |  필수   |  Byte  | 설명                                                                                                                                                                                                                                                                                                                                                                                                   |
 |:-------------|:------------|:-------:|:-----:|:------:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -2004,7 +2006,7 @@ Content-type: application/json
 
 <br>
 
-### 계좌이체 <img src="https://img.shields.io/badge/-Object-yellow"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
+#### 계좌이체 <img src="https://img.shields.io/badge/-Object-yellow"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
 
 | Parameter  |           |   Type   |  필수   |  Byte  | 설명                |
 |:-----------|:----------|:--------:|:-----:|:------:|:------------------|
@@ -2014,7 +2016,7 @@ Content-type: application/json
 
 <br>
 
-### 가상계좌 <img src="https://img.shields.io/badge/-Object-yellow"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
+#### 가상계좌 <img src="https://img.shields.io/badge/-Object-yellow"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
 
 | Parameter |               |   Type   |  필수   |  Byte  | 설명                       |
 |:----------|:--------------|:--------:|:-----:|:------:|:-------------------------|
@@ -2028,7 +2030,7 @@ Content-type: application/json
 
 <br>
 
-### 취소 <img src="https://img.shields.io/badge/-Array-blueviolet"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
+#### 취소 <img src="https://img.shields.io/badge/-Array-blueviolet"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
 
 | Parameter |              |   Type   |  필수   |  　Byte  | 설명                     |
 |:----------|:-------------|:--------:|:-----:|:-------:|:-----------------------|
@@ -2069,7 +2071,7 @@ curl -X GET 'https://api.nicepay.co.kr/v1/terms?termsType={약관유형}'
 
 <br>
 
-## 요청 명세
+### 요청 명세
 
 ```bash
 GET /v1/terms?termsType={turmsType} 
@@ -2086,7 +2088,8 @@ Content-type: application/json;charset=utf-8
 
 <br>
 
-## 응답 명세
+### 응답 명세 (Body)
+
 ```bash
 Content-type: application/json
 ```
@@ -2141,7 +2144,7 @@ Content-type: application/json;charset=utf-8
 
 <br>
 
-### 응답 명세
+### 응답 명세 (Body)
 
 ```bash
 POST
@@ -2206,7 +2209,7 @@ Content-type: application/json;charset=utf-8
 
 <br>
 
-### 응답 명세
+### 응답 명세 (Body)
 
 ```bash
 Content-type: application/json
@@ -2242,7 +2245,7 @@ Content-type: application/json
   - [결제수단별 취소/환불](#결제수단별-취소환불)
 - [망취소](#망취소)
 
-## 취소 / 환불
+## 취소·환불
 
 ### Over-view
 💳 결제(승인)이 완료된 거래의 취소 및 환불에 대한 가이드 입니다.  
@@ -2251,7 +2254,7 @@ Content-type: application/json
 
 <br>
 
-### 결제수단별 취소/환불
+### 결제수단 별 취소/환불
 
 | 결제수단         |  전체취소  |  부분취소  |  전체환불  |  부분환불  |  취소 가능 기간  |
 |:-------------|:------:|:------:|:------:|:------:|:----------:|
@@ -2312,7 +2315,7 @@ Content-type: application/json;charset=utf-8
 
 <br>
 
-### 응답 명세
+### 응답 명세 (Body)
 
 ```bash
 POST
@@ -2350,7 +2353,7 @@ Content-type: application/json
 
 <br>
 
-#### 할인 정보 <img src="https://img.shields.io/badge/-Object-yellow"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
+#### 할인정보 <img src="https://img.shields.io/badge/-Object-yellow"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
 
 | Parameter |           |   Type   |  필수   |  　Byte  | 설명            |
 |:----------|:----------|:--------:|:-----:|:-------:|:--------------|
@@ -2439,12 +2442,12 @@ Content-type: application/json
 
 <br>
 
-### 결제창 (Server 승인 모델) 의 망취소 구현
+### 결제창 (Server 승인 모델)의 망취소 구현
 <img src="../image/netcancel-server-authorization.svg" width="800px">   
 
 <br>
 
-### 결제창 (Client 승인 모델) 의 망취소 구현
+### 결제창 (Client 승인 모델)의 망취소 구현
 <img src="../image/netcancel-client-authorization.svg" width="800px">   
 
 <br>
@@ -2494,7 +2497,7 @@ Content-type: application/json;charset=utf-8
 
 <br>
 
-### 응답 명세
+### 응답 명세 (Body)
 
 ```bash
 POST
@@ -2532,7 +2535,7 @@ Content-type: application/json
 
 <br>
 
-#### 할인 정보 <img src="https://img.shields.io/badge/-Object-yellow"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
+#### 할인정보 <img src="https://img.shields.io/badge/-Object-yellow"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
 
 | Parameter |           |  Type   |  필수   |  　Byte  | 설명            |
 |:----------|:----------|:-------:|:-----:|:-------:|:--------------|
@@ -2668,9 +2671,9 @@ Content-type: application/json
 ![image](https://user-images.githubusercontent.com/86043374/128665763-ce74dccf-d672-4670-ad9c-5ce2a4e5e108.png)
 
 
-### 웹훅 TEST호출
+### 웹훅 테스트 호출
 
-#### 웹훅 TEST 호출 처리 프로세스
+#### 웹훅 테스트 호출 처리 프로세스
 <img src="../image/sandbox-webhook.svg" width="800px">  
 웹훅 등록 후 TEST호출 버튼을 클릭하면 등록된 `End-point`로 test 웹훅 전문이 전달 됩니다.  
 또한 등록된 `End-point`에서 웹훅 처리가 성공적으로 되었는지 체크가 가능 합니다.  
@@ -2694,7 +2697,7 @@ Content-type: application/json
 
 <br>
 
-### 웹훅 응답 명세
+### 응답 명세 (Body)
 
 ```bash
 POST
@@ -2732,7 +2735,7 @@ Content-type: application/json;charset=utf-8
 
 <br>
 
-#### 할인 정보 <img src="https://img.shields.io/badge/-Object-yellow"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
+#### 할인정보 <img src="https://img.shields.io/badge/-Object-yellow"> <img src="https://img.shields.io/badge/-nullable-lightgrey">
 
 | Parameter |           |  Type  | 필수  | 　Byte | 설명           |
 |:----------|:----------|:------:|:---:|:-----:|:-------------|
@@ -2882,7 +2885,7 @@ App 내 웹뷰를 통해 결제창을 연동하는 경우, 웹 환경에서 결�
 <br>
 
 
-### iOS appScheme 설정 - Client 승인 모델
+### appScheme 설정 - Client 승인 모델
 
 ```html
 <script src="https://pay.nicepay.co.kr/v1/js/"></script> 
@@ -2903,7 +2906,7 @@ App 내 웹뷰를 통해 결제창을 연동하는 경우, 웹 환경에서 결�
 
 <br>
 
-### iOS appScheme 설정 - Server 승인 모델
+### appScheme 설정 - Server 승인 모델
 
 ```html
 <script src="https://pay.nicepay.co.kr/v1/js/"></script>
@@ -2925,7 +2928,7 @@ App 내 웹뷰를 통해 결제창을 연동하는 경우, 웹 환경에서 결�
 <br>
 
 
-### iOS URL Scheme 설정
+### URL Scheme 설정
 
 - 가맹점 어플리케이션에 URL Scheme 을 등록합니다. (JS SDK 호출시 appScheme 필드 값으로 URL Scheme 사용)
 - `info.plist` 파일에 URL Scheme을 등록 합니다. (3rd 어플리케이션 -> 가맹점 어플리케이션 호출)
@@ -2955,7 +2958,7 @@ info.plist
 
 <br>
 
-#### iOS 3rd 어플리케이션 URL Scheme 등록
+#### 3rd party app URL Scheme 등록
 
 - `info.plist` 파일에 `3rd URL Scheme`을 등록 합니다. (가맹점 어플리케이션 -> 3rd 어플리케이션 호출)
 - URL Scheme 미설정 시 3rd 어플리케이션 연동이 불가 합니다.
@@ -3005,7 +3008,7 @@ info.plist
 
 <br>
 
-#### iOS 3rd URL Scheme 리스트
+#### 3rd URL Scheme 리스트
 
 | APP                   | SCHEME                       |
 |-----------------------|------------------------------|
@@ -3045,7 +3048,7 @@ info.plist
 
 <br>
 
-### iOS 네트워크 보안 예외 설정
+### 네트워크 보안 예외 설정
 - HTTP 또는 유효하지 않은 인증서를 가진 HTTPS 연결 시 예외 처리입니다.
 - Apple에서는 하기와 같은 방법을 권장하지 않으며, 특정 도메인에 대해서만 예외 처리하도록 권장 합니다.
 
@@ -3065,9 +3068,9 @@ info.plist
 
 <br>
 
-## iOS-Swift 웹뷰(web-view)개발 가이드
+## iOS-Swift 웹 뷰(web-view)개발 가이드
 
-### iOS-Swift 결제 페이지 호출
+### 결제 페이지 호출
 
 - 웹뷰의 load를 통해 결제 요청 URL을 호출 합니다. 가맹점 결제 요청 웹 페이지 예시
 
@@ -3094,7 +3097,7 @@ override func viewDidLoad() {
 
 <br>
 
-### iOS-Swift URL 처리 및 3rd 어플리케이션 호출
+### URL 처리 및 3rd party app 호출
 
 - URL에 포함된 App Scheme을 통해 어플리케이션 호출(openURL)
 ```bash
@@ -3136,7 +3139,7 @@ func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigatio
 
 <br>
 
-### iOS-Swift 자바스크립트 팝업 처리
+### 자바스크립트 팝업 처리
 
 - 웹뷰의 오버라이딩 함수를 재정의 하여 팝업 처리 하면 웹뷰 처리가 완료 됩니다.
 
@@ -3156,11 +3159,11 @@ func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: S
 
 <br>
 
-## iOS-Objective-C 웹뷰(web-view)개발 가이드
+## iOS-Objective-C 웹 뷰(web-view)개발 가이드
 
 <br>
 
-### iOS-Objective-C 결제 페이지 호출
+### 결제 페이지 호출
 - 웹뷰의 loadRequest를 통해 결제 요청 URL을 호출 (가맹점 결제 요청 웹 페이지)
 ```bash
 Object-C
@@ -3184,7 +3187,7 @@ Object-C
 
 <br>
 
-### iOS-Objective-C URL 처리 및 3rd 어플리케이션 호출
+### URL 처리 및 3rd party app 호출
 
 - URL에 포함된 App Scheme을 통해 어플리케이션 호출(openURL)
 
@@ -3224,7 +3227,7 @@ Object-C
 
 <br>
 
-### iOS-Objective-C 자바스크립트 팝업 처리
+### 자바스크립트 팝업 처리
 
 - 웹뷰의 오버라이딩 함수를 재정의 하여 팝업 처리
 
@@ -3289,7 +3292,7 @@ App 내 웹뷰를 통해 결제창을 연동하는 경우, 웹 환경에서 결�
 
 <br>
 
-### Android appScheme 설정- Server 승인 모델, Client 승인 모델
+### appScheme 설정- Server 승인 모델, Client 승인 모델
 
 ```html
 <script src="https://pay.nicepay.co.kr/v1/js/"></script>
@@ -3353,7 +3356,7 @@ AndroidManifast.xml
 
 <br>
 
-## Android-java 웹뷰(web-view)개발 가이드
+## Android-java 웹 뷰(web-view)개발 가이드
 
 ### Android-java 기본 설정 및 자바스크립트 허용
 - 웹뷰 커스텀 클래스를 설정하고 자바스크립트 실행 가능하도록 `enabled` 설정 합니다.
@@ -3501,7 +3504,7 @@ private class WebViewClientClass extends WebViewClient {
 > Ex) `cloudpay://~` 로 들어올 경우 `if( url.startwith("cloudpay”) 추가)`
 
 
-## Android-kotlin 웹뷰(web-view)개발 가이드
+## Android-kotlin 웹 뷰(web-view)개발 가이드
 
 ### Android-kotlin 기본 설정 및 자바스크립트 허용
 - 웹뷰 커스텀 클래스를 설정하고 자바스크립트 실행 가능하도록 `enabled` 설정 합니다.
