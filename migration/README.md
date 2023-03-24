@@ -385,7 +385,7 @@ Content-type: application/json
   card: {
     cardCode: '04',
     cardName: '삼성',  # (샌드박스) 응답 결과는 삼성카드로 고정 
-    cardNum: '12341234****1234',
+    cardNum: '123412******1234',
     cardQuota: 0,
     isInterestFree: false,
     cardType: 'credit',
