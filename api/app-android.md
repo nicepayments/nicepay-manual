@@ -41,6 +41,67 @@ function serverAuth() {
 </script>
 ```
 
+### 패키지명 정의
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="kr.co.nicepay.nicepayappsample">
+
+	<queries>
+        <!--신용카드-->
+        <package android:name="kr.co.samsungcard.mpocket" />  <!--삼성 앱카드, 삼성 앱카드 공동인증서-->
+        <package android:name="com.shcard.smartpay" />  <!--신한 페이판-->
+        <package android:name="com.shinhancard.smartshinhan" />  <!--신한(ARS/일반결제/Smart결제), 신한 공동인증서-->
+        <package android:name="com.kbcard.cxh.appcard" />  <!--KBPay-->
+        <package android:name="com.kbstar.liivbank" />  <!--LiiV(국민은행)-->
+        <package android:name="com.kbstar.reboot" />  <!--new liib-->
+        <package android:name="kvp.jjy.MispAndroid320" />  <!--페이북/ISP-->
+        <package android:name="com.hanaskcard.paycla" />  <!--하나카드 원큐페이-->
+        <package android:name="kr.co.hanamembers.hmscustomer" />  <!--하나멤버스-->
+        <package android:name="com.lcacApp" />  <!--롯데 앱카드-->
+        <package android:name="nh.smart.nhallonepay" />  <!--NH 올원페이, NH 올원페이 공동인증서-->
+        <package android:name="com.wooricard.smartapp" />  <!--우리 WON 카드-->
+        <package android:name="com.hyundaicard.appcard" />  <!--현대 앱카드-->
+        <package android:name="kr.co.citibank.citimobile" />  <!--씨티카드-->
+
+        <!--공인인증-->
+        <package android:name="com.hanaskcard.rocomo.potal" />  <!--하나카드-->
+        <package android:name="com.lumensoft.touchenappfree" />  <!--공동인증서-->
+
+        <!--백신-->
+        <package android:name="com.TouchEn.mVaccine.webs" />  <!--TouchEn mVaccine(신한)-->
+        <package android:name="com.ahnlab.v3mobileplus" />  <!--V3(NH, 현대)-->
+        <package android:name="kr.co.shiftworks.vguardweb" />  <!--V-Guard(삼성)-->
+
+        <!--간편결제-->
+        <package android:name="com.samsung.android.spay" />  <!--삼성페이(삼성, 농협, KB)-->
+        <package android:name="com.samsung.android.spaylite" />  <!--삼성페이 미니(삼성, KB)-->
+        <package android:name="com.kakao.talk" />  <!--카카오페이-->
+        <package android:name="com.nhn.android.search" />  <!--네이버페이-->
+        <package android:name="com.ssg.serviceapp.android.egiftcertificate" />  <!--SSGPay(현대)-->
+        <package android:name="com.nhnent.payapp" />  <!--페이코(삼성, 농협, KB)-->
+        <package android:name="com.lge.lgpay" />  <!--엘지페이(삼성, KB)-->
+        <package android:name="com.lottemembers.android" />  <!--LPay-->
+		<package android:name="com.tencent.mm" /> <!-- 위챗페이-->
+        <package android:name="viva.republica.toss" /> <!-- 토스-->
+
+        <!--계좌이체-->
+        <package android:name="com.kftc.bankpay.android" />  <!--금결원-->
+
+        <!--본인인증-->
+        <package android:name="com.sktelecom.tauth" />  <!--SKT-->
+        <package android:name="com.kt.ktauth" />  <!--KT-->
+        <package android:name="com.lguplus.smartotp" />  <!--LGT-->
+    </queries>
+    <!-- 권한 설정 -->
+    ...
+    <!-- 네트워크 권한 설정 -->
+    ...
+</manifest>
+```
+
+
 ### 권한 설정
 - `AndroidManifast.xml` 파일에 권한 및 네트워크 🔒 보안 예외 설정을 합니다.
 
@@ -48,6 +109,9 @@ function serverAuth() {
 AndroidManifast.xml 
 ```
 ```xml
+<!-- 패키지 설정 -->
+...
+<!-- 권한 설정 -->
 <uses-permission android:name="android.permission.INTERNET" />
  
 <application
@@ -71,8 +135,12 @@ AndroidManifast.xml
 ```
 
 ```xml
+<!-- 패키지 설정 -->
+...
+<!-- 권한 설정 -->
 <uses-permission android:name="android.permission.INTERNET" />
  
+<!-- 네트워크 보안 정책 --> 
 <application
   android:allowBackup="true"
   android:icon="@mipmap/ic_launcher"
