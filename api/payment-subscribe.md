@@ -49,12 +49,12 @@ Content-type: application/json;charset=utf-8
 
 | Parameter     | Type   | 필수 | Byte | 설명                                                                      |
 |---------------|--------|------|------|---------------------------------------------------------------------------|
-| encData       | String | O    | 512  | 결제정보 암호화 데이터<br>- 암호화 알고리즘 :   AES128<br>- 암호화 상세 :   AES/ECB/PKCS5padding<br>- 암호결과 인코딩 :   Hex Encoding<br>- 암호 KEY :   SecretKey 앞 16자리<br>- IV : SecretKey 앞 16자리<br>-   Hex(AES(cardNo=value&expYear=YY&expMonth=MM&idNo=value&cardPw=value))<br>*상세 명세는 하단 참조*|
+| encData       | String | O    | 512  | 결제정보 암호화 데이터<br>- 암호화 알고리즘 :   AES128<br>- 암호화 상세 :   AES/ECB/PKCS5padding<br>- 암호결과 인코딩 :   Hex Encoding<br>- 암호 KEY : SecretKey 앞 16자리<br>- Hex(AES(cardNo=value&expYear=YY&expMonth=MM&idNo=value&cardPw=value))<br>*상세 명세는 하단 참조*|
 | orderId       | String | O    | 64   | 상점 거래 고유번호<br>가맹점에서 관리하는 Unique한 주문번호 또는 결제번호                       |
 | buyerName     | String | 　   | 30   | 구매자                                                                    |
 | buyerEmail    | String | 　   | 60   | 구매자 이메일주소                                                         |
 | buyerTel      | String | 　   | 20   | 구매자 전화번호<br> '-' 없이 숫자만 입력                                                      |
-| encMode       | String | 　   | 10   | 암호화 모드<br>encData 필드의 암호화 알고리즘 정의<br><br> A2 : AES256<br>•암호화 알고리즘 : AES256<br>•암호화 상세 : AES/CBC/PKCS5padding <br>•암호결과 인코딩 : Hex Encoding <br> •암호 KEY : SecretKey (32byte)<br>•IV : SecretKey 앞 16자리                                                 |
+| encMode       | String | 　   | 10   | 암호화 모드<br>encData 필드의 암호화 알고리즘 정의<br><br> A2 : AES256<br>•암호화 알고리즘 : AES256<br>•암호화 상세 : AES/CBC/PKCS5padding <br>•암호결과 인코딩 : Hex Encoding <br> •암호 KEY : SecretKey (32byte)<br>•IV : SecretKey 앞 16자리                                             |
 | ediDate       | String | 　   | -    | 전문생성일시<br> ISO 8601 형식                                                             |
 | signData      | Int    | 　   | 256  | 위변조 검증 Data<br>생성규칙 : hex(sha256(orderId + ediDate +   SecretKey))<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.|
 | returnCharSet | String | 　   | 10   | 응답파라메터 인코딩 방식<br>가맹점 서버의 encoding 방식 전달<br>예시) utf-8(Default) / euc-kr                                |
