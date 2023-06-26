@@ -1224,10 +1224,9 @@ Content-type: application/json;charset=utf-8
 ### encData 필드 암호화 예시 (AES-128)
 
 ```bash
-- 평문  : cardNo=1234567890123456&expYear=25&expMonth=12&idNo=800101&cardPw=12
-- 암호키 : 2dcc2a0d63bf4694 (SecretKey 앞16자리)
-- IV : 2dcc2a0d63bf4694 (SecretKey 앞16자리)
-- 암호화결과 : `2127975b6d82c36136ba8197a997a994f6c086ff75a6d35e514c54a1e686545e60b76f11bec706de1082e43dd74ae5c5f0709dc1eca6c3cd20e1c0e9e9b7a85c6505461c91c865d82072e41ba5284bd7`
+ - 평문: cardNo=1234567890123456&expYear=25&expMonth=12&idNo=800101&cardPw=12 
+ - 암호화 키: 2dcc2a0d63bf4694 
+ - 암호화결과: 7c4b12eb43324290bd0e522900a892343f57e0d176cdadae757132c7f3cd442f023ef5c3ffa254ed04b6d47624d4c7847e8061f3be0d67adf1b463b46a542052cf47a5206bfd23945fc1851d426468f4
 ```
 
 <br>
@@ -1235,8 +1234,8 @@ Content-type: application/json;charset=utf-8
 ### encData 필드 암호화 예시 (AES-256)
 ```bash
 - 평문 : cardNo=1234567890123456&expYear=25&expMonth=12&idNo=800101&cardPw=12
-- 암호키 : 2dcc2a0d63bf469490bb19a201be3735
-- IV  : 2dcc2a0d63bf4694 (SecretKey 앞16자리)
+- 암호화 키 : 2dcc2a0d63bf469490bb19a201be3735
+- IV : 2dcc2a0d63bf4694 (SecretKey 앞16자리)
 - 암호화결과 : `6ecfe97e521bc67c3053d74a9dbdba53033d343fc9e8e38e730964b22ef2e4a59607171b00a9da977141b3f79fffa1e80a16c08bc58666b479f554a966a363414347e62f2621f8df220c7a4a545592d0`
 ```
 
