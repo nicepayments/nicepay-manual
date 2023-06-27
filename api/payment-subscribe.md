@@ -78,7 +78,6 @@ Content-type: application/json;charset=utf-8
 ```bash
 - 평문  : cardNo=1234567890123456&expYear=25&expMonth=12&idNo=800101&cardPw=12
 - 암호키 : 2dcc2a0d63bf4694 (SecretKey 앞16자리)
-- IV : 2dcc2a0d63bf4694 (SecretKey 앞16자리)
 - 암호화결과 : `2127975b6d82c36136ba8197a997a994f6c086ff75a6d35e514c54a1e686545e60b76f11bec706de1082e43dd74ae5c5f0709dc1eca6c3cd20e1c0e9e9b7a85c6505461c91c865d82072e41ba5284bd7`
 ```
 
