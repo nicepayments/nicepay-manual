@@ -547,7 +547,7 @@ Content-type: application/json;charset=utf-8
 
 |   Parameter   |  type  | 필수  | byte | 설명                                                    |
 |:-------------:|:------:|:---:|:----:|:------------------------------------------------------|
-| returnCharSet | String |     |  10  | 응답 파라메터 인코딩 방식<br> 값: utf-8/euc-kr <br> Default:utf-7 |
+| returnCharSet | String |     |  10  | 응답 파라메터 인코딩 방식<br> 값: utf-8/euc-kr <br> Default:utf-8 |
 
 
 ### 응답 명세 (Body)
