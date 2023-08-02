@@ -664,7 +664,7 @@ function serverAuth() {
 #### 휴대폰
 | Parameter  |  Type  |  필수   |  Byte  | 설명             |
 |:-----------|:------:|:-----:|:------:|:---------------|
-| isDigital  |  Int   |   O   |   1    | 0: 컨텐츠, 1: 실물  |
+|  isDigital  |  Boolean   |  휴대폰결제  |   -    | true: 컨텐츠, false: 실물  |
 
 <br>
 
@@ -995,7 +995,7 @@ Content-type: application/json
 
 | Parameter  |  Type  |   필수    |  Byte  | 설명             |
 |:-----------|:------:|:-------:|:------:|:---------------|
-| isDigital  |  Int   |  휴대폰결제  |   1    | 0: 컨텐츠, 1: 실물  |
+|  isDigital  |  Boolean   |  휴대폰결제  |   -    | true: 컨텐츠, false: 실물  |
 
 <br>
 

@@ -12,24 +12,24 @@ Authorization : Basic or Bearer
 Content-Type : application/json
 ```
 
-| API                                                                 |     Method    |               Endpoint              |
-|:--------------------------------------------------------------------|:-------------:|:-----------------------------------|
-| [AccessToken 발급](/api/payment-access-token.md)                      |      `POST`     |     /v1/access-token                |
-| [결제창 승인](/api/payment-window-server.md#승인)                          |      `POST`     |     /v1/payments/{tid}              |
-| [취소 요청](/api/cancel.md#취소환불망취소)                                     |      `POST`     |     /v1/payments/{tid}/cancel       |
-| [거래조회-tid](/api/status-transaction.md#거래조회tid-활용)                   |       `GET`     |     /v1/payments/{tid}              |
-| [거래조회-orderId](/api/status-transaction.md#거래조회orderid-활용)           |       `GET`     |     /v1/payments/find/{orderId}     |
-| [빌키발급](/api/payment-subscribe.md#빌키발급)                              |      `POST`     |     /v1/subscribe/regist            |
-| [빌키승인](/api/payment-subscribe.md#빌키승인)                              |      `POST`     |     /v1/subscribe/{bid}/payments    |
-| [빌키삭제](/api/payment-subscribe.md#빌키삭제)                              |      `POST`     |     /v1/subscribe/{bid}/expire      |
-| [약관조회](/api/status-terms.md#약관-조회)                                  |       `GET`     |     /v1/terms                       |
-| [N정통Epay승인](/api/payment-epay.md#epay)                              |      `POST`     |     /v1/epay                        |
-| [현금영수증 발급](/api/payment-receipt.md#현금영수증-발급)                        |      `POST`    |     /v1/receipt/                    |
-| [현금영수증 취소](/api/payment-receipt.md#현금영수증-취소)                        |      `POST`     |     /v1/receipt/{tid}/cancel        |
-| [현금영수증 거래조회](/api/payment-receipt.md#현금영수증-조회)                      |       `GET`     |     /v1/receipt/{tid}               |
-| [카드 이벤트 조회](/api/status-event.md#카드-이벤트)                            |       `GET`     |     /v1/card/event                  |
-| [카드 무이자정보 조회](/api/status-interest.md#카드-무이자-조회)                    |       `GET`     |     /v1/card/interest-free          |
-| [승인금액검증](/api/payment-window-client.md#승인-금액-검증)                    |      `POST`     |     /v1/check-amount/{tid}          |
+| API                                                       | Method | Endpoint                     |
+|:----------------------------------------------------------|:------:|:-----------------------------|
+| [AccessToken 발급](/api/payment-access-token.md)            | `POST` | /v1/access-token             |
+| [결제창 승인](/api/payment-window-server.md#승인)                | `POST` | /v1/payments/{tid}           |
+| [취소 요청](/api/cancel.md#취소환불망취소)                           | `POST` | /v1/payments/{tid}/cancel    |
+| [거래조회-tid](/api/status-transaction.md#거래조회tid-활용)         | `GET`  | /v1/payments/{tid}           |
+| [거래조회-orderId](/api/status-transaction.md#거래조회orderid-활용) | `GET`  | /v1/payments/find/{orderId}  |
+| [빌키발급](/api/payment-subscribe.md#빌키발급)                    | `POST` | /v1/subscribe/regist         |
+| [빌키승인](/api/payment-subscribe.md#빌키승인)                    | `POST` | /v1/subscribe/{bid}/payments |
+| [빌키삭제](/api/payment-subscribe.md#빌키삭제)                    | `POST` | /v1/subscribe/{bid}/expire   |
+| [약관조회](/api/status-terms.md#약관-조회)                        | `GET`  | /v1/terms                    |
+| [N정통Epay승인](/api/payment-epay.md#epay)                    | `POST` | /v1/epay                     |
+| [현금영수증 발급](/api/payment-receipt.md#현금영수증-발급)              | `POST` | /v1/receipt/                 |
+| [현금영수증 취소](/api/payment-receipt.md#현금영수증-취소)              | `POST` | /v1/receipt/{tid}/cancel     |
+| [현금영수증 거래조회](/api/payment-receipt.md#현금영수증-조회)            | `GET`  | /v1/receipt/{tid}            |
+| [카드 이벤트 조회](/api/status-event.md#카드-이벤트)                  | `GET`  | /v1/card/event               |
+| [카드 무이자정보 조회](/api/status-interest.md#카드-무이자-조회)          | `GET`  | /v1/card/interest-free       |
+| [승인금액검증](/api/payment-window-client.md#승인-금액-검증)          | `POST` | /v1/check-amount/{tid}       |
 
 <br>
 
