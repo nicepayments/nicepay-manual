@@ -30,7 +30,7 @@ curl -X POST "https://api.nicepay.co.kr/v1/access-token" 
 POST /v1/access-token  
 HTTP/1.1  
 Host: api.nicepay.co.kr 
-Authorization: Basic <credentials>  or Bearer <token>
+Authorization: Basic <credentials>
 Content-type: application/json;charset=utf-8
 ```
 |   Parameter  | type        |    필수    | byte |                             설명                           |
