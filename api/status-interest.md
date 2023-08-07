@@ -57,8 +57,8 @@ Content-type: application/json
 |                  | cardCode        |             | String | O    | 3    | 카드사 코드<br>신용카드사별 코드                     |
 |                  | cardName        |             | String | O    | 20   | 카드사 이름<br>예) 비씨                              |
 |                  | freeInstallment |             | Array  | O    | -    | 무이자 할부 상세 정보                 |
-|                  |                 | minAmt      | Int    | O    | 12   | 이벤트 적용 최소 금액<br>ex) 50000                             |
-|                  |                 | maxAmt      | Int    | O    | 14   | 이벤트 적용 최대 금액<br>ex) 99999999999999                    |
+|                  |                 | minAmt      | Integer    | O    | 12   | 이벤트 적용 최소 금액<br>ex) 50000                             |
+|                  |                 | maxAmt      | Integer    | O    | 14   | 이벤트 적용 최대 금액<br>ex) 99999999999999                    |
 |                  |                 | installment | String | O    | 100  | 무이자 할부개월<br>콜론(:)을 구분자로 할부개월 나열<br>ex) 02:03:04:05<br>- 설명 : 2,3,4,5개월 무이자 할부 제공 |
 |                  |                 | eventToDate | String | O    | -    | 이벤트 제공 기한<br>ISO 8601 형식                         |
 

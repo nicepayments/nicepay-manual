@@ -31,16 +31,16 @@ Content-type: application/json;charset=utf-8
 |-----------------|---------|------|------|---------------------------------------------------------------------------------------------------------------------|
 | orderId         | String  | O    | 64   | 상점 거래 고유번호<br>가맹점에서 관리하는 Unique한 주문번호 또는 결제번호<br> 결제된 orderId로 재호출 불가                                                                                        |
 | encData         | String  | O    | -    | 결제정보 암호화 데이터 [encData 상세정보 참고](#encdata-상세-정보)<br>결제정보 암호화 생성 규칙 [encData 암호화 정보 참고](#encdata-암호화-정보)<br>- Hex(AES(authFlag=value&cardNo=value&track2Data=value&cardExpire=value&TRID=value&CAVV=value&XID=value&ECI=value)) |
-| amount          | Int     | O    | 12   | 결제 금액                                                                                                           |
+| amount          | Integer     | O    | 12   | 결제 금액                                                                                                           |
 | goodsName       | String  | O    | 40   | 상품명                                                                                                              |
 | cardCode        | String  | O    | 2    | 카드사 코드                                                                                                         |
-| cardQuota       | Int     | O    | 2    | 할부개월<br>0:일시불, 2:2개월, 3:3개월 …                                                                                        |
+| cardQuota       | Integer     | O    | 2    | 할부개월<br>0:일시불, 2:2개월, 3:3개월 …                                                                                        |
 | useShopInterest | Boolean | O    | -    | 상점분담무이자 사용여부<br>false : 유이자 / true : 무이자<br>- 사전 협의된 카드사에 한하여 무이자   결제 가능.<br>- 분담무이자 미등록된 카드사로   승인요청하면 결제 실패됩니다.                                                     |
 | useCardPoint    | Boolean | 　   | -    | 카드사포인트 사용 여부<br>false:포인트 미사용(default) / true:포인트 사용<br>- 사전에 협의된 카드사에 한하여   포인트 결제 가능합니다.<br>- 포인트 미보유 시 결제   실패됩니다.(일부 카드사 결제 허용)                                                       |
 | buyerName       | String  | 　   | 30   | 구매자 이름                                                                                                         |
 | buyerTel        | String  | 　   | 40   | 구매자 전화번호<br>하이픈(-) 없이 숫자만 입력                                                                                          |
 | buyerEmail      | String  | 　   | 60   | 구매자 이메일                                                                                                       |
-| taxFreeAmt      | Int     | 　   | 12   | 면세공급가액<br>전체 거래금액(amount)중에서 면세에 해당하는 금액을 설정합니다.                                                      |
+| taxFreeAmt      | Integer     | 　   | 12   | 면세공급가액<br>전체 거래금액(amount)중에서 면세에 해당하는 금액을 설정합니다.                                                      |
 | mallReserved    | String  | 　   | 500  | 상점 정보 전달용 예비필드<br>승인응답 또는 webhook 시점에 요청 원문을 전달 합니다.<br>JSON string format으로 이용하시기를 권고 드립니다.<br>단, 큰따옴표(")는 이용불가                                                                                          |
 | encMode         | String  | 　   | 10   | 암호화 모드<br>encData 필드의 암호화 알고리즘 정의<br>- A2 : AES256                                                                                                      |
 | ediDate         | String  | 　   | -    | 전문생성일시 <br>ISO 8601 형식                                                                                                       |
@@ -111,8 +111,8 @@ Content-type: application/json
 | failedAt          | String  | O    | -    | 결제실패시점 ISO 8601 형식<br>결제실패가 아닐 경우 0                                                                                         |
 | cancelledAt       | String  | O    | -    | 결제취소시점 ISO 8601 형식<br>결제취소가 아닐 경우 0<br>부분취소인경우, 가장   마지막건의 취소 시간                                                                    |
 | payMethod         | String  | O    | 10   | 결제수단<br><br>card:신용카드,<br>vbank:가상계좌,<br>bank:계좌이체,<br>cellphone:휴대폰,<br>naverpay=네이버페이, kakaopay=카카오페이, samsungpay=삼성페이                   |
-| amount            | Int     | O    | 12   | 결제 금액                                                                                                      |
-| balanceAmt        | Int     | O    | 12   | 취소 가능 잔액<br>부분취소 거래인경우, 전체금액에서   현재까지 취소된 금액을 차감한 금액.                                        |
+| amount            | Integer     | O    | 12   | 결제 금액                                                                                                      |
+| balanceAmt        | Integer     | O    | 12   | 취소 가능 잔액<br>부분취소 거래인경우, 전체금액에서   현재까지 취소된 금액을 차감한 금액.                                        |
 | goodsName         | String  | O    | 40   | 상품명                                                                                                         |
 | mallReserved      | String  | 　   | 500  | 상점 정보 전달용 예비필드<br>returnUrl로 redirect되는 시점에 반환 됩니다.<br>JSON string format으로 이용하시기를 권고 드립니다.<br> 단, 큰따옴표(")는 이용불가                                                                                     |
 | useEscrow         | Boolean | O    | -    | 에스크로 거래 여부<br>false:일반거래 /   true:에스크로 거래                                                                          |
@@ -133,7 +133,7 @@ Content-type: application/json
 | Parameter |           | Type   | 필수 | 　Byte | 설명                   |
 |-----------|-----------|--------|------|--------|------------------------|
 | coupon    | 　        | Object | 　   | -      | 즉시할인 프로모션 정보 |
-| 　        | couponAmt | Int    | 　   | 12     | 즉시할인 적용된 금액   |
+| 　        | couponAmt | Integer    | 　   | 12     | 즉시할인 적용된 금액   |
 
 <br>
 
@@ -146,7 +146,7 @@ Content-type: application/json
 | 　        | cardCode       | String  | O    | 3      | 신용카드사별 코드                                                 |
 |           | cardName       | String  | O    | 20     | 결제 카드사 이름<br>예) 비씨                                                          |
 |           | cardNum        | String  | 　   | 20     | 카드번호<br>앞 6자 마지막 4자를 제외한 가운데 숫자 마스킹 처리됨<br>예) 536112******1234<br>- 카카오머니/네이버포인트/페이코포인트 전액결제 거래인경우   null |
-|           | cardQuota      | Int     | O    | 3      | 할부개월<br>0:일시불, 2:2개월, 3:3개월   …                                    |
+|           | cardQuota      | Integer     | O    | 3      | 할부개월<br>0:일시불, 2:2개월, 3:3개월   …                                    |
 |           | isInterestFree | Boolean | O    | -      | 상점분담무이자 여부<br>true:무이자,   false:일반                                         |
 |           | cardType       | String  | 　   | 1      | 카드 구분<br>credit:신용,   check:체크                                         |
 |           | canPartCancel  | String  | O    | -      | 부분취소 가능 여부<br>true:가능,   false:불가능                                         |

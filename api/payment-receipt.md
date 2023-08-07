@@ -52,14 +52,14 @@ Content-type: application/json;charset=utf-8
 | Parameter     | Type   | 필수 | 크기 | 상세 설명                                                        |
 |---------------|--------|------|------|------------------------------------------------------------------|
 | orderId       | String | O    | 64   | 상점 거래 고유번호<br>가맹점에서 관리하는 Unique한 주문번호 또는 결제번호<br>결제된 orderId로   재호출 불가                                   |
-| amount        | Int    | O    | 12   | 현금영수증 발행금액                                              |
+| amount        | Integer    | O    | 12   | 현금영수증 발행금액                                              |
 | goodsName     | String | O    | 40   | 상품명                                                           |
 | receiptType   | String | O    | 20   | 현금영수증 발급 유형<br> individual : 개인 소득공제용<br>company : 사업자 지출증빙용                                      |
 | receiptNo     | String | O    | 20   | 현금영수증 발행대상 식별정보<br>휴대폰번호(10 자리   또는 11 자리) 또는 사업자번호(10   자리)<br>- receiptType 이 individual 인경우 휴대폰번호 <br>- receiptType 이 company 인경우   사업자번호<br>- '-'없이 숫자만 입력                                            |
-| supplyAmt     | Int    | O    | 12   | amount중 공급가액<br>전체 거래금액(amount)중에서   공급가액에 해당하는 금액<br>해당없을 경우 0                                                  |
-| goodsVat      | Int    | O    | 12   | amount중 부가가치세<br>전체 거래금액(amount)중에서   부가세에 해당하는 금액<br>해당없을 경우 0                                                  |
-| taxFreeAmt    | Int    | O    | 12   | amount중 면세공급가액<br> 전체 거래금액(amount)중에서   면세에 해당하는 금액<br>해당없을 경우 0                                                  |
-| serviceAmt    | Int    | O    | 12   | amount중 봉사료<br> 전체 거래금액(amount)중에서   봉사료에 해당하는 금액<br>해당없을 경우 0                                                  |
+| supplyAmt     | Integer    | O    | 12   | amount중 공급가액<br>전체 거래금액(amount)중에서   공급가액에 해당하는 금액<br>해당없을 경우 0                                                  |
+| goodsVat      | Integer    | O    | 12   | amount중 부가가치세<br>전체 거래금액(amount)중에서   부가세에 해당하는 금액<br>해당없을 경우 0                                                  |
+| taxFreeAmt    | Integer    | O    | 12   | amount중 면세공급가액<br> 전체 거래금액(amount)중에서   면세에 해당하는 금액<br>해당없을 경우 0                                                  |
+| serviceAmt    | Integer    | O    | 12   | amount중 봉사료<br> 전체 거래금액(amount)중에서   봉사료에 해당하는 금액<br>해당없을 경우 0                                                  |
 | buyerName     | String | 　   | 30   | 구매자 이름                                                      |
 | buyerTel      | String | 　   | 40   | 구매자 전화번호<br>하이픈(-) 없이 숫자만   입력                                     |
 | buyerEmail    | String | 　   | 60   | 구매자 이메일<br>전문생성일시<br>ISO 8601 형식                                                    |
@@ -130,14 +130,14 @@ Content-type: application/json;charset=utf-8
 |---------------|--------|------|------|-------------------------------------------------------------------------|
 | orderId       | String | O    | 64   | 상점 거래 고유번호<br>가맹점에서 관리하는 Unique한 주문번호 또는 결제번호<br>결제된 orderId로 재호출 불가                                            |
 | reason        | String | O    | 100  | 취소사유                                                                |
-| cancelAmt     | Int    | 　   | 12   | 취소요청금액<br>누락이면 전액취소<br>- 부분취소시 supplyAmt, goodsVat, taxFreeAmt, serviceAmt 필드 필수 전달 |
+| cancelAmt     | Integer    | 　   | 12   | 취소요청금액<br>누락이면 전액취소<br>- 부분취소시 supplyAmt, goodsVat, taxFreeAmt, serviceAmt 필드 필수 전달 |
 | ediDate       | String | 　   | -    | 전문생성일시<br>ISO 8601 형식                                                           |
 | signData      | String | 　   | 256  | 위변조 검증 데이터<br>생성규칙 : hex(sha256(tid + ediDate + SecretKey))<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.               |
 | returnCharSet | String | 　   | 10   | 응답파라메터 인코딩 방식<br>가맹점 서버의 encoding 방식 전달<br>예시) utf-8(Default) / euc-kr                                           |
-| supplyAmt     | Int    | 　   | 12   | 취소금액(cancelAmt)중에서 공급가액에 해당하는 금액                      |
-| goodsVat      | Int    | 　   | 12   | 취소금액(cancelAmt)중에서 부가세에 해당하는 금액                        |
-| taxFreeAmt    | Int    | 　   | 12   | 취소금액(cancelAmt)중에서 면세에 해당하는 금액                          |
-| serviceAmt    | Int    | 　   | 12   | cancelAmt중 봉사료<br>취소금액(cancelAmt)중에서 봉사료에 해당하는 금액                        |
+| supplyAmt     | Integer    | 　   | 12   | 취소금액(cancelAmt)중에서 공급가액에 해당하는 금액                      |
+| goodsVat      | Integer    | 　   | 12   | 취소금액(cancelAmt)중에서 부가세에 해당하는 금액                        |
+| taxFreeAmt    | Integer    | 　   | 12   | 취소금액(cancelAmt)중에서 면세에 해당하는 금액                          |
+| serviceAmt    | Integer    | 　   | 12   | cancelAmt중 봉사료<br>취소금액(cancelAmt)중에서 봉사료에 해당하는 금액                        |
 
 <br>
 
@@ -153,8 +153,8 @@ Content-type: application/json
 | resultMsg   | String | O    | 100  | 결과메시지                                                              |
 | tid         | String | O    | 30   | 취소 거래 키<br>NICEPAY 거래키 입니다.                                                  |
 | orderId     | String | O    | 64   | 상점 거래 고유번호                                                      |
-| cancelAmt   | Int    | O    | 12   | 취소금액<br>취소 실패일 경우 0                                                      |
-| balanceAmt  | Int    | O    | 12   | 취소 가능한 잔액<br>부분취소 거래인경우, 전체금액에서   현재까지 취소된 금액을 차감한 금액. |
+| cancelAmt   | Integer    | O    | 12   | 취소금액<br>취소 실패일 경우 0                                                      |
+| balanceAmt  | Integer    | O    | 12   | 취소 가능한 잔액<br>부분취소 거래인경우, 전체금액에서   현재까지 취소된 금액을 차감한 금액. |
 | cancelledAt | String | O    | -    | 취소시점<br>ISO 8601 형식<br>취소 실패일 경우 0                                                      |
 | approveNo   | String | 　   | 30   | 현금영수증 국세청 취소 승인번호<br>취소 성공시 리턴됩니다.                                                 |
 | ediDate     | String |     | 14   | 응답전문생성일시<br>ISO 8601 형식                                                           |
@@ -198,14 +198,14 @@ Content-type: application/json;charset=utf-8
 |---------------|--------|------|------|---------------------------------------------------------------------------|
 | orderId       | String | O    | 64   | 상점 거래 고유번호<br> 가맹점에서 관리하는 Unique한 주문번호 또는 결제번호<br>결제된 orderId로   재호출 불가                                            |
 | reason        | String | O    | 100  | 취소사유                                                                  |
-| cancelAmt     | Int    | 　   | 12   | 부분)취소요청금액<br>누락이면 전액취소<br>- 부분취소시 supplyAmt,   goodsVat, taxFreeAmt, serviceAmt 필드 필수 전달 |
+| cancelAmt     | Integer    | 　   | 12   | 부분)취소요청금액<br>누락이면 전액취소<br>- 부분취소시 supplyAmt,   goodsVat, taxFreeAmt, serviceAmt 필드 필수 전달 |
 | ediDate       | String | 　   | -    | 전문생성일시<br>ISO 8601 형식                                                             |
 | signData      | String | 　   | 256  | 위변조 검증 Data<br>생성규칙 : hex(sha256(tid + ediDate +   SecretKey))<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.                 |
 | returnCharSet | String | 　   | 10   | 응답파라메터 인코딩 방식<br>가맹점 서버의 encoding 방식 전달<br>예시) utf-8(Default) / euc-kr                                             |
-| supplyAmt     | Int    | 　   | 12   | 취소금액(cancelAmt)중에서   공급가액에 해당하는 금액                      |
-| goodsVat      | Int    | 　   | 12   | 취소금액(cancelAmt)중에서   부가세에 해당하는 금액                        |
-| taxFreeAmt    | Int    | 　   | 12   | 취소금액(cancelAmt)중에서   면세에 해당하는 금액                          |
-| serviceAmt    | Int    | 　   | 12   | 취소금액(cancelAmt)중에서   봉사료에 해당하는 금액                        |
+| supplyAmt     | Integer    | 　   | 12   | 취소금액(cancelAmt)중에서   공급가액에 해당하는 금액                      |
+| goodsVat      | Integer    | 　   | 12   | 취소금액(cancelAmt)중에서   부가세에 해당하는 금액                        |
+| taxFreeAmt    | Integer    | 　   | 12   | 취소금액(cancelAmt)중에서   면세에 해당하는 금액                          |
+| serviceAmt    | Integer    | 　   | 12   | 취소금액(cancelAmt)중에서   봉사료에 해당하는 금액                        |
 
 <br>
 
@@ -220,8 +220,8 @@ Content-type: application/json
 | resultMsg   | String | O    | 100  | 결과메시지                                                              |
 | tid         | String | O    | 30   | 취소 거래 키<br>NICEPAY 거래키 입니다.                                                  |
 | orderId     | String | O    | 64   | 상점 거래 고유번호                                                      |
-| cancelAmt   | Int    | O    | 12   | 취소금액<br>취소 실패일 경우 0                                                      |
-| balanceAmt  | Int    | O    | 12   | 취소 가능한 잔액<br>부분취소 거래인경우, 전체금액에서   현재까지 취소된 금액을 차감한 금액. |
+| cancelAmt   | Integer    | O    | 12   | 취소금액<br>취소 실패일 경우 0                                                      |
+| balanceAmt  | Integer    | O    | 12   | 취소 가능한 잔액<br>부분취소 거래인경우, 전체금액에서   현재까지 취소된 금액을 차감한 금액. |
 | cancelledAt | String | O    | -    | 취소시점<br>ISO 8601 형식<br>취소 실패일 경우 0                                                      |
 | approveNo   | String | 　   | 30   | 현금영수증 국세청 취소 승인번호<br> 취소 성공시 리턴됩니다.                                                 |
 | ediDate     | String |     | 14   | 응답전문생성일시<br>ISO 8601 형식                                                           |
