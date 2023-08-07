@@ -16,7 +16,10 @@
 
 ### 설명
 
-체크아웃 발급 시 응답 값으로 결제창 호출 URL을 반환하고, 가맹점에서 링크 호출 시 나이스페이먼츠 결제창을 노출하게 됩니다.
+체크아웃 발급 후 url을 호출할 때의 내용으로 가맹점은 결제창을 고객에게 제공할 수 있는 기능입니다.
+해당 기능은 1transaction으로 인증 & 승인이 한번에 처리되어 가맹점은 응답을 받지 못할 수도 있는 감안하여 웹훅 및 승인금액검증으로 후처리 작업을 진행하여야 합니다.
+
+** 가맹점의 네트워크 서비스 환경으로 인하여 Read Timeout이 발생할 수 있음을 고려해야 합니다. 
 
 #### ⚠️ 중요
 
@@ -50,7 +53,7 @@ link: https://pay.nicepay.co.kr/v1/checkout/pay/{token}/{sessionId}
 |      amount       | Integer | O  | 12  | 결제 금액          |                                                                                                                                                                                    |
 |     goodsName     | String  | O  | 40  | 상품명            | 상품이름 <br/> (", * 특수문자 이용불가)                                                                                                                                                        |
 |      channel      | String  | O  | 10  | 결제 디바이스 정보     | pc:PC결제, mobile:모바일결제                                                                                                                                                              |
-|     sessionId     | String  | O  | 64	 | 결제정보 키         | 가맹점이 요청한 sessionId                                                                                                                                                                 |
+|     sessionId     | String  | O  | 64	 | 체크아웃 발급 키 | 가맹점 결제정보 식별 키                                                                                                                                                                      |
 |      status       | String  |    | 20  | 결제 처리상태        | **[상태 정보]** <br/> - paid:결제완료 <br/> - ready:준비됨(가상계좌 채번) <br/> - failed:결제실패 <br/> - cancelled:취소됨<br/> - partialCancelled:부분 취소됨<br/> - expired:만료됨                               |
 |      ediDate      | String  |    |  -  | 응답전문생성일시       | ISO 8601 형식 <br/> 참고 - [ISO8601](https://ko.wikipedia.org/wiki/ISO_8601)                                                                                                           |
 |     signature     | String  |    | 256 | 위변조 검증 데이터     | **[주의사항]** <br/> - 승인 성공된 거래시 응답 <br> - 생성규칙 : hex(sha256(tid + amount + ediDate+ SecretKey))<br>- 데이터 유효성 검증을 위해, 가맹점 수준에서 비교하는 로직 구현 권고<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다. |

@@ -9,25 +9,24 @@
 |:------------|:----------:|:---------------------------------------------------|
 | 체크아웃 발급     |    POST    | /v1/checkout                                       |
 | 체크아웃 승인     |    POST    | /v1/checkout/pay/{encodeMerchantToken}/{sessionId} |
-| **체크아웃 만료** |    POST    | **/v1/checkout/{sessionId}/expire**                |
-| 체크아웃 조회     |    GET     | /v1/checkout/{sessionId}                           |
+| 체크아웃 만료     |    POST    | /v1/checkout/{sessionId}/expire                    |
+| **체크아웃 조회** |    GET     | **/v1/checkout/{sessionId}**                       |
 | 체크아웃 거래 조회  |    GET     | /v1/payments/checkout/{sessionId}                  |
 | 체크아웃 거래 취소  |    POST    | /v1/payments/checkout/{sessionId}/cancel           |
 
 ### 설명
 
-체크아웃 만료 시, 발급된 체크아웃의 만료 여부 필드(isExpire) 값을 true, 요청한 일시를 expireAt 필드 값에 업데이트하여 체크아웃 발급 상태와 만료 상태를 확인 할 수 있습니다.
+체크아웃 발급 및 이벤트를 확인하기 위한 체크아웃 조회 기능입니다.
+주요 확인 필드로는 체크아웃의 발급, 거래, 만료 상태 등을 확인할 수 있습니다.  
 
 #### ⚠️ 중요
 
 해당 서비스는 1transaction 서비스로 key 발급 시 `client 승인 & basic 인증`으로 발급 받으셔야 합니다.
 
-
-
 ### 요청 명세
 
 ```bash
-POST /v1/checkout/{sessionId}/expire
+GET /v1/checkout/{sessionId}
 HTTP/1.1
 Host: api.nicepay.co.kr
 Authorization: Basic base64(clientId:secretKey)
@@ -36,7 +35,7 @@ Content-type: application/json
 
 - curl 
 ```bash
-curl -X POST 'https://api.nicepay.co.kr/v1/checkout/{sessionId}/expire'
+curl -X GET 'https://api.nicepay.co.kr/v1/checkout/{sessionId}'
 -H 'Content-type: application/json'
 -H 'Authorization: Basic ZWVjOGQzNTA4Y2IwNDI1ZGI5NTViMzBiZjM5...'
 '
