@@ -5,14 +5,14 @@
 체크아웃 서비스는 1transaction 서비스를 보다 쉽게 사용할 수 있도록 제공하기 위해 만들어진 서비스 입니다.
 체크아웃 서비스는 결제창 호출 및 승인 관련 API들이 존재합니다.
 
-| 설명          | method | endPoint                                               |
-|:------------|:------:|:-------------------------------------------------------|
-| 체크아웃 발급     |  POST  | /v1/checkout                                           |
-| **체크아웃 승인** |  POST  | **/v1/checkout/pay/{encodeMerchantToken}/{sessionId}** |
-| 체크아웃 만료     |  POST  | /v1/checkout/{sessionId}/expire                        |
-| 체크아웃 조회     |  GET   | /v1/checkout/{sessionId}                               |
-| 체크아웃 거래 조회  |  GET   | /v1/payments/checkout/{sessionId}                      |
-| 체크아웃 거래 취소  |  POST  | /v1/payments/checkout/{sessionId}/cancel               |
+| 설명          | HttpMethod | URI                                                    |
+|:------------|:----------:|:-------------------------------------------------------|
+| 체크아웃 발급     |    POST    | /v1/checkout                                           |
+| **체크아웃 승인** |    POST    | **/v1/checkout/pay/{encodeMerchantToken}/{sessionId}** |
+| 체크아웃 만료     |    POST    | /v1/checkout/{sessionId}/expire                        |
+| 체크아웃 조회     |    GET     | /v1/checkout/{sessionId}                               |
+| 체크아웃 거래 조회  |    GET     | /v1/payments/checkout/{sessionId}                      |
+| 체크아웃 거래 취소  |    POST    | /v1/payments/checkout/{sessionId}/cancel               |
 
 ### 설명
 
@@ -27,6 +27,11 @@
 ```text
 link: https://pay.nicepay.co.kr/v1/checkout/pay/{token}/{sessionId}
 ```
+
+|    필드     |   타입   | 필수 | 길이  | 설명     | 상세설명                              |
+|:---------:|:------:|:--:|:---:|:-------|:----------------------------------|
+|   token   | String | O  |     | 가맹점 키  | NICEPAY에서 관리하는 encoding 된 가맹점 GID |
+| sessionId | String | O  | 64	 | 결제정보 키 | 가맹점이 요청한 sessionId                |
 
 <br>
 
