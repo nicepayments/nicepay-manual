@@ -5,62 +5,47 @@
 체크아웃 서비스는 1transaction 서비스를 보다 쉽게 사용할 수 있도록 제공하기 위해 만들어진 서비스 입니다.
 체크아웃 서비스는 결제창 호출 및 승인 관련 API들이 존재합니다.
 
-| 설명         | method | endPoint                                           |
-|:-----------|:------:|:---------------------------------------------------|
-| 체크아웃 발급    |  POST  | /v1/checkout                                       |
-| **체크아웃 승인**    |  POST  | **/v1/checkout/pay/{encodeMerchantToken}/{sessionId}** |
-| 체크아웃 만료    |  POST  | /v1/checkout/{sessionId}/expire                    |
-| 체크아웃 조회    |  GET   | /v1/checkout/{sessionId}                           |
-| 체크아웃 거래 조회 |  GET   | /v1/payments/checkout/{sessionId}                  |
-| 체크아웃 거래 취소 |  POST  | /v1/payments/checkout/{sessionId}/cancel           |
-
+| 설명          | method | endPoint                                               |
+|:------------|:------:|:-------------------------------------------------------|
+| 체크아웃 발급     |  POST  | /v1/checkout                                           |
+| **체크아웃 승인** |  POST  | **/v1/checkout/pay/{encodeMerchantToken}/{sessionId}** |
+| 체크아웃 만료     |  POST  | /v1/checkout/{sessionId}/expire                        |
+| 체크아웃 조회     |  GET   | /v1/checkout/{sessionId}                               |
+| 체크아웃 거래 조회  |  GET   | /v1/payments/checkout/{sessionId}                      |
+| 체크아웃 거래 취소  |  POST  | /v1/payments/checkout/{sessionId}/cancel               |
 
 ### 설명
-체크아웃 발급 시, 응답 값으로 결제창 호출 URL을 반환하고 가맹점에서 링크 호출 시 나이스페이먼츠 결제창을 노출하게 됩니다.
+
+체크아웃 발급 시 응답 값으로 결제창 호출 URL을 반환하고, 가맹점에서 링크 호출 시 나이스페이먼츠 결제창을 노출하게 됩니다.
 
 #### ⚠️ 중요
+
 해당 서비스는 1transaction 서비스로 key 발급 시 `client 승인 & basic 인증`으로 발급 받으셔야 합니다.
 
+### 요청 링크
 
-### 샘플코드
-
-```bash
-curl -X POST 'https://api.nicepay.co.kr/v1/checkout'
--H 'Content-type: application/json'
--H 'Authorization: Basic ZWVjOGQzNTA4Y2IwNDI1ZGI5NTViMzBiZjM5...'
--D '{
-    "sessionId": "unique_sessionId",
-    "orderId": "unique_orderId",
-    "method": "card",
-    "amount": 1004,
-    "goodsName": "상품명",
-    "returnUrl": "가맹점 결과 응답 returnUrl"
-}
-'
+```text
+link: https://pay.nicepay.co.kr/v1/checkout/pay/{token}/{sessionId}
 ```
 
 <br>
 
 ### 응답 명세
 
-```bash
-POST
-Content-type: application/x-www-form-urlencoded
-```
-
 |        필드         |   타입    | 필수 | 길이  | 설명             | 상세설명                                                                                                                                                                               |
 |:-----------------:|:-------:|:--:|:---:|:---------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |      success      | Boolean | O  |     | 결제 성공 여부       | true: 결제성공 또는 가상계좌 채번 성공 <br/> false: 결제실패 또는 인증실패                                                                                                                                 |
-|    resultCode     | String  | O  |  4  | 처리결과코드         | 0000 : 성공 / 그외 실패                                                                                                                                                                  |
-|     resultMsg     | String  | O  | 100 | 처리결과메시지        |                                                                                                                                                                                    |
 |     authToken     | String  | O  | 40  | 인증 TOKEN       | 인증 구간의 유니크한 값 <br>- 인증 구간 내에 프로세스를 추적 할 수 있는 정보                                                                                                                                    |
 |        tid        | String  |    | 30  | 결제 승인 키        | **[승인 결과]** <br/> 인증성공후 승인이 시도된 경우 리턴됩니다. <br>승인(가상계좌-채번)에 사용된 NICEPAY 거래키 입니다.                                                                                                    |
 |      orderId      | String  | O  | 64  | 상점 거래 고유번호     |                                                                                                                                                                                    |
 |     clientId      | String  | O  | 50  | 가맹점 식별코드       | NICEPAY가 발급한 가맹점 식별값                                                                                                                                                               |
 |   mallReserved    | String  |    | 500 | 상점 예약필드        | 상점 정보 전달용 예비필드<br>returnUrl로 redirect되는 시점에 반환 됩니다.<br>JSON string format으로 이용하시기를 권고 드립니다.<br>단, 큰따옴표(")는 이용불가                                                                    |
+|    resultCode     | String  | O  |  4  | 처리결과코드         | 0000 : 성공 / 그외 실패                                                                                                                                                                  |
+|     resultMsg     | String  | O  | 100 | 처리결과메시지        |                                                                                                                                                                                    |
 |      amount       | Integer | O  | 12  | 결제 금액          |                                                                                                                                                                                    |
-|     goodsName     | String  | O  | 40  | 상품명            | 상품이름 (", * 특수문자 이용불가)                                                                                                                                                              |
+|     goodsName     | String  | O  | 40  | 상품명            | 상품이름 <br/> (", * 특수문자 이용불가)                                                                                                                                                        |
 |      channel      | String  | O  | 10  | 결제 디바이스 정보     | pc:PC결제, mobile:모바일결제                                                                                                                                                              |
+|     sessionId     | String  | O  | 64	 | 결제정보 키         | 가맹점이 요청한 sessionId                                                                                                                                                                 |
 |      status       | String  |    | 20  | 결제 처리상태        | **[상태 정보]** <br/> - paid:결제완료 <br/> - ready:준비됨(가상계좌 채번) <br/> - failed:결제실패 <br/> - cancelled:취소됨<br/> - partialCancelled:부분 취소됨<br/> - expired:만료됨                               |
 |      ediDate      | String  |    |  -  | 응답전문생성일시       | ISO 8601 형식 <br/> 참고 - [ISO8601](https://ko.wikipedia.org/wiki/ISO_8601)                                                                                                           |
 |     signature     | String  |    | 256 | 위변조 검증 데이터     | **[주의사항]** <br/> - 승인 성공된 거래시 응답 <br> - 생성규칙 : hex(sha256(tid + amount + ediDate+ SecretKey))<br>- 데이터 유효성 검증을 위해, 가맹점 수준에서 비교하는 로직 구현 권고<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다. |
@@ -70,6 +55,7 @@ Content-type: application/x-www-form-urlencoded
 |     useEscrow     | Boolean |    |  -  | 에스크로 거래 여부     | **[에스크로 결제 타입]** <br/> - false:일반거래 <br/> - true:에스크로 거래                                                                                                                           |
 |     currency      | String  |    |  3  | 결제승인화폐단위       | KRW:원화, USD:미화달러, CNY:위안화                                                                                                                                                          |
 |     approveNo     | String  |    | 30  | 제휴사 승인 번호      | 신용카드, 계좌이체, 휴대폰                                                                                                                                                                    |
+|        bid        | String  |    | 30  | 빌키             | NICEPAY가 발급하는 빌링 아이디                                                                                                                                                               |
 |     couponAmt     | Integer |    | 12  | 즉시할인 적용된 금액    |                                                                                                                                                                                    |
 |     buyerName     | String  |    | 30  | 구매자 명          |                                                                                                                                                                                    |
 |     buyerTel      | String  |    | 40  | 구매자 전화번호       |                                                                                                                                                                                    |
