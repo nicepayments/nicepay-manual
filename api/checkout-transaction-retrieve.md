@@ -5,19 +5,19 @@
 체크아웃 서비스는 1transaction 서비스를 보다 쉽게 사용할 수 있도록 제공하기 위해 만들어진 서비스 입니다.
 체크아웃 서비스는 결제창 호출 및 승인 관련 API들이 존재합니다.
 
-| 설명          | HttpMethod | URI                                                |
-|:------------|:----------:|:---------------------------------------------------|
-| 체크아웃 발급     |    POST    | /v1/checkout                                       |
-| 체크아웃 승인     |    POST    | /v1/checkout/pay/{encodeMerchantToken}/{sessionId} |
-| 체크아웃 만료     |    POST    | /v1/checkout/{sessionId}/expire                    |
-| **체크아웃 조회** |    GET     | **/v1/checkout/{sessionId}**                       |
-| 체크아웃 거래 조회  |    GET     | /v1/payments/checkout/{sessionId}                  |
-| 체크아웃 거래 취소  |    POST    | /v1/payments/checkout/{sessionId}/cancel           |
+| 설명             | HttpMethod | URI                                                |
+|:---------------|:----------:|:---------------------------------------------------|
+| 체크아웃 발급        |    POST    | /v1/checkout                                       |
+| 체크아웃 승인        |    POST    | /v1/checkout/pay/{encodeMerchantToken}/{sessionId} |
+| 체크아웃 만료        |    POST    | /v1/checkout/{sessionId}/expire                    |
+| 체크아웃 조회        |    GET     | /v1/checkout/{sessionId}                           |
+| **체크아웃 거래 조회** |    GET     | **/v1/payments/checkout/{sessionId}**              |
+| 체크아웃 거래 취소     |    POST    | /v1/payments/checkout/{sessionId}/cancel           |
 
 ### 설명
 
-체크아웃 발급 및 이벤트를 확인하기 위한 체크아웃 조회 기능입니다.
-주요 확인 필드로는 체크아웃의 발급, 거래, 만료 상태 등을 확인할 수 있습니다.  
+체크아웃 거래 조회는 sessionId로 거래조회 할 수 있는 서비스입니다.
+sessionId로 결제가 발생한 거래 건에 대해서, tid, orderId로 거래조회 서비스처럼 거래건을 조회할 수 있는 서비스입니다.
 
 #### ⚠️ 중요
 
@@ -26,7 +26,7 @@
 ### 요청 명세
 
 ```bash
-GET /v1/checkout/{sessionId}
+GET /v1/payments/checkout/{sessionId}
 HTTP/1.1
 Host: api.nicepay.co.kr
 Authorization: Basic base64(clientId:secretKey)
@@ -35,7 +35,7 @@ Content-type: application/json
 
 - curl 
 ```bash
-curl -X GET 'https://api.nicepay.co.kr/v1/checkout/{sessionId}'
+curl -X GET 'https://api.nicepay.co.kr/v1/payments/checkout/{sessionId}'
 -H 'Content-type: application/json'
 -H 'Authorization: Basic ZWVjOGQzNTA4Y2IwNDI1ZGI5NTViMzBiZjM5...'
 '
