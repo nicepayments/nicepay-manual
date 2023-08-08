@@ -38,7 +38,7 @@
 ### 요청 명세
 
 ```bash
-curl -X GET 'https://api.nicepay.co.kr/v1/webhook/{method}/update'
+curl -X POST 'https://api.nicepay.co.kr/v1/webhook/{method}/update'
 -H 'Content-type: application/json'
 -H 'Authorization: Basic ZWVjOGQzNTA4Y2IwNDI1ZGI5NTViMzBiZjM5...'
 -d '{
