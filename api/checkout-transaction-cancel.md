@@ -1,23 +1,23 @@
 # 체크아웃
 
-## 체크아웃 상태 조회
+## 체크아웃 거래 취소
 
 체크아웃 서비스는 1transaction 서비스를 보다 쉽게 사용할 수 있도록 제공하기 위해 만들어진 서비스 입니다.
 체크아웃 서비스는 결제창 호출 및 승인 관련 API들이 존재합니다.
 
-| 설명          | HttpMethod | URI                                                |
-|:------------|:----------:|:---------------------------------------------------|
-| 체크아웃 발급     |    POST    | /v1/checkout                                       |
-| 체크아웃 승인     |    POST    | /v1/checkout/pay/{encodeMerchantToken}/{sessionId} |
-| 체크아웃 만료     |    POST    | /v1/checkout/{sessionId}/expire                    |
-| **체크아웃 조회** |    GET     | **/v1/checkout/{sessionId}**                       |
-| 체크아웃 거래 조회  |    GET     | /v1/payments/checkout/{sessionId}                  |
-| 체크아웃 거래 취소  |    POST    | /v1/payments/checkout/{sessionId}/cancel           |
+| 설명             | HttpMethod | URI                                                |
+|:---------------|:----------:|:---------------------------------------------------|
+| 체크아웃 발급        |    POST    | /v1/checkout                                       |
+| 체크아웃 승인        |    POST    | /v1/checkout/pay/{encodeMerchantToken}/{sessionId} |
+| 체크아웃 만료        |    POST    | /v1/checkout/{sessionId}/expire                    |
+| 체크아웃 조회        |    GET     | /v1/checkout/{sessionId}                           |
+| 체크아웃 거래 조회     |    GET     | /v1/payments/checkout/{sessionId}                  |
+| **체크아웃 거래 취소** |    POST    | **/v1/payments/checkout/{sessionId}/cancel**       |
 
 ### 설명
 
-체크아웃 발급 및 이벤트를 확인하기 위한 체크아웃 조회 기능입니다.
-주요 확인 필드로는 체크아웃의 발급, 거래, 만료 상태 등을 확인할 수 있습니다.  
+체크아웃 거래취소 서비스는 sessionId로 거래 취소 요청을 진행할 수 있는 서비스 입니다.
+sessionId로 거래 승인난 경우(체크아웃 거래조회 시 거래건이 존재하는 경우) 해당 거래건을 취소하여 결제취소 처리를 진행할 수 있습니다.
 
 #### ⚠️ 중요
 
@@ -26,7 +26,7 @@
 ### 요청 명세
 
 ```bash
-GET /v1/checkout/{sessionId}
+POST /v1/payments/checkout/{sessionId}/cancel
 HTTP/1.1
 Host: api.nicepay.co.kr
 Authorization: Basic base64(clientId:secretKey)
@@ -35,14 +35,29 @@ Content-type: application/json
 
 - curl 
 ```bash
-curl -X GET 'https://api.nicepay.co.kr/v1/checkout/{sessionId}'
+curl -X POST 'https://api.nicepay.co.kr/v1/payments/checkout/{sessionId}/cancel'
 -H 'Content-type: application/json'
 -H 'Authorization: Basic ZWVjOGQzNTA4Y2IwNDI1ZGI5NTViMzBiZjM5...'
+-d '{
+  "orderId": "unique_orderId",
+  "reason": "결제취소 사유"
+}
+'
 ```
 
-|    필드     |   타입   | 필수 | 길이 | 설명        | 상세설명          |
-|:---------:|:------:|:--:|:--:|:----------|:--------------|
-| sessionId | String | O  | 64 | 체크아웃 발급 키 | 가맹점 결제정보 식별 키 |
+|      구분      |       필드       |   타입    | 필수 | 길이  | 설명          | 상세설명                                                                                                                                                                      |
+|:------------:|:--------------:|:-------:|:--:|:---:|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| PathVariable |   sessionId    | String  | O  | 64  | 체크아웃 발급 키   | 가맹점 결제정보 식별 키                                                                                                                                                             |
+| ResponseBody |    orderId     | String  | O  | 64  | 상점 거래 고유번호  |                                                                                                                                                                           |
+|              |     reason     | String  | O  | 100 | 취소사유        |                                                                                                                                                                           |
+|              |    signData    | String  |    | 256 | 위변조 검증 데이터  | **[생성규칙]** <br/> hex(sha256(tid + ediDate + SecretKey)) <br/> - 유효한 거래건에 한하여 응답 <br/> - 데이터 유효성 검증을 위해, 가맹점 수준에서 비교하는 로직 구현 권고                                            |
+|              |    ediDate     | String  | C  |  -  | ISO8601     | **[주의사항]** <br/> - signData 설정 시 ediDate 필수 <br/> **[ISO8601 포맷]** <br/> UTC: `yyyy-MM-dd'T'HH:mm:ss.SSSZ` <br/> - 참고 - [ISO8601](https://ko.wikipedia.org/wiki/ISO_8601) |
+|              |   cancelAmt    | Integer |    | 12  | 취소요청 금액     | **[금액설정 정책]** - 전체취소 요청 시 해당 필드 누락 <br/> - 부분취소 요청 시 0보다 큰 값 설정                                                                                                           |
+|              | returnCharSet  | String  |    | 10  | 응답전문 인코딩 방식 | 가맹점 서버의 encoding 방식 전달 <br/> utf-8(default) / euc-kr                                                                                                                      |
+|              |   taxFreeAmt   | Integer |    | 12  | 면세금액        | 취소금액 중 면세공금가액 <br/> 취소금액(amount) 중에서 면세에 해당하는 금액을 설정                                                                                                                      |
+|              | refundAccount  | String  |    | 16  | 환불계좌번호      | 가상계좌 환불 및 휴대폰 익월 환불 시 사용                                                                                                                                                  |
+|              | refundBankCode | String  |    |  3  | 환불계좌코드      |                                                                                                                                                                           |
+|              |  refundHolder  | String  |    | 10  | 환불계좌 예금주명   |                                                                                                                                                                           |
 
 <br>
 
