@@ -5,12 +5,12 @@
 웹훅 URL 서비스는 가맹점 관리자 페이지에서 웹훅 URL 사용 하던 것을 API를 통해 사용할 수 있도록 한 서비스 입니다.
 웹훅 **등록** 및 **수정** 시에 해당 결제수단의 나이스페이먼츠에서 더미 데이터를 발송하여 가맹점은 웹훅 응답을 확인해볼 수 있습니다.
 
-|      설명       | HttpMethod | URI                             |
-|:-------------:|:----------:|:--------------------------------|
-|   웹훅 URL 등록   |    POST    | /v1/webhook                     |
-|   웹훅 URL 조회   |    GET     | /v1/webhook                     |
-|   웹훅 URL 수정   |    POST    | /v1/webhook/{method}/update     |
-| **웹훅 URL 삭제** |    POST    | **/v1/webhook/{method}/delete** |
+|                                                   설명                                                    | HttpMethod | URI                             |
+|:-------------------------------------------------------------------------------------------------------:|:----------:|:--------------------------------|
+|   [웹훅 URL 등록](https://github.com/nicepayments/nicepay-manual/blob/main/api/webhook/webhook-create.md)   |    POST    | /v1/webhook                     |
+|  [웹훅 URL 조회](https://github.com/nicepayments/nicepay-manual/blob/main/api/webhook/webhook-retrieve.md)  |    GET     | /v1/webhook                     |
+|   [웹훅 URL 수정](https://github.com/nicepayments/nicepay-manual/blob/main/api/webhook/webhook-update.md)   |    POST    | /v1/webhook/{method}/update     |
+| **[웹훅 URL 삭제](https://github.com/nicepayments/nicepay-manual/blob/main/api/webhook/webhook-delete.md)** |    POST    | **/v1/webhook/{method}/delete** |
 
 
 
