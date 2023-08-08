@@ -264,7 +264,7 @@ Content-type: application/json
 | 　        | cardCode       | String  | O    | 3      | 신용카드사별 코드                                                 |
 |           | cardName       | String  | O    | 20     | 결제 카드사 이름<br>예) 비씨                                                          |
 |           | cardNum        | String  | 　   | 20     | 카드번호<br>앞 6자 마지막 4자를 제외한 가운데 숫자 마스킹 처리됨<br>예) 536112******1234<br>- 카카오머니/네이버포인트/페이코포인트 전액결제 거래인경우   null |
-|           | cardQuota      | Integer     | O    | 3      | 할부개월<br>0:일시불, 2:2개월, 3:3개월   …                                    |
+|           | cardQuota      | String     | O    | 3      | 할부개월<br>0:일시불, 2:2개월, 3:3개월   …                                    |
 |           | isInterestFree | Boolean | O    | -      | 상점분담무이자 여부<br>true:무이자,   false:일반                                         |
 |           | cardType       | String  | 　   | 1      | 카드 구분<br>credit:신용,   check:체크                                         |
 |           | canPartCancel  | String  | O    | -      | 부분취소 가능 여부<br>true:가능,   false:불가능                                         |
