@@ -98,11 +98,11 @@ function serverAuth() {
 <br>
 
 ### 가상계좌
-| Parameter       | Type   | 필수     | Byte | 설명                                                                               |
-|-----------------|--------|----------|------|------------------------------------------------------------------------------------|
-| vbankHolder     | String | O | 40   | 가상계좌 (가맹점 상호명, 사용자명) <br> *가상계좌 채번시 필수                                                 |
-| vbankValidHours | Integer    |          | 4    | 가상계좌 유효시간<br>- 시간단위로 입력.<br>- Default 값 D+7일<br>- vbankValidHours와 vbankExpDate가 함께 요청된경우 vbankValidHours가 우선함<br>ex) 10 을 입력하면, 가상계좌 발급후 10시간동안 해당 가상계좌를 이용할 수 있습니다.                                           |
-| vbankExpDate	  |Integer |          |      | 가상계좌 입금 만료일                                                            |
+| Parameter       | Type    | 필수     | Byte | 설명                                                                               |
+|-----------------|---------|----------|------|------------------------------------------------------------------------------------|
+| vbankHolder     | String  | O | 40   | 가상계좌 (가맹점 상호명, 사용자명) <br> *가상계좌 채번시 필수                                                 |
+| vbankValidHours | Integer |          | 4    | 가상계좌 유효시간<br>- 시간단위로 입력.<br>- Default 값 D+7일<br>- vbankValidHours와 vbankExpDate가 함께 요청된경우 vbankValidHours가 우선함<br>ex) 10 을 입력하면, 가상계좌 발급후 10시간동안 해당 가상계좌를 이용할 수 있습니다.                                           |
+| vbankExpDate	  | String  |          |      | 가상계좌 입금 만료일                                                            |
 
 <br>
 

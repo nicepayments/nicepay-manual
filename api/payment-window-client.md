@@ -110,11 +110,11 @@ function clientAuth() {
 <br>
 
 ### 가상계좌
-| Parameter       | Type   | 필수     | Byte | 설명                                                                               |
-|-----------------|--------|----------|------|------------------------------------------------------------------------------------|
-| vbankHolder     | String | 가상계좌 | 40   | 가상계좌 (가맹점 상호명, 사용자명)                                                 |
-| vbankValidHours | Integer    |          | 4    | 가상계좌 유효시간<br>- 시간단위로 입력.<br>- Default 값 D+7일<br>- vbankValidHours와 vbankExpDate가 함께 요청된경우 vbankValidHours가 우선함<br>ex) 10 을 입력하면, 가상계좌 발급후 10시간동안 해당 가상계좌를 이용할 수 있습니다.                                           |
-| vbankExpDate	  |Integer |          |      | 가상계좌 입금 만료일                                                            |
+| Parameter       | Type    | 필수     | Byte | 설명                                                                               |
+|-----------------|---------|----------|------|------------------------------------------------------------------------------------|
+| vbankHolder     | String  | 가상계좌 | 40   | 가상계좌 (가맹점 상호명, 사용자명)                                                 |
+| vbankValidHours | Integer |          | 4    | 가상계좌 유효시간<br>- 시간단위로 입력.<br>- Default 값 D+7일<br>- vbankValidHours와 vbankExpDate가 함께 요청된경우 vbankValidHours가 우선함<br>ex) 10 을 입력하면, 가상계좌 발급후 10시간동안 해당 가상계좌를 이용할 수 있습니다.                                           |
+| vbankExpDate	  | String  |          |      | 가상계좌 입금 만료일                                                            |
 
 <br>
 
@@ -165,7 +165,7 @@ Content-type: application/x-www-form-urlencoded
 | mallReserved      | String  |    | 500  | 상점 예약필드<br><br>상점 정보 전달용 예비필드<br>returnUrl로 redirect되는 시점에 반환 됩니다.<br>JSON string format으로 이용하시기를 권고 드립니다.<br>단, 큰따옴표(")는 이용불가                                                           |
 | resultCode        | String  | O  | 4    | 처리결과코드<br><br>0000 : 성공 / 그외 실패                                                                                                                                                          |
 | resultMsg         | String  | O  | 100  | 처리결과메시지                                                                                                                                                                                  |
-| amount            | Integer     | O  | 12   | 결제 금액                                                                                                                                                                                    |
+| amount            | Integer | O  | 12   | 결제 금액                                                                                                                                                                                    |
 | goodsName         | String  | O  | 40   | 상품명<br><br>상품이름 (", * 특수문자 이용불가)                                                                                                                                                         |
 | channel           | String  | O  | 10   | pc:PC결제, mobile:모바일결제                                                                                                                                                                    |
 | status            | String  |    | 20   | 결제 처리상태<br><br>paid:결제완료, ready:준비됨(가상계좌채번), failed:결제실패, cancelled:취소됨, partialCancelled:부분 취소됨, expired:만료됨<br>['paid', 'ready', 'failed', 'cancelled', 'partialCancelled', 'expired'] |
@@ -177,7 +177,7 @@ Content-type: application/x-www-form-urlencoded
 | useEscrow         | Boolean |    | -    | 에스크로 거래 여부<br><br>false:일반거래 / true:에스크로 거래                                                                                                                                              |
 | currency          | String  |    | 3    | 결제승인화폐단위<br><br>KRW:원화, USD:미화달러, CNY:위안화                                                                                                                                                |
 | approveNo         | String  |    | 30   | 제휴사 승인 번호<br>신용카드, 계좌이체, 휴대폰                                                                                                                                                             |
-| couponAmt         | Integer     |    | 12   | 즉시할인 적용된 금액                                                                                                                                                                              |
+| couponAmt         | Integer |    | 12   | 즉시할인 적용된 금액                                                                                                                                                                              |
 | buyerName         | String  |    | 30   | 구매자 명                                                                                                                                                                                    |
 | buyerTel          | String  |    | 40   | 구매자 전화번호                                                                                                                                                                                 |
 | buyerEmail        | String  |    | 60   | 구매자 이메일                                                                                                                                                                                  |
@@ -186,7 +186,7 @@ Content-type: application/x-www-form-urlencoded
 | mallUserId        | String  |    | 20   | 상점 사용자 아이디<br><br>상점에서 관리하는 사용자 아이디                                                                                                                                                      |
 | cardCode          | String  |    | 3    | 결제 카드사 코드                                                                                                                                                                                |
 | cardName          | String  |    | 20   | 결제 카드사 이름                                                                                                                                                                                |
-| cardQuota         | Integer     |    | 3    | 할부개월<br><br>0:일시불, 2:2개월, 3:3개월 …                                                                                                                                                        |
+| cardQuota         | String  |    | 3    | 할부개월<br><br>0:일시불, 2:2개월, 3:3개월 …                                                                                                                                                        |
 | isInterestFree    | Boolean |    | -    | 상점분담무이자 여부                                                                                                                                                                               |
 | cardType          | String  |    | 1    | 카드 구분                                                                                                                                                                                    |
 | canPartCancel     | String  |    | -    | 부분취소 가능 여부                                                                                                                                                                               |

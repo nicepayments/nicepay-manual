@@ -164,14 +164,14 @@ Content-type: application/json;charset=utf-8
 | Parameter       | Type    | 필수 | Byte | 설명                                                             |
 |-----------------|---------|------|------|------------------------------------------------------------------|
 | orderId         | String  | O    | 64   | 상점 거래 고유번호<br>가맹점에서 관리하는 Unique한 주문번호 또는 결제번호<br>결제된 orderId로   재호출 불가            |
-| amount          | Integer     | O    | 12   | 결제 금액                                                        |
+| amount          | Integer | O    | 12   | 결제 금액                                                        |
 | goodsName       | String  | O    | 40   | 상품명                                                           |
-| cardQuota       | Integer     | O    | 2    | 할부개월<br> 0:일시불, 2:2개월, 3:3개월   …                                   |
+| cardQuota       | String  | O    | 2    | 할부개월<br> 0:일시불, 2:2개월, 3:3개월   …                                   |
 | useShopInterest | Boolean | O    | -    | 상점분담무이자 사용여부 (현재 false만 사용 가능)<br>false : 유이자                                                   |
 | buyerName       | String  | 　   | 30   | 구매자 이름                                                      |
 | buyerTel        | String  | 　   | 20   | 구매자 전화번호<br>하이픈(-) 없이 숫자만   입력                                     |
 | buyerEmail      | String  | 　   | 60   | 구매자 이메일                                                    |
-| taxFreeAmt      | Integer     | 　   | 12   | 면세공급가액<br>전체 거래금액(amount)중에서   면세에 해당하는 금액을 설정합니다. |
+| taxFreeAmt      | Integer | 　   | 12   | 면세공급가액<br>전체 거래금액(amount)중에서   면세에 해당하는 금액을 설정합니다. |
 | mallReserved    | String  | 　   | 500  | 상점 정보 전달용 예비필드<br><br>승인응답 또는 webhook 시점에 요청 원문을 전달 합니다.<br> JSON string format으로 이용하시기를 권고 드립니다.<br>단, 큰따옴표(")는 이용불가                                       |
 | ediDate         | String  | 　   | -    | 전문생성일시<br>ISO 8601 형식                                                    |
 | signData        | String  | 　   | 256  | 위변조 검증 Data<br>생성규칙 : hex(sha256(orderId + bid +   ediDate + SecretKey))<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.        |
