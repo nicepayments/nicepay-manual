@@ -9,8 +9,8 @@
 |:-------------:|:----------:|:--------------------------------|
 |   웹훅 URL 등록   |    POST    | /v1/webhook                     |
 |   웹훅 URL 조회   |    GET     | /v1/webhook                     |
-| **웹훅 URL 수정** |    POST    | **/v1/webhook/{method}/update** |
-|   웹훅 URL 삭제   |    POST    | /v1/webhook/{method}/delete     |
+|   웹훅 URL 수정   |    POST    | /v1/webhook/{method}/update     |
+| **웹훅 URL 삭제** |    POST    | **/v1/webhook/{method}/delete** |
 
 
 
