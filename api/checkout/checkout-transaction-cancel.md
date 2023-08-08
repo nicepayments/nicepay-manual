@@ -26,15 +26,6 @@ sessionId로 거래 승인난 경우(체크아웃 거래조회 시 거래건이 
 ### 요청 명세
 
 ```bash
-POST /v1/payments/checkout/{sessionId}/cancel
-HTTP/1.1
-Host: api.nicepay.co.kr
-Authorization: Basic base64(clientId:secretKey)
-Content-type: application/json
-```
-
-- curl 
-```bash
 curl -X POST 'https://api.nicepay.co.kr/v1/payments/checkout/{sessionId}/cancel'
 -H 'Content-type: application/json'
 -H 'Authorization: Basic ZWVjOGQzNTA4Y2IwNDI1ZGI5NTViMzBiZjM5...'
@@ -44,6 +35,8 @@ curl -X POST 'https://api.nicepay.co.kr/v1/payments/checkout/{sessionId}/cancel'
 }
 '
 ```
+
+#### 공통
 
 |      구분      |       필드       |   타입    | 필수 | 길이  | 설명          | 상세설명                                                                                                                                                                      |
 |:------------:|:--------------:|:-------:|:--:|:---:|:------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

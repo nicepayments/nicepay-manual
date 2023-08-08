@@ -25,16 +25,21 @@
 
 해당 서비스는 1transaction 서비스로 key 발급 시 `client 승인 & basic 인증`으로 발급 받으셔야 합니다.
 
-### 요청 링크
+### 요청 명세
+
+
+#### 요청 링크
 
 ```text
 link: https://pay.nicepay.co.kr/v1/checkout/pay/{token}/{sessionId}
 ```
 
-|    필드     |   타입   | 필수 | 길이  | 설명     | 상세설명                              |
-|:---------:|:------:|:--:|:---:|:-------|:----------------------------------|
-|   token   | String | O  |     | 가맹점 키  | NICEPAY에서 관리하는 encoding 된 가맹점 GID |
-| sessionId | String | O  | 64	 | 결제정보 키 | 가맹점이 요청한 sessionId                |
+#### 공통
+
+|      구분      |    필드     |   타입   | 필수 | 길이  | 설명     | 상세설명                              |
+|:------------:|:---------:|:------:|:--:|:---:|:-------|:----------------------------------|
+| PathVariable |   token   | String | O  |     | 가맹점 키  | NICEPAY에서 관리하는 encoding 된 가맹점 GID |
+|              | sessionId | String | O  | 64	 | 결제정보 키 | 가맹점이 요청한 sessionId                |
 
 <br>
 

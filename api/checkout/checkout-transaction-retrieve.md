@@ -26,23 +26,16 @@ sessionId로 결제가 발생한 거래 건에 대해서, tid, orderId로 거래
 ### 요청 명세
 
 ```bash
-GET /v1/payments/checkout/{sessionId}
-HTTP/1.1
-Host: api.nicepay.co.kr
-Authorization: Basic base64(clientId:secretKey)
-Content-type: application/json
-```
-
-- curl 
-```bash
 curl -X GET 'https://api.nicepay.co.kr/v1/payments/checkout/{sessionId}'
 -H 'Content-type: application/json'
 -H 'Authorization: Basic ZWVjOGQzNTA4Y2IwNDI1ZGI5NTViMzBiZjM5...'
 ```
 
-|    필드     |   타입   | 필수 | 길이 | 설명        | 상세설명          |
-|:---------:|:------:|:--:|:--:|:----------|:--------------|
-| sessionId | String | O  | 64 | 체크아웃 발급 키 | 가맹점 결제정보 식별 키 |
+#### 공통
+
+|      구분      |    필드     |   타입   | 필수 | 길이  | 설명     | 상세설명                              |
+|:------------:|:---------:|:------:|:--:|:---:|:-------|:----------------------------------|
+| PathVariable | sessionId | String | O  | 64	 | 결제정보 키 | 가맹점이 요청한 sessionId                | 
 
 <br>
 
