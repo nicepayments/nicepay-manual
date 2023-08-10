@@ -2,6 +2,8 @@
 
 ## 전자금융거래 약관 (Electronic Financial Transactions)
 
+아래 내용은 약관 조회 API 호출 시 확인할 수 있는 내용으로 나이스페이먼츠 내부 정책 변경시 수정될 수 있습니다.
+
 ```text
 [전자금융거래 이용약관]
 
