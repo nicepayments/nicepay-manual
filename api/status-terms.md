@@ -10,7 +10,7 @@
 <br>
 
 ### 약관 조회 API 포함 약관
-- 전자금융거래 약관
+- [전자금융거래 약관](https://github.com/nicepayments/nicepay-manual/blob/main/api/terms/electronicFinancialTransactions.md)
 - 개인정보 수집 및 이용 약관
 - 개인정보 제 3자 제공약관
 - 통신과금서비스 이용약관
