@@ -43,10 +43,10 @@ function serverAuth() {
  });
 }
 </script>
+```
 
 <br>
 
-```
 - 먼저 https://pay.nicepay.co.kr/v1/js/ 를 Inclue 합니다.
 - clientId 필드에 [클라이언트 키](../common/api.md#클라이언트-키) 값을 셋팅 하면 준비가 완료 됩니다.
 - `AUTHNICE.requestPay()` method 호출시 결제창이 노출 됩니다.
