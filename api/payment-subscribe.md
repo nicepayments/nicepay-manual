@@ -68,8 +68,8 @@ Content-type: application/json;charset=utf-8
 | cardNo    | String | O        | 16   | 카드번호<br>숫자만 입력                           |
 | expYear   | String | O        | 2    | 유효기간(년)<br>포멧 : YY                       |
 | expMonth  | String | O        | 2    | 유효기간(월)<br>포멧 : MM                       |
-| idNo      | String | 계약<br>옵션 | 13   | 개인 : 생년월일(6)/YYMMDD <br/> 법인 : 사업자번호(10) |
-| cardPw    | String | 계약<br>옵션 | 2    | 카드 비밀번호<br>비밀번호 앞 2자리                    |
+| idNo      | String | O | 13   | 개인 : 생년월일(6)/YYMMDD <br/> 법인 : 사업자번호(10) |
+| cardPw    | String | O | 2    | 카드 비밀번호<br>비밀번호 앞 2자리                    |
 
 <br>
 
