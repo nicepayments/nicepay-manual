@@ -383,6 +383,7 @@ Content-type: application/json
   issuedCashReceipt: false,
   coupon: null,
   card: {
+    // 샌드박스 응답결과는 모두 임의값입니다. resultCode가 0000 이면 응답 TEST 성공입니다.
     cardCode: '04',
     cardName: '삼성',  # (샌드박스) 응답 결과는 삼성카드로 고정 
     cardNum: '123412******1234',
