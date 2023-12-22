@@ -16,7 +16,8 @@
 ### 웹훅 발송 흐름
 - 등록된 웹훅 `End-point`로 이벤트 발생시 웹훅 전문 Post 
 - 가맹점은 Server에서 웹훅 전문 확인 후 비즈니스 로직을 처리
-- 비즈니스 로직 처리 후 `HTTP Status 200`과 `ResponseBody`에 "OK” 문자열을 print하여 응답
+- 비즈니스 로직 처리 후 `HTTPStatus 200`과 `ResponseBody`에 `"OK”` 문자열을 print하여 응답
+  - 응답 시에는 `Content-Type: text/html` 타입으로 응답하여야 합니다.
 
 <br>
 
@@ -37,13 +38,15 @@
 <br>
 
 > #### ⚠️ 중요
-> `Response body`에 "OK” 문자열이 없는 경우 실패로 처리되기 때문에 주의가 필요 합니다.  
+> `Response body`에 "OK” 문자열이 없는 경우 실패로 처리되기 때문에 주의가 필요 합니다.
+> 나이스페이먼츠에서 보내는 Content-Type은 application/json 타입이나, 가맹점에서 응답 시에는 Content-Type: text/html 타입으로 응답해주셔야 합니다.
 > [방화벽 정책](/common/preparations.md#방화벽-정책)을 통해 `Inbound IP` 를 제한하는 것을 권장하고 있습니다.   
 > 비즈니스 로직 처리 전 웹훅 전문에 포함된 위변조 검증값 `signature` 과 금액을 반드시 체크 해주세요.  
 
 <br>
 
-## 응답 명세
+## 결제통보 요청 명세
+
 ```bash
 POST
 Content-type: application/json;charset=utf-8
@@ -158,8 +161,18 @@ Content-type: application/json;charset=utf-8
 |           | receiptUrl  | String | O    | 200    | 취소에 대한<br>매출전표 확인 URL  |
 |           | couponAmt   | Integer    | 　   | 12     | 쿠폰 취소금액      |
 
-  
-  
+
+## 결제통보 응답 명세
+
+
+```bash
+Content-type: text/html;charset=utf-8
+```
+
+| value |           | Type   | 필수  | 　Byte | 설명                             |
+|-------|-----------|--------|-----|-------|--------------------------------|
+| "OK"  | 　         | String | 　 O | -     | 정상응답 하였다는 의미로 "OK" 문자열을 검증합니다. |
+
   
   
 ## 더 알아보기

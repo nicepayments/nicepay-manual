@@ -2653,8 +2653,8 @@ Content-type: application/json
 ### 웹훅 발송 흐름
 - 등록된 웹훅 `End-point`로 이벤트 발생시 웹훅 전문 Post
 - 가맹점은 Server에서 웹훅 전문 확인 후 비즈니스 로직을 처리
-- 비즈니스 로직 처리 후 `HTTP Status 200`과 `ResponseBody`에 "OK” 문자열을 print하여 응답
-
+- 비즈니스 로직 처리 후 `HTTPStatus 200`과 `ResponseBody`에 `"OK”` 문자열을 print하여 응답
+    - 응답 시에는 `Content-Type: text/html` 타입으로 응답하여야 합니다.
 <br>
 
 ### 웹훅 발송 시점
@@ -2825,6 +2825,17 @@ Content-type: application/json;charset=utf-8
 |           | reason      |  String  |   O   |   100   | 취소사유                   |
 |           | receiptUrl  |  String  |   O   |   200   | 취소에 대한<br>매출전표 확인 URL  |
 |           | couponAmt   |   Int    |   　   |   12    | 쿠폰 취소금액                |
+
+
+## 결제통보 응답 명세
+
+```bash
+Content-type: text/html;charset=utf-8
+```
+
+| value |           | Type   | 필수  | 　Byte | 설명                             |
+|-------|-----------|--------|-----|-------|--------------------------------|
+| "OK"  | 　         | String | 　 O | -     | 정상응답 하였다는 의미로 "OK" 문자열을 검증합니다. |
 
 
 
