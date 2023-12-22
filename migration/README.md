@@ -2711,7 +2711,7 @@ Content-type: application/json
 
 <br>
 
-### 응답 명세 (Body)
+### 결제통보 요청 명세 (Nicepayment -> merchant)
 
 ```bash
 POST
@@ -2827,7 +2827,7 @@ Content-type: application/json;charset=utf-8
 |           | couponAmt   |   Int    |   　   |   12    | 쿠폰 취소금액                |
 
 
-## 결제통보 응답 명세
+## 결제통보 응답 명세 (merchant -> Nicepayment)
 
 ```bash
 Content-type: text/html;charset=utf-8

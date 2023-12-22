@@ -45,7 +45,7 @@
 
 <br>
 
-## 결제통보 요청 명세
+## 결제통보 요청 명세 (Nicepayment -> merchant)
 
 ```bash
 POST
@@ -162,7 +162,7 @@ Content-type: application/json;charset=utf-8
 |           | couponAmt   | Integer    | 　   | 12     | 쿠폰 취소금액      |
 
 
-## 결제통보 응답 명세
+## 결제통보 응답 명세  (merchant -> Nicepayment)
 
 
 ```bash
