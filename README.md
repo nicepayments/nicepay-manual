@@ -129,7 +129,7 @@ function serverAuth() {
 
 ```bash
 POST
-Content-type: application/x-www-form-urlencoded
+Accept: application/x-www-form-urlencoded
 ```
 ```javascript
 {

@@ -142,7 +142,7 @@ function serverAuth() {
 ### 응답 명세 (Server 승인 모델)
 ```bash
 POST
-Content-type: application/x-www-form-urlencoded
+Accept: application/x-www-form-urlencoded
 ```
 | Parameter      | Type   | 필수   | Byte | 설명                                                                 |
 |----------------|--------|--------|------|----------------------------------------------------------------------|

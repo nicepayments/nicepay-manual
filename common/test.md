@@ -161,7 +161,7 @@ const random = (length = 8) => {
 - 카드사 인증을 성공하면 authResultCode가 `0000`으로 응답 됩니다.
 
 ```bash
-Content-type: application/x-www-form-urlencoded
+Accept: application/x-www-form-urlencoded
 ```
 
 ```bash
