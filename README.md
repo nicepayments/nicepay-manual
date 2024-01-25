@@ -128,7 +128,6 @@ function serverAuth() {
 - 카드사 인증을 성공하면 authResultCode가 `0000`으로 응답 됩니다.
 
 ```bash
-POST
 Accept: application/x-www-form-urlencoded
 ```
 ```javascript
@@ -181,7 +180,6 @@ Base64('S2_af4543a0be4d49a98122e01ec2059a56:9eb85607103646da9f9c02b128f2e5ee')
 
 ### 결제(승인) 응답 예시
 ```bash
-POST
 Content-type: application/json
 ```
 ```bash

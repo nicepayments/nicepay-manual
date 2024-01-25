@@ -153,7 +153,6 @@ function clientAuth() {
 
 ### 응답 명세 (Client 승인 모델)
 ```bash
-POST
 Accept: application/x-www-form-urlencoded
 ```
 | Parameter         | Type    | 필수 | Byte | 설명                                                                                                                                                                                       |
@@ -251,7 +250,6 @@ Content-type: application/json;charset=utf-8
 
 ### 응답 명세
 ```bash
-POST
 Content-type: application/json
 ```
 | Parameter  | Type | 필수 | Byte | 설명                                                                                                          |

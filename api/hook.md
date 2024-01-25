@@ -48,7 +48,6 @@
 ## 결제통보 요청 명세 (Nicepayment -> merchant)
 
 ```bash
-POST
 Content-type: application/json;charset=utf-8
 ```
 

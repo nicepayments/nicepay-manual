@@ -94,7 +94,6 @@ Case1. AES128
 
 ### 응답 명세 (Body)
 ```bash
-POST
 Content-type: application/json
 ```
 | Parameter         | Type    | 필수 | Byte | 설명                                                                                                           |

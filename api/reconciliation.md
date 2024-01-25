@@ -36,7 +36,7 @@ Content-type: application/json;charset=utf-8
 
 ### 응답 명세
 ```bash
-POST
+
 Content-type: application/json
 
 ```
@@ -69,7 +69,6 @@ Content-type: application/json;charset=utf-8
 
 ### 응답 명세
 ```bash
-POST
 Content-type: application/json
 
 ```
@@ -102,7 +101,6 @@ Content-type: application/json;charset=utf-8
 
 ### 응답 명세
 ```bash
-POST
 Content-type: application/json
 
 ```
