@@ -136,11 +136,11 @@ function clientAuth() {
 <br>
 
 ### PC 옵션
-| Parameter      | Type    | 필수 | Byte | 설명                                                     |
-|----------------|---------|------|------|----------------------------------------------------------|
-| disableScroll  | Boolean |      | -    | 결제창 스크롤 생성여부<br><br>true : 스크롤 생성 안함(Default : true)<br>false : 스크롤 생성 |
-| disableEdgeChk | Boolean |      | -    | Edge브라우저 가이드Alert 예외 여부<br><br>true : Edge브라우저 가이드문구 노출안함<br> false : Edge브라우저 가이드문구 노출(Default : false)|
-| zIdxHigher     | Boolean |      | -    | NICEPAY Layer z-index 조정 여부<br>true : NICEPAY Layer의 최하단 z-index를 11000 으로 설정<br>false : default z-index로 9999가 설정됨(Default : false) |
+| Parameter      | Type    | 필수 | Byte | 설명                                                                                                                                   |
+|----------------|---------|----|------|--------------------------------------------------------------------------------------------------------------------------------------|
+| disableScroll  | Boolean |    | -    | 결제창 스크롤 생성여부<br><br>true : 스크롤 생성 안함(Default : true)<br>false : 스크롤 생성 </br> 결제창 사이즈 : 660*825 pixel                                 |
+| disableEdgeChk | Boolean |    | -    | Edge브라우저 가이드Alert 예외 여부<br><br>true : Edge브라우저 가이드문구 노출안함<br> false : Edge브라우저 가이드문구 노출(Default : false)                             |
+| zIdxHigher     | Boolean |    | -    | NICEPAY Layer z-index 조정 여부<br>true : NICEPAY Layer의 최하단 z-index를 11000 으로 설정<br>false : default z-index로 9999가 설정됨(Default : false) |
 
 <br>
 
