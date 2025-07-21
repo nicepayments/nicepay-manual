@@ -1,6 +1,3 @@
-<div align="right">
-  <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fnicepayments&count_bg=%233D7CC8&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false)](https://github.com/nicepayments">
-</div>
 <h3 align="center">
   🚀 NicePay For Startups 개발자 가이드
 </h3>
