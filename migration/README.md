@@ -335,7 +335,6 @@ Content-type: application/json;charset=utf-8
 | [취소 요청](#취소환불망취소)                    |     △     | `POST` | /v1/payments/{tid}/cancel    | 부분취소 불가 |
 | [거래조회-tid](#거래조회--with-tid-)         |     ○     | `GET`  | /v1/payments/{tid}           |         |
 | [거래조회-orderId](#거래조회--with-orderid-) |     ○     | `GET`  | /v1/payments/find/{orderId}  |         |
-| [빌키발급](#빌키발급)                        |     ○     | `POST` | /v1/subscribe/regist         | 임의 값 응답 |
 | [빌키승인](#빌키승인)                        |     ○     | `POST` | /v1/subscribe/{bid}/payments | 임의 값 응답 | 
 | [빌키삭제](#빌키삭제)                        |     ○     | `POST` | /v1/subscribe/{bid}/expire   |         |
 | [약관조회](#약관-조회)                       |     ×     | `GET`  | /v1/terms                    |         |
@@ -460,7 +459,6 @@ API요청이 실패하는 경우 상세로그를 확인하여 쉽게 디버깅 �
 | [취소 요청](#취소환불망취소)                    | `POST` | /v1/payments/{tid}/cancel    |
 | [거래조회-tid](#거래조회--with-tid-)         | `GET`  | /v1/payments/{tid}           |
 | [거래조회-orderId](#거래조회--with-orderid-) | `GET`  | /v1/payments/find/{orderId}  |
-| [빌키발급](#빌키발급)                        | `POST` | /v1/subscribe/regist         |
 | [빌키승인](#빌키승인)                        | `POST` | /v1/subscribe/{bid}/payments |
 | [빌키삭제](#빌키삭제)                        | `POST` | /v1/subscribe/{bid}/expire   |
 | [약관조회](#약관-조회)                       | `GET`  | /v1/terms                    |
@@ -1158,109 +1156,7 @@ Content-type: application/json
 
 ## 빌키 발급
 
-빌링 서비스는 정기결제(한번의 카드 등록을 통해 반복적인 결제)를 구현할 수 있는 서비스 입니다.  
-빌링 서비스는 크게 3가지 파트 [빌키발급](#빌키발급), [빌키승인](#빌키승인), [빌키삭제](#빌키삭제) 부분으로 나뉘어 설명되며,  
-각 파트의 명세와 샘플코드를 활용하면 쉽게 구현이 가능 합니다.    
-빌키 발급은 결제자의 카드정보를 암호화된 키값으로 변환하는 과정 입니다.  
-결제자의 카드정보를 암호화 하여 `/v1/subscribe/regist` API를 호출하면  
-나이스페이는 카드정보를 암호화된 형태로 저장 하고 카드정보에 맵핑된 bid(빌키)를 응답 합니다.  
-정기결제가 필요한 시점에 가맹점이 bid(빌키)를 빌키승인 API로 전달 하면 등록된 카드로 💳 결제(승인)이 발생 됩니다.
-
-> #### ⚠️ 중요
-> 1개의 카드로 n개 빌키 생성이 가능하며 정상 발급된 빌키는 모두 사용이 가능 합니다.
-
-<br>
-
-### Over-view
-<img src="../image/payment-subscribe-regist.svg" width="800px"> 
-
-### 샘플 코드
-
-```bash
-curl -X POST 'https://api.nicepay.co.kr/v1/subscribe/regist' 
--H 'Content-Type: application/json' 
--H 'Authorization: Basic ZWVjOGQzNTA4Y2IwNDI1ZGI5NTViMzBiZjM5...' 
--D '{
-    "encData": "C41346B71984...",
-    "orderId": "merchant-order-id",
-    "encMode" : "A2"
-}'
-```
-
-### 요청 명세 (Body)
-
-```bash
-POST /v1/subscribe/regist  
-HTTP/1.1  
-Host: api.nicepay.co.kr 
-Authorization: Basic <credentials> or Bearer <token>
-Content-type: application/json;charset=utf-8
-```
-
-| Parameter     |  Type  | 필수  | Byte | 설명                                                                                                                                                                                                                                                                                           |
-|:--------------|:------:|:---:|:----:|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| encData       | String |  O  | 512  | 결제정보 암호화 데이터<br>- 암호화 알고리즘 :   AES128<br>- 암호화 상세 :   AES/ECB/PKCS5padding<br>- 암호결과 인코딩 :   Hex Encoding<br>- 암호 KEY : SecretKey 앞 16자리<br>- Hex(AES(cardNo=value&expYear=YY&expMonth=MM&idNo=value&cardPw=value))<br>*상세 명세는 하단 참조*                                                        |
-| orderId       | String |  O  |  64  | 상점 거래 고유번호<br>가맹점에서 관리하는 Unique한 주문번호 또는 결제번호                                                                                                                                                                                                                                                |
-| buyerName     | String |  　  |  30  | 구매자                                                                                                                                                                                                                                                                                          |
-| buyerEmail    | String |  　  |  60  | 구매자 이메일주소                                                                                                                                                                                                                                                                                    |
-| buyerTel      | String |  　  |  20  | 구매자 전화번호<br> '-' 없이 숫자만 입력                                                                                                                                                                                                                                                                   |
-| encMode       | String |  　  |  10  | 암호화 모드<br>encData 필드의 암호화 알고리즘 정의<br><br> A2 : AES256<br>•암호화 알고리즘 : AES256<br>•암호화 상세 : AES/CBC/PKCS5padding <br>•암호결과 인코딩 : Hex Encoding <br> •암호 KEY : SecretKey (32byte)<br>•IV : SecretKey 앞 16자리                                                                                       |
-| ediDate       | String |  　  |  -   | 전문생성일시<br> ISO 8601 형식 <br> (signData 를 사용하려는 경우 필수 값)                                                                                                                                                                                                                                       |
-| signData      | String |  　  | 256  | 위변조 검증 Data<br>생성규칙 : hex(sha256(orderId + ediDate +   SecretKey))<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.                                                                                                                                                                                  |
-| returnCharSet | String |  　  |  10  | 응답파라메터 인코딩 방식<br>가맹점 서버의 encoding 방식 전달<br>예시) utf-8(Default) / euc-kr                                                                                                                                                                                                                       |
-
-
-<br>
-
-### encData 필드 상세정보
-
-| Parameter  |   Type   |     필수     |  Byte  | 설명                                        |
-|:-----------|:--------:|:----------:|:------:|:------------------------------------------|
-| cardNo     |  String  |     O      |   16   | 카드번호<br>숫자만 입력                            |
-| expYear    |  String  |     O      |   2    | 유효기간(년)<br>포멧 : YY                        |
-| expMonth   |  String  |     O      |   2    | 유효기간(월)<br>포멧 : MM                        |
-| idNo       |  String  |  O  |   13   | 개인 : 생년월일(6)/YYMMDD <br/> 법인 : 사업자번호(10)  |
-| cardPw     |  String  |  O  |   2    | 카드 비밀번호<br>비밀번호 앞 2자리                     |
-
-<br>
-
-### encData 필드 암호화 예시 (AES-128)
-
-```bash
- - 평문: cardNo=1234567890123456&expYear=25&expMonth=12&idNo=800101&cardPw=12 
- - 암호화 키: 2dcc2a0d63bf4694 
- - 암호화결과: 7c4b12eb43324290bd0e522900a892343f57e0d176cdadae757132c7f3cd442f023ef5c3ffa254ed04b6d47624d4c7847e8061f3be0d67adf1b463b46a542052cf47a5206bfd23945fc1851d426468f4
-```
-
-<br>
-
-### encData 필드 암호화 예시 (AES-256)
-```bash
-- 평문 : cardNo=1234567890123456&expYear=25&expMonth=12&idNo=800101&cardPw=12
-- 암호화 키 : 2dcc2a0d63bf469490bb19a201be3735
-- IV : 2dcc2a0d63bf4694 (SecretKey 앞16자리)
-- 암호화결과 : 6ecfe97e521bc67c3053d74a9dbdba53033d343fc9e8e38e730964b22ef2e4a59607171b00a9da977141b3f79fffa1e80a16c08bc58666b479f554a966a363414347e62f2621f8df220c7a4a545592d0
-```
-
-<br>
-
-### 응답 명세 (Body)
-
-```bash
-POST
-Content-type: application/json
-```
-
-| Parameter  | Type  |  필수   | Byte  | 설명                                                                                                                                                         |
-|:-----------|:-----:|:-----:|:-----:|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|
-| resultCode |   S   |   O   |   4   | 결제결과코드<br>0000 : 성공 / 그외 실패                                                                                                                                |
-| resultMsg  |   S   |   O   |  100  | 결제결과메시지<br>예시) 빌키가 정상적으로 생성되었습니다.                                                                                                                          |
-| tid        |   S   |   O   |  30   | 거래번호<br>거래를 구분하는 transaction ID<br>예시) nictest00m01011104191651325596                                                                                      |
-| orderId    |   S   |   O   |  64   | 상점 거래 고유번호                                                                                                                                                 |
-| bid        |   S   |   　   |  30   | 빌키<br>NICEPAY가 발급하는 빌링 아이디<br>가맹점 DB 저장하여, 빌링승인   API 요청시 전달<br> - 회원   카드 정보와 매핑되어 관리되는 Key 값으로, 빌키승인   API 호출시 전달<br>예시) BIKYnictest00m1104191651325596  |
-| authDate   |   S   |   　   |   -   | 인증일자<br>ISO 8601 형식                                                                                                                                        |
-| cardCode   |   S   |   　   |   3   | 카드사 코드<br>신용카드사별 코드                                                                                                                                        |
-| cardName   |   S   |   　   |  20   | 카드사 이름<br>예시) [삼성]                                                                                                                                         |
+> 빌키 발급은 추후 빌링 결제창 연동 방식으로 개발할 예정입니다.
 
 <br>
 
