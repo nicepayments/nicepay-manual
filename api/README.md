@@ -12,7 +12,7 @@ API 개발을 위한 각 인터페이스의 개발 명세가 필요하다면 �
   
 ### 📚 문서
 `API 명세`와 `코드`가 포함된 기술문서 입니다.  
-- [결제·발급](./payment.md) 👉 [결제창](./payment-window-server.md) | [현금영수증](./payment-receipt.md) | [Access token](./payment-access-token.md)
+- [결제·발급](./payment.md) 👉 [결제창](./payment-window-server.md) | [빌링](./payment-subscribe.md) | [현금영수증](./payment-receipt.md) | [Access token](./payment-access-token.md)
 - [조회](./status.md) 👉 [거래 조회](./status-transaction.md) | [약관 조회](./status-terms.md) | [카드 이벤트 조회](./status-event.md) | [카드 무이자 조회](./status-interest.md)
 - [거래·정산·대사](./reconciliation.md) 👉 [거래대사](./reconciliation.md#거래대사) | [정산대사](./reconciliation.md#정산대사) | [입금대사](./reconciliation.md#입금대사)
 - [취소·환불·망취소](./cancel.md) 👉  [취소·환불](./cancel.md#취소환불) | [망 취소](./cancel.md#망취소)

@@ -19,6 +19,9 @@ Content-Type : application/json
 | [취소 요청](/api/cancel.md#취소환불망취소)                           | `POST` | /v1/payments/{tid}/cancel    |
 | [거래조회-tid](/api/status-transaction.md#거래조회tid-활용)         | `GET`  | /v1/payments/{tid}           |
 | [거래조회-orderId](/api/status-transaction.md#거래조회orderid-활용) | `GET`  | /v1/payments/find/{orderId}  |
+| [빌키발급](/api/payment-subscribe.md#빌키발급)                    | `POST` | /v1/subscribe/regist         |
+| [빌키승인](/api/payment-subscribe.md#빌키승인)                    | `POST` | /v1/subscribe/{bid}/payments |
+| [빌키삭제](/api/payment-subscribe.md#빌키삭제)                    | `POST` | /v1/subscribe/{bid}/expire   |
 | [약관조회](/api/status-terms.md#약관-조회)                        | `GET`  | /v1/terms                    |
 | [N정통Epay승인](/api/payment-epay.md#epay)                    | `POST` | /v1/epay                     |
 | [현금영수증 발급](/api/payment-receipt.md#현금영수증-발급)              | `POST` | /v1/receipt/                 |
@@ -250,7 +253,7 @@ API 개발을 위한 각 인터페이스의 개발 명세가 필요하다면 �
   
 ### 📚 문서
 `API 명세`와 `코드`가 포함된 기술문서 입니다.  
-- [결제·발급](/api/payment.md#) 👉 [결제창](/api/payment-window-server.md) | [현금영수증](/api/payment-receipt.md) | [Access token](/api/payment-access-token.md)
+- [결제·발급](/api/payment.md#) 👉 [결제창](/api/payment-window-server.md) | [빌링](/api/payment-subscribe.md) | [현금영수증](/api/payment-receipt.md) | [Access token](/api/payment-access-token.md)
 - [조회](/api/status.md) 👉 [거래 조회](/api/status-transaction.md) | [약관 조회](/api/status-terms.md) | [카드 이벤트 조회](/api/status-event.md) | [카드 무이자 조회](/api/status-interest.md)
 - [취소·환불·망취소](/api/cancel.md) 👉  [취소·환불](/api/cancel.md#취소환불) | [망 취소](/api/cancel.md#망취소)
 - [웹훅](/api/hook.md) 👉 [웹훅](/api/hook.md#웹훅)

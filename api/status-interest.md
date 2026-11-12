@@ -30,7 +30,7 @@ Content-type: application/json;charset=utf-8
 ```
 | Parameter     | Type    | 필수 | Byte | 설명                                                                                                      |
 |---------------|---------|------|------|-----------------------------------------------------------------------------------------------------------|
-| useAuth       | Boolean | O    | -    | 인증 거래 여부<br>true : 인증 /   false : 비인증                                                                      |
+| useAuth       | Boolean | O    | -    | 인증 거래 여부<br>true : 인증 /   false : 비인증(빌링)                                                                      |
 | ediDate       | String  | O    | -    | 전문생성일시<br>ISO 8601 형식                                                                                             |
 | mid           | String  | 　   | 10   | 상점 MID<br>일반적으로 사용하지 않지만, mid가 요청된 경우, 최우선하여 제공.(요청된 clientId하위 가맹점여부 검증 필수) |
 | signData      | String  | 　   | 256  | 위변조 검증 Data<br>생성규칙 : hex(sha256(ediDate + SecretKey))<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.|
@@ -80,7 +80,7 @@ API 개발을 위한 각 인터페이스의 개발 명세가 필요하다면 �
   
 ### 📚 문서
 `API 명세`와 `코드`가 포함된 기술문서 입니다.  
-- [결제·발급](/api/payment.md#) 👉 [결제창](/api/payment-window-server.md) | [현금영수증](/api/payment-receipt.md) | [Access token](/api/payment-access-token.md)
+- [결제·발급](/api/payment.md#) 👉 [결제창](/api/payment-window-server.md) | [빌링](/api/payment-subscribe.md) | [현금영수증](/api/payment-receipt.md) | [Access token](/api/payment-access-token.md)
 - [조회](/api/status.md) 👉 [거래 조회](/api/status-transaction.md) | [약관 조회](/api/status-terms.md) | [카드 이벤트 조회](/api/status-event.md) | [카드 무이자 조회](/api/status-interest.md)
 - [취소·환불·망취소](/api/cancel.md) 👉  [취소·환불](/api/cancel.md#취소환불) | [망 취소](/api/cancel.md#망취소)
 - [웹훅](/api/hook.md) 👉 [웹훅](/api/hook.md#웹훅)
