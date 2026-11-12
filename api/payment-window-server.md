@@ -115,7 +115,7 @@ function serverAuth() {
 
 <br>
 
-### 다이렉트
+### 현금영수증
 | Parameter         | Type   | 필수              | Byte | 설명                                                              |
 |-------------------|--------|-------------------|------|-------------------------------------------------------------------|
 | directReceiptType | String |                   | 20   | 현금영수증 발급 유형<br>unPublished : 미발행<br>individual : 개인 소득공제용<br>company : 사업자 지출증빙용|
