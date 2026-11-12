@@ -17,12 +17,6 @@
 
 ---
 
-### 빌링  
-👉 [빌키발급](./payment-subscribe.md#빌키발급) | [빌키승인](./payment-subscribe.md#빌키승인) | [빌키삭제](./payment-subscribe.md#빌키삭제)  
-정기,구독 결제 및 간편결제 구현이 필요한 경우 사용됩니다.  
-
----
-
 ### 현금영수증   
 👉 [현금영수증 발급](./payment-receipt.md#현금영수증-발급) | [현금영수증 취소](./payment-receipt.md#현금영수증-취소) | [현금영수증 조회](./payment-receipt.md#현금영수증-조회)  
 현금성 결제 후 현금영수증을 별도 발급하는 경우 사용됩니다.  
@@ -52,7 +46,7 @@ API 개발을 위한 각 인터페이스의 개발 명세가 필요하다면 �
   
 ### 📚 문서
 `API 명세`와 `코드`가 포함된 기술문서 입니다.  
-- [결제·발급](/api/payment.md#) 👉 [결제창](/api/payment-window-server.md) | [빌링](/api/payment-subscribe.md) | [현금영수증](/api/payment-receipt.md) | [Access token](/api/payment-access-token.md)
+- [결제·발급](/api/payment.md#) 👉 [결제창](/api/payment-window-server.md) | [현금영수증](/api/payment-receipt.md) | [Access token](/api/payment-access-token.md)
 - [조회](/api/status.md) 👉 [거래 조회](/api/status-transaction.md) | [약관 조회](/api/status-terms.md) | [카드 이벤트 조회](/api/status-event.md) | [카드 무이자 조회](/api/status-interest.md)
 - [취소·환불·망취소](/api/cancel.md) 👉  [취소·환불](/api/cancel.md#취소환불) | [망 취소](/api/cancel.md#망취소)
 - [웹훅](/api/hook.md) 👉 [웹훅](/api/hook.md#웹훅)
