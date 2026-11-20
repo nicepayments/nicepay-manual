@@ -6,25 +6,7 @@
 
 ## 빌링 결제창 호출
 ### Over-view
-```mermaid
-sequenceDiagram
-    actor Customer as 결제자
-    participant Merchant as 가맹점
-    participant NICEPAY as NICEPAY
-
-    Note over Customer,NICEPAY: 빌링 결제창 호출
-    Merchant->>NICEPAY: AUTHNICE.requestPay({isBill: "Y", amount: 0})
-    Customer->>NICEPAY: 결제수단 인증
-    NICEPAY->>Merchant: 인증 결과 POST (returnUrl)<br/>{authResultCode, tid, isBill: "Y", signature}
-
-    Note over Customer,NICEPAY: 빌키확정 (인증 후 10분 안)
-    Merchant->>NICEPAY: POST /v1/subscribe/{tid}/issue
-    NICEPAY-->>Merchant: {resultCode, bid, status: issued}
-
-    Note over Customer,NICEPAY: 빌키승인, 빌키삭제
-    Merchant->>NICEPAY: POST /v1/subscribe/{bid}/payments
-    Merchant->>NICEPAY: POST /v1/subscribe/{bid}/expire
-```
+<img src="../image/payment-subscribe-window.svg" width="800px">  
 
 ### 설명
 빌링 서비스는 정기결제(한번의 결제수단 등록으로 반복적인 결제)를 구현할 수 있는 서비스 입니다.  
