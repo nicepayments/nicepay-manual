@@ -1148,15 +1148,225 @@ Content-type: application/json
 
 ## 빌링
 
-- [빌키발급](#빌키-발급)
+- [빌링 결제창 호출](#빌링-결제창-호출)
+- [빌키확정](#빌키확정)
 - [빌키승인](#빌키-승인)
 - [빌키삭제](#빌키-삭제)
 
 <br>
 
-## 빌키 발급
+## 빌링 결제창 호출
+### 빌링 Over-view
+```mermaid
+sequenceDiagram
+    actor Customer as 결제자
+    participant Merchant as 가맹점
+    participant NICEPAY as NICEPAY
 
-> 빌키 발급은 추후 빌링 결제창 연동 방식으로 개발할 예정입니다.
+    Note over Customer,NICEPAY: 빌링 결제창 호출
+    Merchant->>NICEPAY: AUTHNICE.requestPay({isBill: "Y", amount: 0})
+    Customer->>NICEPAY: 결제수단 인증
+    NICEPAY->>Merchant: 인증 결과 POST (returnUrl)<br/>{authResultCode, tid, isBill: "Y", signature}
+
+    Note over Customer,NICEPAY: 빌키확정 (인증 후 10분 안)
+    Merchant->>NICEPAY: POST /v1/subscribe/{tid}/issue
+    NICEPAY-->>Merchant: {resultCode, bid, status: issued}
+
+    Note over Customer,NICEPAY: 빌키승인, 빌키삭제
+    Merchant->>NICEPAY: POST /v1/subscribe/{bid}/payments
+    Merchant->>NICEPAY: POST /v1/subscribe/{bid}/expire
+```
+
+### 빌링 결제창 설명
+빌링 서비스는 정기결제(한번의 결제수단 등록으로 반복적인 결제)를 구현할 수 있는 서비스 입니다.  
+빌링 서비스는 [빌링 결제창 호출](#빌링-결제창-호출), [빌키확정](#빌키확정), [빌키승인](#빌키-승인), [빌키삭제](#빌키-삭제) 순서로 연동 합니다.  
+
+- 가맹점은 결제창을 `isBill: "Y"`, `amount: 0`으로 호출 합니다.
+- 결제자가 결제수단을 인증하면 나이스페이는 인증 결과를 `returnUrl`로 POST 합니다. 이 단계에서는 bid(빌키)가 발급되지 않습니다.
+- 가맹점 서버는 응답된 tid로 [빌키확정](#빌키확정) API를 호출하고, 응답된 bid(빌키)를 저장 합니다.
+- 결제자의 카드정보는 결제창에서만 입력되며, 가맹점은 카드정보를 받거나 저장하지 않습니다.
+
+<br>
+
+> #### ⚠️ 중요
+> Server 승인 모델로 발급된 [클라이언트 키](../common/api.md#클라이언트-키)에서만 사용이 가능 합니다.  
+> 빌링 결제창 인증이 성공해도 bid(빌키)는 발급되지 않습니다. 인증 후 **10분 안에** [빌키확정](#빌키확정) API를 호출해야 합니다.  
+> 인증 결과의 tid로 [승인](../api/payment-window-server.md#승인) API(`/v1/payments/{tid}`)를 호출하면 `U158`로 거절 됩니다.
+
+<br>
+
+### 지원 결제수단
+
+| method        | 결제수단            | mallUserId |
+|:-------------:|:---------------:|:----------:|
+| card          | 신용카드            | 선택         |
+| kakaopay      | 카카오페이           | 필수         |
+| naverpayCard  | 네이버페이-신용카드      | 필수         |
+| naverpayPoint | 네이버페이-포인트       | 필수         |
+| tosspay       | 토스페이            | 필수         |
+
+<br>
+
+### 샘플 코드 (빌링 결제창 호출)
+
+```html
+<script src="https://pay.nicepay.co.kr/v1/js/"></script>
+<script>
+function billing() {
+  AUTHNICE.requestPay({
+    clientId: 'R2_xxxxxxxxxxxxxxxx',
+    method: 'card',
+    isBill: 'Y',
+    amount: 0,
+    orderId: 'your-unique-orderid',
+    goodsName: '정기구독',
+    mallUserId: 'user-1234',
+    returnUrl: 'https://your.site.com/billing/return',
+    fnError: function (result) {
+      alert('개발자확인용 : ' + result.errorMsg + '')
+    }
+  });
+}
+</script>
+```
+
+<br>
+
+### 빌링 결제창 요청 명세
+[결제창 요청 명세](../api/payment-window-server.md#공통)와 같고, 아래 항목의 값이 다릅니다.
+
+| Parameter  | Type    | 필수 | Byte | 설명 |
+|:----------:|:-------:|:----:|:----:|:-----|
+| isBill     | String  | O    | 1    | 빌링 결제창 호출 여부<br>Y : 빌링 결제창<br>- 일반결제에서는 보내지 않습니다. |
+| amount     | Integer | O    | 12   | 결제금액<br>빌링 결제창은 `0`만 허용 합니다. |
+| method     | String  | O    | 20   | 결제수단<br>[지원 결제수단](#지원-결제수단)만 허용 합니다. |
+| orderId    | String  | O    | 64   | 가맹점에서 관리하는 Unique한 주문번호<br>요청마다 새 orderId를 보냅니다.<br>- 이미 쓴 orderId는 다시 쓰지 않습니다. |
+| mallUserId | String  | △    | 20   | 상점에서 관리하는 사용자 아이디<br>카카오페이, 네이버페이, 토스페이는 필수 |
+
+<br>
+
+### 빌링 결제창 응답 명세
+[결제창 응답 명세](../api/payment-window-server.md#응답-명세-server-승인-모델)와 같고, 아래 항목이 추가 됩니다.
+
+| Parameter | Type   | 필수   | Byte | 설명 |
+|:---------:|:------:|:------:|:----:|:-----|
+| isBill    | String | 성공시 | 1    | Y : 빌링 결제창 인증 결과<br>- 인증에 성공한 경우(authResultCode=0000)에만 리턴됩니다. |
+
+<br>
+
+> #### ⚠️ 중요
+> `returnUrl`로 응답된 `amount`(0), `orderId`, `signature`가 가맹점이 생성한 결제정보와 일치하는지 체크 후 [빌키확정](#빌키확정) API를 호출 해주세요.
+
+<br>
+
+## 빌키확정
+
+### 빌키확정 설명
+- 빌키확정은 빌링 결제창 인증 결과의 tid로 bid(빌키)를 발급받는 과정 입니다.
+- `returnUrl`로 응답된 tid로 `/v1/subscribe/{tid}/issue` API를 호출하면 bid(빌키)가 응답 됩니다.
+- 인증 후 10분이 지나면 `U157`이 응답 됩니다. 이 경우 [빌링 결제창 호출](#빌링-결제창-호출)부터 다시 진행 해주세요.
+
+<br>
+
+### 샘플 코드 (빌키확정)
+
+```bash
+curl -X POST 'https://api.nicepay.co.kr/v1/subscribe/{tid}/issue' 
+-H 'Content-Type: application/json' 
+-H 'Authorization: Basic ZWVjOGQzNTA4Y2IwNDI1ZGI5NTViMzBi...' 
+-D '{
+	"amount": 0
+	,"ediDate": "2026-11-21T10:00:00.000+09:00"
+	,"signData": "{위변조 검증 Data}"
+}'
+```
+
+<br>
+
+### 빌키확정 요청 명세
+```bash
+POST /v1/subscribe/{tid}/issue HTTP/1.1  
+Host: api.nicepay.co.kr 
+Authorization: Basic <credentials> or Bearer <token>
+Content-type: application/json;charset=utf-8
+```
+| Parameter     | Type    | 필수 | Byte | 설명 |
+|:-------------:|:-------:|:----:|:----:|:-----|
+| amount        | Integer | O    | 12   | 결제금액<br>`0`만 허용 합니다. |
+| ediDate       | String  | O    | -    | 전문생성일시<br>ISO 8601 형식 |
+| signData      | String  | O    | 256  | 위변조 검증 Data<br>생성규칙 : hex(sha256(tid + amount + ediDate + SecretKey))<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다. |
+| returnCharSet | String  |      | 10   | 응답파라메터 인코딩 방식<br>가맹점 서버의 encoding 방식 전달<br>utf-8(Default) / euc-kr |
+
+- 경로의 `{tid}`는 빌링 결제창 `returnUrl`로 응답된 tid 입니다.
+
+<br>
+
+### 빌키확정 응답 명세
+```bash
+Content-type: application/json
+```
+| Parameter     | Type   | 필수 | Byte | 설명 |
+|:-------------:|:------:|:----:|:----:|:-----|
+| resultCode    | String | O    | 4    | 결과코드<br>0000 : 성공 / 그외 실패 |
+| resultMsg     | String | O    | 100  | 결과메시지 |
+| tid           | String | O    | 30   | 거래번호 |
+| orderId       | String | O    | 64   | 상점 거래 고유번호 |
+| bid           | String |      | 30   | 빌키<br>[빌키승인](#빌키-승인), [빌키삭제](#빌키-삭제) API 호출시 전달<br>- 성공시에만 리턴됩니다. |
+| authDate      | String |      | -    | 인증일자 |
+| cardCode      | String |      | 3    | 카드사 코드 |
+| cardName      | String |      | 20   | 카드사 이름 |
+| mallUserId    | String |      | 20   | 상점에서 관리하는 사용자 아이디 |
+| status        | String | O    | 10   | 빌키확정 결과<br>issued : 발급 / failed : 실패 |
+| messageSource | String | O    | 10   | 결과 출처<br>nicepay / external |
+
+<br>
+
+> #### ⚠️ 중요
+> 성공 여부는 HTTP 상태가 아니라 `resultCode`로 판정 합니다.  
+> bid(빌키)는 가맹점 서버에 안전하게 저장하고, 브라우저로 전달하지 않습니다.
+
+<br>
+
+### 빌키확정 예외처리
+- 빌키확정 API 호출시 read-timeout이 발생한다면 같은 tid로 빌키확정 API를 다시 호출 해주세요.
+- 이미 발급된 tid로 다시 호출하면 처음 빌키확정 응답과 같은 응답을 받습니다.
+- 같은 tid의 빌키확정이 처리 중이면 `U156`이 응답 됩니다. 잠시 뒤 같은 tid로 다시 호출 해주세요.
+
+<br>
+
+### 빌키확정 결과 조회
+빌키확정 응답을 받지 못한 경우, 같은 tid의 빌키확정 결과를 조회 합니다. 결과 조회는 확정 상태를 바꾸지 않습니다.
+
+```bash
+GET /v1/subscribe/{tid}/issue HTTP/1.1  
+Host: api.nicepay.co.kr 
+Authorization: Basic <credentials> or Bearer <token>
+```
+- 응답은 [빌키확정 응답 명세](#빌키확정-응답-명세)와 같습니다.
+- 빌키확정 API를 호출하기 전이면 `U162`가 응답 됩니다.
+
+<br>
+
+### 빌키확정 응답코드
+
+| resultCode | 설명 | 조치 |
+|:----------:|:-----|:-----|
+| 0000 | 정상 처리되었습니다. | bid를 저장 합니다. |
+| U100 | {0} 필수입력항목이 누락되었습니다. | 요청 값을 확인 합니다. |
+| U119 | 지원하지 않는 지불수단입니다. | 빌링 결제창 호출부터 다시 진행 합니다. |
+| U120 | TID가 유효하지 않습니다. | returnUrl로 응답된 tid를 그대로 전달 합니다. |
+| U121 | 인증 요청내역이 존재하지 않습니다. | 인증한 clientId로 호출 합니다. (HTTP 404) |
+| U155 | 2TR 빌링 인증 결과가 아닙니다. | 빌링 결제창(`isBill: "Y"`)의 tid만 전달 합니다. |
+| U156 | 빌키 발급을 처리하고 있습니다. 잠시 뒤 다시 요청해 주세요. | 잠시 뒤 같은 tid로 다시 호출 합니다. |
+| U157 | 인증 뒤 빌키 발급 유효시간이 지났습니다. | 빌링 결제창 호출부터 다시 진행 합니다. |
+| U159 | 빌키 발급 결과를 저장하지 못해 발급에 실패했습니다. | 빌링 결제창 호출부터 다시 진행 합니다. |
+| U162 | 빌키 발급을 요청하기 전입니다. | (결과 조회) 빌키확정 API를 호출 합니다. |
+| U163 | 빌키 발급 결과를 확인할 수 없습니다. | 나이스페이에 문의 합니다. |
+| U312 | SIGN DATA 검증에 실패하였습니다. | signData 생성규칙을 확인 합니다. |
+| U502 | 요청 금액이 올바르지 않습니다. | amount를 0으로 전달 합니다. |
+| 9999 | 일시적인 오류가 발생하였습니다. | 같은 tid로 다시 호출해 `status`를 확인 합니다. |
+
+- 표에 없는 `resultCode`가 올 수 있습니다(결제수단사 응답 코드 등). `status`가 `failed`이면 빌키확정이 실패한 것이므로 빌링 결제창 호출부터 다시 진행 합니다.
 
 <br>
 
@@ -1165,7 +1375,7 @@ Content-type: application/json
 
 - 빌키 승인은 발급된 bid(빌키)를 통해 💳 결제(승인) 처리를 의미 합니다.
 - 등록된 빌키를 통해 `/v1/subscribe/{bid}/payments` API를 호출하면 💳 결제(승인) 처리가 됩니다.
-- 빌키 승인을 위해 [빌키 발급](#빌키발급)과정의 선행이 필요 합니다.
+- 빌키 승인을 위해 [빌키확정](#빌키확정)과정의 선행이 필요 합니다.
 
 <br>
 

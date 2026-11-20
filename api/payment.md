@@ -18,7 +18,7 @@
 ---
 
 ### 빌링  
-👉 [빌키발급](./payment-subscribe.md#빌키발급) | [빌키승인](./payment-subscribe.md#빌키승인) | [빌키삭제](./payment-subscribe.md#빌키삭제)  
+👉 [빌링 결제창 호출](./payment-subscribe.md#빌링-결제창-호출) | [빌키확정](./payment-subscribe.md#빌키확정) | [빌키승인](./payment-subscribe.md#빌키승인) | [빌키삭제](./payment-subscribe.md#빌키삭제)  
 정기,구독 결제 및 간편결제 구현이 필요한 경우 사용됩니다.  
 
 ---

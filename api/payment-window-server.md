@@ -79,6 +79,7 @@ function serverAuth() {
 | language     | String     |           | 2	 | EN : 영문 / CN : 중문 / KO : 국문(Default)<br>NICEPAY 결제창 내 다국어를 지원<br>*sample)*<br>lang=EN -> 결제창 영문표기<br>lang=CN -> 결제창 중문표기                                                                                                                                                                                                                                                                                                                                                             | 
 | returnCharSet| String     |           | 10	 | 가맹점 서버의 encoding 방식 전달<br> - utf-8(Default) / euc-kr		                                                                                                                                                                                                                                                                                                                                                                                                                               | 
 | skinType     | String     |           | 10	 | 결제창 스킨 설정<br>지원 옵션 red/green/purple/gray/dark                                                                                                                                                                                                                                                                                                                                                                                                                                        | 
+| isBill       | String     |           | 1	 | 빌링 결제창 호출 여부<br>Y : 빌링 결제창 (`amount` 0 필수)<br>👉 [빌링 결제창 호출](./payment-subscribe.md#빌링-결제창-호출) |
 
 <br>
 
@@ -155,6 +156,7 @@ Accept: application/x-www-form-urlencoded
 | mallReserved   | String |        | 500  | 상점 예약필드<br><br>인증 요청시 전달된 mallReserved값이 리턴됩니다.                      |
 | authToken      | String |        | 40   | 인증 TOKEN                                                           |
 | signature      | String |        | 256  | 위변조 검증 데이터<br><br>- 생성규칙 : hex(sha256(authToken + clientId + amount + SecretKey))<br>- 데이터 유효성 검증을 위해, 가맹점 수준에서 비교하는 로직 구현 권고<br>- 인증에 성공한 경우(authResultCode=0000)에만 리턴됩니다.<br>- SecretKey는 가맹점관리자에 로그인 하여 확인 가능합니다.            |
+| isBill         | String | 성공시 | 1    | Y : 빌링 결제창 인증 결과<br>이 경우 승인 API가 아닌 [빌키확정](./payment-subscribe.md#빌키확정) API를 호출 합니다. |
 
 <br>
 
