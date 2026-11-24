@@ -36,6 +36,7 @@ theme:
     - navigation.top
     - navigation.footer
     - navigation.tracking
+    - navigation.path
     - toc.follow
     - search.suggest
     - search.highlight
@@ -43,6 +44,9 @@ theme:
 
 extra_css:
   - assets/extra.css
+
+extra_javascript:
+  - assets/extra.js
 
 hooks:
   - site-src/hooks.py

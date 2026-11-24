@@ -1,8 +1,12 @@
+import html as htmllib
+import os
+import posixpath
 import re
+import shutil
 
 DUPLICATE_ID = re.compile(r'id="([^"]+)_(\d+)"')
 EMOJI = re.compile(
-    "[\U0001F300-\U0001FAFF\U00002600-\U000027BF\U00002B00-\U00002BFF\U0000FE0F\U0000200D]+"
+    "[\U0001F300-\U0001FAFF\U000023E9-\U000023FA\U00002600-\U000027BF\U00002B00-\U00002BFF\U0000FE0F\U0000200D]+"
 )
 HEADING = re.compile(r"^(#{1,6})\s+(.*?)\s*$")
 LINK_BAR = re.compile(r"^\s*\[[^\]]+\]\([^)]*\)(\s*\|\s*\[[^\]]+\]\([^)]*\))*\s*$")
@@ -135,4 +139,82 @@ def on_page_content(html, page, config, files):
     html = HTTP_METHOD.sub(
         lambda m: f'<code class="http-method http-{m.group(1).lower()}">{m.group(1)}</code>', html
     )
+    _PAGES[page.file.src_uri] = _summary(html)
+    if page.file.src_uri != "index.md":
+        html = _insert_page_actions(html, page)
     return html
+
+
+_PAGES = {}
+_NAV_ORDER = []
+FIRST_PARAGRAPH = re.compile(r"<p>(.*?)</p>", re.S)
+TAG = re.compile(r"<[^>]+>")
+
+
+def _summary(html):
+    for m in FIRST_PARAGRAPH.finditer(html):
+        text = htmllib.unescape(TAG.sub("", m.group(1))).strip()
+        text = re.sub(r"\s+", " ", text)
+        if len(text) >= 10:
+            return text[:140]
+    return ""
+
+
+def _insert_page_actions(html, page):
+    md_name = posixpath.basename(page.file.src_uri)
+    actions = (
+        '<div class="page-actions">'
+        f'<a class="page-action" href="{md_name}">Markdown 보기</a>'
+        f'<button class="page-action" type="button" data-copy-md="{md_name}">Markdown 복사</button>'
+        "</div>"
+    )
+    if "</h1>" in html:
+        return html.replace("</h1>", "</h1>" + actions, 1)
+    return actions + html
+
+
+def on_nav(nav, config, files):
+    _NAV_ORDER.clear()
+
+    def walk(items, section):
+        for item in items:
+            if item.is_page:
+                _NAV_ORDER.append((section, item))
+            elif item.is_section:
+                walk(item.children, item.title if section is None else section)
+
+    walk(nav.items, None)
+    return nav
+
+
+def on_post_build(config):
+    site_dir = config["site_dir"]
+    docs_dir = config["docs_dir"]
+    for src in list(_PAGES):
+        source = os.path.join(docs_dir, src)
+        target = os.path.join(site_dir, src)
+        if os.path.exists(source) and not os.path.exists(target):
+            os.makedirs(os.path.dirname(target), exist_ok=True)
+            shutil.copyfile(source, target)
+
+    base = config["site_url"].rstrip("/") + "/"
+    lines = [
+        f"# {config['site_name']}",
+        "",
+        "> NicePay 결제 연동 가이드와 API 명세입니다. 각 항목은 Markdown 원문 주소입니다.",
+        "",
+    ]
+    current = object()
+    for section, page in _NAV_ORDER:
+        src = page.file.src_uri
+        if src == "index.md":
+            continue
+        heading = section or "시작하기"
+        if heading != current:
+            lines += ["", f"## {heading}", ""]
+            current = heading
+        desc = _PAGES.get(src, "")
+        title = page.title or src
+        lines.append(f"- [{title}]({base}{src})" + (f": {desc}" if desc else ""))
+    with open(os.path.join(site_dir, "llms.txt"), "w", encoding="utf-8") as f:
+        f.write("\n".join(lines).strip() + "\n")
