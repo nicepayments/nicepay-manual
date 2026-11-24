@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>API 레퍼런스 - NicePay 개발자 가이드</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+    <style>
+      :root {
+        --scalar-custom-header-height: 48px;
+      }
+      body {
+        margin: 0;
+      }
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        padding: 0 20px;
+        background: var(--scalar-background-1, #fff);
+        border-bottom: 1px solid var(--scalar-border-color, #e3e8ee);
+        font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, sans-serif;
+        font-size: 13px;
+      }
+      .site-header a {
+        color: var(--scalar-color-2, #414552);
+        text-decoration: none;
+      }
+      .site-header a:hover {
+        color: var(--scalar-color-accent, #1f5eff);
+      }
+      .site-header .site-title {
+        font-weight: 700;
+        font-size: 15px;
+        color: var(--scalar-color-1, #1a1f36);
+        margin-right: 8px;
+      }
+      .site-header .current {
+        color: var(--scalar-color-accent, #1f5eff);
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="site-title" href="../index.html">NicePay 개발자 가이드</a>
+      <a href="../quickstart.html">빠른 시작</a>
+      <a href="../common/preparations.html">공통</a>
+      <a href="../api/payment.html">API 문서</a>
+      <a class="current" href="./index.html">API 레퍼런스</a>
+      <a href="../management/user.html">운영</a>
+    </header>
+    <div id="app"></div>
+    <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.83.0"></script>
+    <script>
+      Scalar.createApiReference("#app", {
+        url: "./openapi.json",
+        layout: "modern",
+        theme: "default",
+        withDefaultFonts: false,
+        hideClientButton: true,
+        hideTestRequestButton: true,
+        hideModels: true,
+        documentDownloadType: "json",
+        showDeveloperTools: "never",
+        telemetry: false,
+        agent: { disabled: true },
+        mcp: { disabled: true },
+        defaultHttpClient: { targetKey: "shell", clientKey: "curl" },
+        metaData: { title: "API 레퍼런스 - NicePay 개발자 가이드" },
+        customCss: `
+          .scalar-app, .light-mode, .dark-mode {
+            --scalar-font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+            --scalar-font-code: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Consolas, monospace;
+          }
+          .light-mode {
+            --scalar-color-1: #1a1f36;
+            --scalar-color-2: #414552;
+            --scalar-color-3: #687385;
+            --scalar-color-accent: #1f5eff;
+            --scalar-background-1: #ffffff;
+            --scalar-background-2: #f6f8fa;
+            --scalar-background-3: #eef1f5;
+            --scalar-border-color: #e3e8ee;
+          }
+          .dark-mode {
+            --scalar-color-accent: #7aa2ff;
+            --scalar-background-1: #0e1117;
+            --scalar-background-2: #161a22;
+            --scalar-background-3: #1d222c;
+            --scalar-border-color: #262b35;
+          }
+        `,
+      });
+    </script>
+  </body>
+</html>
