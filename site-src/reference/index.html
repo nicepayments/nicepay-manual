@@ -27,6 +27,8 @@
         font-size: 13px;
       }
       .site-header a {
+        flex: none;
+        white-space: nowrap;
         color: var(--scalar-color-2, #414552);
         text-decoration: none;
       }
@@ -43,6 +45,21 @@
         color: var(--scalar-color-accent, #1f5eff);
         font-weight: 600;
       }
+      @media (max-width: 600px) {
+        .site-header {
+          gap: 16px;
+          padding: 0 16px;
+          overflow-x: auto;
+          scrollbar-width: none;
+        }
+        .site-header::-webkit-scrollbar {
+          display: none;
+        }
+        .site-header .site-title {
+          font-size: 14px;
+          margin-right: 0;
+        }
+      }
     </style>
   </head>
   <body>
@@ -54,6 +71,13 @@
       <a class="current" href="./index.html">API 레퍼런스</a>
       <a href="../management/user.html">운영</a>
     </header>
+    <script>
+      (() => {
+        const current = document.querySelector(".site-header .current");
+        const header = current.parentElement;
+        header.scrollLeft = current.offsetLeft + current.offsetWidth + 16 - header.clientWidth;
+      })();
+    </script>
     <div id="app"></div>
     <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference@1.83.0"></script>
     <script>
@@ -272,6 +296,15 @@
             --scalar-background-2: #161a22;
             --scalar-background-3: #1d222c;
             --scalar-border-color: #262b35;
+          }
+          .light-mode .scalar-card {
+            --scalar-card-surface: #ffffff;
+            --scalar-card-surface-raised: #f6f8fa;
+          }
+          .dark-mode .scalar-card,
+          .scalar-card.dark-mode {
+            --scalar-card-surface: #1d222c;
+            --scalar-card-surface-raised: #252b37;
           }
         `,
       });
