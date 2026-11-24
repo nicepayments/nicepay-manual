@@ -1,0 +1,136 @@
+site_name: NicePay 개발자 가이드
+site_url: https://nicepayments.github.io/nicepay-manual/
+repo_url: https://github.com/nicepayments/nicepay-manual
+repo_name: nicepayments/nicepay-manual
+edit_uri: edit/main/
+
+docs_dir: .build/docs
+site_dir: .build/site
+use_directory_urls: false
+
+theme:
+  name: material
+  language: ko
+  font: false
+  icon:
+    repo: fontawesome/brands/github
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: white
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: 다크 모드로 전환
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: 라이트 모드로 전환
+  features:
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - navigation.tracking
+    - toc.follow
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+extra_css:
+  - assets/extra.css
+
+hooks:
+  - site-src/hooks.py
+
+plugins:
+  - search:
+      separator: '[\s\-\.]+'
+
+markdown_extensions:
+  - abbr
+  - attr_list
+  - md_in_html
+  - tables
+  - def_list
+  - footnotes
+  - admonition
+  - pymdownx.details
+  - pymdownx.magiclink
+  - pymdownx.tilde
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      guess_lang: false
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - mdx_breakless_lists
+  - mdx_truly_sane_lists
+  - toc:
+      permalink: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+
+not_in_nav: |
+  /migration/
+
+nav:
+  - 홈: README.md
+  - 공통:
+      - 개발 준비: common/preparations.md
+      - API·JS SDK: common/api.md
+      - TEST·샘플코드: common/test.md
+      - 코드집: common/code.md
+      - 공통 목록: common/README.md
+  - API 문서:
+      - 결제·발급:
+          - 결제·발급 개요: api/payment.md
+          - 결제창 (Server 승인): api/payment-window-server.md
+          - 결제창 (Client 승인): api/payment-window-client.md
+          - 빌링: api/payment-subscribe.md
+          - 현금영수증: api/payment-receipt.md
+          - Access token: api/payment-access-token.md
+          - EPAY: api/payment-epay.md
+      - 체크아웃:
+          - 체크아웃 발급: api/checkout/checkout-create.md
+          - 결제창 & 승인: api/checkout/checkout-pay-and-approve.md
+          - 상태 조회: api/checkout/checkout-status-retrieve.md
+          - 거래 조회: api/checkout/checkout-transaction-retrieve.md
+          - 거래 취소: api/checkout/checkout-transaction-cancel.md
+          - 만료: api/checkout/checkout-expire.md
+      - 조회:
+          - 조회 개요: api/status.md
+          - 거래 조회: api/status-transaction.md
+          - 약관 조회: api/status-terms.md
+          - 카드 이벤트 조회: api/status-event.md
+          - 카드 무이자 조회: api/status-interest.md
+          - 약관 상세:
+              - 개인정보 수집 및 이용: api/terms/collectPersonalInfo.md
+              - 전자금융거래: api/terms/electronicFinancialTransactions.md
+              - 개인정보 제3자 제공: api/terms/sharingPersonalInformation.md
+              - 통신과금서비스: api/terms/telecommunicationCharging.md
+      - 취소·환불·망취소: api/cancel.md
+      - 웹훅:
+          - 웹훅: api/hook.md
+          - 웹훅 URL 등록: api/webhook/webhook-create.md
+          - 웹훅 URL 조회: api/webhook/webhook-retrieve.md
+          - 웹훅 URL 수정: api/webhook/webhook-update.md
+          - 웹훅 URL 삭제: api/webhook/webhook-delete.md
+      - APP:
+          - APP 개요: api/app.md
+          - iOS: api/app-ios.md
+          - Android: api/app-android.md
+      - 거래·정산·대사: api/reconciliation.md
+      - 문서 목록: api/README.md
+  - 운영:
+      - 지원환경: management/user.md
+      - 개발정보: management/admin.md
+      - 운영 목록: management/README.md
