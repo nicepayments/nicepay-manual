@@ -1,44 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 720" width="1100" height="720">
-<title>빌키삭제</title>
-<rect width="1100" height="720" fill="#ffffff"/>
-<rect x="180" y="100" width="60" height="560" rx="30" fill="#f7f7f7"/>
-<text x="210" y="70" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="30" fill="#767676" text-anchor="middle">Client Browser</text>
-<rect x="530" y="100" width="60" height="560" rx="30" fill="#f7f7f7"/>
-<text x="560" y="70" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="30" fill="#767676" text-anchor="middle">Server</text>
-<rect x="880" y="100" width="60" height="560" rx="30" fill="#f7f7f7"/>
-<text x="910" y="70" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="30" fill="#767676" text-anchor="middle">Nicepay</text>
-<rect x="170" y="126" width="150" height="34" rx="17" fill="#4064c3" opacity="0.1"/>
-<text x="186" y="149" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" font-weight="700" fill="#4064c3" text-anchor="start">STEP 1</text>
-<text x="338" y="149" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="20" font-weight="700" fill="#233976" text-anchor="start">빌키확정, 빌키승인</text>
-<rect x="150" y="180" width="820" height="64" rx="16" fill="#ffffff" stroke="#9e9e9e" stroke-width="1.5" stroke-dasharray="6 5"/>
-<text x="560.0" y="220" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="17" font-weight="400" fill="#767676" text-anchor="middle">빌키확정으로 저장한 빌키(bid)로 결제일마다 POST /v1/subscribe/{bid}/payments 호출</text>
-<rect x="170" y="276" width="150" height="34" rx="17" fill="#4064c3" opacity="0.1"/>
-<text x="186" y="299" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" font-weight="700" fill="#4064c3" text-anchor="start">STEP 2</text>
-<text x="338" y="299" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="20" font-weight="700" fill="#233976" text-anchor="start">빌키삭제</text>
-<rect x="300" y="330" width="780" height="270" rx="22" fill="#f6f6f6" fill-opacity="0.4" stroke="#4064c3" stroke-width="3"/>
-<text x="735.0" y="380" font-family="'SFMono-Regular',Menlo,Consolas,monospace" font-size="17" font-weight="400" fill="#233976" text-anchor="middle">POST /v1/subscribe/{bid}/expire</text>
-<line x1="210" y1="410" x2="550" y2="410" stroke="#9e9e9e" stroke-width="2"/>
-<polygon points="203,399 223.9,410 203,421" fill="#9e9e9e"/>
-<polygon points="545,399 565.9,410 545,421" fill="#c1411a"/>
-<text x="385.0" y="444" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="18" font-weight="400" fill="#767676" text-anchor="middle">구독 해지 요청</text>
-<line x1="560" y1="410" x2="900" y2="410" stroke="#9e9e9e" stroke-width="2"/>
-<polygon points="895,399 915.9,410 895,421" fill="#233976"/>
-<circle cx="590" cy="446" r="13" fill="#4064c3"/>
-<text x="590" y="452" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
-<text x="612" y="452" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="19" font-weight="400" fill="#767676" text-anchor="start">빌키삭제 요청</text>
-<path d="M918,410 C990,410 990,530 918,530" fill="none" stroke="#9e9e9e" stroke-width="2"/>
-<text x="1018" y="466.0" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="18" font-weight="400" fill="#767676" text-anchor="middle">삭제</text>
-<text x="1018" y="492.0" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="18" font-weight="400" fill="#767676" text-anchor="middle">처리</text>
-<line x1="910" y1="530" x2="570" y2="530" stroke="#9e9e9e" stroke-width="2"/>
-<polygon points="917,519 896.1,530 917,541" fill="#233976"/>
-<polygon points="575,519 554.1,530 575,541" fill="#c1411a"/>
-<circle cx="590" cy="566" r="13" fill="#4064c3"/>
-<text x="590" y="572" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
-<text x="612" y="572" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="19" font-weight="400" fill="#767676" text-anchor="start">빌키삭제 응답</text>
-<line x1="560" y1="630" x2="220" y2="630" stroke="#9e9e9e" stroke-width="2"/>
-<polygon points="225,619 204.1,630 225,641" fill="#9e9e9e"/>
-<polygon points="575,619 554.1,630 575,641" fill="#9e9e9e"/>
-<text x="385.0" y="664" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="18" font-weight="400" fill="#767676" text-anchor="middle">구독 해지 완료</text>
-<text x="560.0" y="702" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="16" font-weight="400" fill="#9e9e9e" text-anchor="middle">삭제된 빌키(bid)는 복원과 빌키승인이 불가합니다</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="473" viewBox="0 0 760 473">
+<rect x="0.5" y="0.5" width="759" height="472" rx="12" fill="#ffffff" stroke="#e3e8ee"/>
+<line x1="130" y1="58" x2="130" y2="439" stroke="#e3e8ee" stroke-width="2"/>
+<line x1="380" y1="58" x2="380" y2="439" stroke="#e3e8ee" stroke-width="2"/>
+<line x1="630" y1="58" x2="630" y2="439" stroke="#e3e8ee" stroke-width="2"/>
+<rect x="84" y="218" width="642" height="140" rx="10" fill="#f3f6ff" stroke="#1f5eff" stroke-opacity="0.55"/>
+<rect x="66.1" y="22" width="127.8" height="30" rx="15" fill="#f6f8fa" stroke="#e3e8ee"/>
+<text x="130.0" y="42.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="13" font-weight="650" fill="#1a1f36" text-anchor="middle">Client Browser</text>
+<rect x="343.4" y="22" width="73.2" height="30" rx="15" fill="#f6f8fa" stroke="#e3e8ee"/>
+<text x="380.0" y="42.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="13" font-weight="650" fill="#1a1f36" text-anchor="middle">Server</text>
+<rect x="591.4" y="22" width="77.1" height="30" rx="15" fill="#f6f8fa" stroke="#e3e8ee"/>
+<text x="630.0" y="42.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="13" font-weight="650" fill="#1a1f36" text-anchor="middle">Nicepay</text>
+<rect x="60" y="93" width="52" height="20" rx="10" fill="#f6f8fa" stroke="#e3e8ee"/>
+<text x="86.0" y="107.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="10" font-weight="700" fill="#8792a2" text-anchor="middle">STEP 1</text>
+<text x="124.0" y="108.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="13" font-weight="700" fill="#1a1f36" text-anchor="start">빌키확정, 빌키승인</text>
+<rect x="60" y="134" width="640" height="34" rx="8" fill="#f6f8fa" stroke="#e3e8ee" stroke-dasharray="4 4"/>
+<text x="380.0" y="155.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="11.5" font-weight="400" fill="#414552" text-anchor="middle">빌키확정으로 저장한 빌키(bid)로 결제일마다 POST /v1/subscribe/{bid}/payments 호출</text>
+<rect x="60" y="183" width="52" height="20" rx="10" fill="#f6f8fa" stroke="#e3e8ee"/>
+<text x="86.0" y="197.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="10" font-weight="700" fill="#8792a2" text-anchor="middle">STEP 2</text>
+<text x="124.0" y="198.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="13" font-weight="700" fill="#1a1f36" text-anchor="start">빌키삭제</text>
+<line x1="134.0" y1="252" x2="379.0" y2="252" stroke="#1f5eff" stroke-width="1.4"/>
+<path d="M378.0,252.0 l-7,-4.5 l0,9 z" fill="#1f5eff"/>
+<text x="255.0" y="271.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#414552" text-anchor="middle">구독 해지 요청</text>
+<line x1="384.0" y1="252" x2="629.0" y2="252" stroke="#1f5eff" stroke-width="1.4"/>
+<path d="M628.0,252.0 l-7,-4.5 l0,9 z" fill="#1f5eff"/>
+<text x="411.2" y="243.0" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="11" text-anchor="start"><tspan fill="#0570de" font-weight="700">POST</tspan><tspan fill="#414552" dx="6">/v1/subscribe/{bid}/expire</tspan></text>
+<circle cx="462.6" cy="267.0" r="8" fill="#1f5eff"/><text x="462.6" y="271.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+<text x="476.6" y="271.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#414552" text-anchor="start">빌키삭제 요청</text>
+<path d="M636,252 C662,252 662,315 636,315" fill="none" stroke="#a3acb9" stroke-width="1.4"/>
+<text x="668.0" y="279.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#8792a2" text-anchor="start">삭제</text>
+<text x="668.0" y="296.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#8792a2" text-anchor="start">처리</text>
+<line x1="626.0" y1="315" x2="381.0" y2="315" stroke="#1f5eff" stroke-width="1.4"/>
+<path d="M382.0,315.0 l7,-4.5 l0,9 z" fill="#1f5eff"/>
+<circle cx="462.6" cy="330.0" r="8" fill="#1f5eff"/><text x="462.6" y="334.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+<text x="476.6" y="334.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#414552" text-anchor="start">빌키삭제 응답</text>
+<line x1="376.0" y1="382" x2="131.0" y2="382" stroke="#a3acb9" stroke-width="1.4"/>
+<path d="M132.0,382.0 l7,-4.5 l0,9 z" fill="#414552"/>
+<text x="255.0" y="401.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#414552" text-anchor="middle">구독 해지 완료</text>
+<text x="380.0" y="451.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="11.5" font-weight="400" fill="#8792a2" text-anchor="middle">삭제된 빌키(bid)는 복원과 빌키승인이 불가합니다</text>
 </svg>

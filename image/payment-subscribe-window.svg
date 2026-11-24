@@ -1,63 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 1010" width="1100" height="1010">
-<title>빌링 결제창 호출과 빌키확정</title>
-<rect width="1100" height="1010" fill="#ffffff"/>
-<rect x="180" y="100" width="60" height="840" rx="30" fill="#f7f7f7"/>
-<text x="210" y="70" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="30" font-weight="400" fill="#767676" text-anchor="middle">Client Browser</text>
-<rect x="530" y="100" width="60" height="840" rx="30" fill="#f7f7f7"/>
-<text x="560" y="70" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="30" font-weight="400" fill="#767676" text-anchor="middle">Server</text>
-<rect x="880" y="100" width="60" height="840" rx="30" fill="#f7f7f7"/>
-<text x="910" y="70" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="30" font-weight="400" fill="#767676" text-anchor="middle">Nicepay</text>
-<rect x="170" y="126" width="150" height="34" rx="17" fill="#4064c3" opacity="0.1"/>
-<text x="186" y="149" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" font-weight="700" fill="#4064c3" text-anchor="start">STEP 1</text>
-<text x="338" y="149" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="20" font-weight="700" fill="#233976" text-anchor="start">빌링 결제창 호출</text>
-<line x1="210" y1="210" x2="900" y2="210" stroke="#9e9e9e" stroke-width="2"/>
-<polygon points="203,199 223.9,210 203,221" fill="#9e9e9e"/>
-<polygon points="895,199 915.9,210 895,221" fill="#233976"/>
-<circle cx="240" cy="246" r="13" fill="#4064c3"/>
-<text x="240" y="252" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
-<text x="262" y="252" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="19" font-weight="400" fill="#767676" text-anchor="start">JS SDK로 빌링 결제창 호출</text>
-<text x="262" y="280" font-family="'SFMono-Regular',Menlo,Consolas,monospace" font-size="17" font-weight="400" fill="#767676" text-anchor="start">isBill: Y, amount: 0</text>
-<path d="M918,210 C990,210 990,330 918,330" fill="none" stroke="#9e9e9e" stroke-width="2"/>
-<text x="1018" y="266.0" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="18" font-weight="400" fill="#767676" text-anchor="middle">결제수단</text>
-<text x="1018" y="292.0" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="18" font-weight="400" fill="#767676" text-anchor="middle">인증</text>
-<line x1="910" y1="330" x2="220" y2="330" stroke="#9e9e9e" stroke-width="2"/>
-<polygon points="917,319 896.1,330 917,341" fill="#233976"/>
-<polygon points="225,319 204.1,330 225,341" fill="#9e9e9e"/>
-<circle cx="610" cy="366" r="13" fill="#4064c3"/>
-<text x="610" y="372" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
-<text x="632" y="372" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="19" font-weight="400" fill="#767676" text-anchor="start">returnUrl 로 인증 결과 전달</text>
-<path d="M204,330 C120,330 120,450 204,450" fill="none" stroke="#9e9e9e" stroke-width="2" stroke-dasharray="7 6"/>
-<line x1="210" y1="450" x2="550" y2="450" stroke="#9e9e9e" stroke-width="2" stroke-dasharray="7 6"/>
-<polygon points="203,439 223.9,450 203,461" fill="#9e9e9e"/>
-<polygon points="545,439 565.9,450 545,461" fill="#c1411a"/>
-<circle cx="240" cy="486" r="13" fill="#4064c3"/>
-<text x="240" y="492" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
-<text x="262" y="492" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="19" font-weight="400" fill="#767676" text-anchor="start">tid, isBill: Y 수신</text>
-<text x="262" y="520" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="17" font-weight="400" fill="#767676" text-anchor="start">금액, signature 체크</text>
-<rect x="170" y="576" width="150" height="34" rx="17" fill="#4064c3" opacity="0.1"/>
-<text x="186" y="599" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" font-weight="700" fill="#4064c3" text-anchor="start">STEP 2</text>
-<text x="338" y="599" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="20" font-weight="700" fill="#233976" text-anchor="start">빌키확정</text>
-<rect x="470" y="630" width="610" height="260" rx="22" fill="#f6f6f6" fill-opacity="0.4" stroke="#4064c3" stroke-width="3"/>
-<text x="735.0" y="670" font-family="'SFMono-Regular',Menlo,Consolas,monospace" font-size="17" font-weight="400" fill="#233976" text-anchor="middle">POST /v1/subscribe/{tid}/issue</text>
-<line x1="560" y1="700" x2="900" y2="700" stroke="#9e9e9e" stroke-width="2"/>
-<polygon points="553,689 573.9,700 553,711" fill="#c1411a"/>
-<polygon points="895,689 915.9,700 895,711" fill="#233976"/>
-<circle cx="590" cy="736" r="13" fill="#4064c3"/>
-<text x="590" y="742" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
-<text x="612" y="742" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="19" font-weight="400" fill="#767676" text-anchor="start">빌키확정 요청 (인증 후 10분 안)</text>
-<path d="M918,700 C990,700 990,820 918,820" fill="none" stroke="#9e9e9e" stroke-width="2"/>
-<text x="1018" y="756.0" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="18" font-weight="400" fill="#767676" text-anchor="middle">빌키</text>
-<text x="1018" y="782.0" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="18" font-weight="400" fill="#767676" text-anchor="middle">발급</text>
-<line x1="910" y1="820" x2="570" y2="820" stroke="#9e9e9e" stroke-width="2"/>
-<polygon points="917,809 896.1,820 917,831" fill="#233976"/>
-<polygon points="575,809 554.1,820 575,831" fill="#c1411a"/>
-<circle cx="590" cy="856" r="13" fill="#4064c3"/>
-<text x="590" y="862" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="15" font-weight="700" fill="#ffffff" text-anchor="middle">5</text>
-<text x="612" y="862" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="19" font-weight="400" fill="#767676" text-anchor="start">빌키(bid) 응답, 가맹점 저장</text>
-<line x1="560" y1="920" x2="220" y2="920" stroke="#9e9e9e" stroke-width="2"/>
-<polygon points="567,909 546.1,920 567,931" fill="#9e9e9e"/>
-<polygon points="225,909 204.1,920 225,931" fill="#9e9e9e"/>
-<text x="385.0" y="954" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="18" font-weight="400" fill="#767676" text-anchor="middle">정기결제 등록 완료</text>
-<text x="550.0" y="996" font-family="'Noto Sans KR','Apple SD Gothic Neo','Malgun Gothic',sans-serif" font-size="16" font-weight="400" fill="#9e9e9e" text-anchor="middle">이후 빌키(bid)로 빌키승인, 빌키삭제 API를 호출합니다</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="630" viewBox="0 0 760 630">
+<rect x="0.5" y="0.5" width="759" height="629" rx="12" fill="#ffffff" stroke="#e3e8ee"/>
+<line x1="130" y1="58" x2="130" y2="596" stroke="#e3e8ee" stroke-width="2"/>
+<line x1="380" y1="58" x2="380" y2="596" stroke="#e3e8ee" stroke-width="2"/>
+<line x1="630" y1="58" x2="630" y2="596" stroke="#e3e8ee" stroke-width="2"/>
+<rect x="334" y="375" width="392" height="140" rx="10" fill="#f3f6ff" stroke="#1f5eff" stroke-opacity="0.55"/>
+<rect x="66.1" y="22" width="127.8" height="30" rx="15" fill="#f6f8fa" stroke="#e3e8ee"/>
+<text x="130.0" y="42.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="13" font-weight="650" fill="#1a1f36" text-anchor="middle">Client Browser</text>
+<rect x="343.4" y="22" width="73.2" height="30" rx="15" fill="#f6f8fa" stroke="#e3e8ee"/>
+<text x="380.0" y="42.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="13" font-weight="650" fill="#1a1f36" text-anchor="middle">Server</text>
+<rect x="591.4" y="22" width="77.1" height="30" rx="15" fill="#f6f8fa" stroke="#e3e8ee"/>
+<text x="630.0" y="42.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="13" font-weight="650" fill="#1a1f36" text-anchor="middle">Nicepay</text>
+<rect x="60" y="93" width="52" height="20" rx="10" fill="#f6f8fa" stroke="#e3e8ee"/>
+<text x="86.0" y="107.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="10" font-weight="700" fill="#8792a2" text-anchor="middle">STEP 1</text>
+<text x="124.0" y="108.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="13" font-weight="700" fill="#1a1f36" text-anchor="start">빌링 결제창 호출</text>
+<line x1="134.0" y1="132" x2="629.0" y2="132" stroke="#a3acb9" stroke-width="1.4"/>
+<path d="M628.0,132.0 l-7,-4.5 l0,9 z" fill="#414552"/>
+<circle cx="295.2" cy="147.0" r="8" fill="#1f5eff"/><text x="295.2" y="151.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">1</text>
+<text x="309.2" y="151.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#414552" text-anchor="start">JS SDK로 빌링 결제창 호출</text>
+<text x="380.0" y="168.0" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="11" font-weight="400" fill="#8792a2" text-anchor="middle">isBill: Y, amount: 0</text>
+<path d="M636,132 C662,132 662,212 636,212" fill="none" stroke="#a3acb9" stroke-width="1.4"/>
+<text x="668.0" y="167.5" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#8792a2" text-anchor="start">결제수단</text>
+<text x="668.0" y="184.5" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#8792a2" text-anchor="start">인증</text>
+<line x1="626.0" y1="212" x2="131.0" y2="212" stroke="#a3acb9" stroke-width="1.4"/>
+<path d="M132.0,212.0 l7,-4.5 l0,9 z" fill="#414552"/>
+<circle cx="292.2" cy="227.0" r="8" fill="#1f5eff"/><text x="292.2" y="231.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">2</text>
+<text x="306.2" y="231.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#414552" text-anchor="start">returnUrl 로 인증 결과 전달</text>
+<path d="M124,212 C98,212 98,275 124,275" fill="none" stroke="#a3acb9" stroke-width="1.4" stroke-dasharray="4 4"/>
+<line x1="134.0" y1="275" x2="379.0" y2="275" stroke="#a3acb9" stroke-width="1.4" stroke-dasharray="4 4"/>
+<path d="M378.0,275.0 l-7,-4.5 l0,9 z" fill="#414552"/>
+<circle cx="199.1" cy="290.0" r="8" fill="#1f5eff"/><text x="199.1" y="294.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">3</text>
+<text x="213.1" y="294.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#414552" text-anchor="start">tid, isBill: Y 수신</text>
+<text x="255.0" y="311.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="11" font-weight="400" fill="#8792a2" text-anchor="middle">금액, signature 체크</text>
+<rect x="60" y="340" width="52" height="20" rx="10" fill="#f6f8fa" stroke="#e3e8ee"/>
+<text x="86.0" y="354.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="10" font-weight="700" fill="#8792a2" text-anchor="middle">STEP 2</text>
+<text x="124.0" y="355.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="13" font-weight="700" fill="#1a1f36" text-anchor="start">빌키확정</text>
+<line x1="384.0" y1="409" x2="629.0" y2="409" stroke="#1f5eff" stroke-width="1.4"/>
+<path d="M628.0,409.0 l-7,-4.5 l0,9 z" fill="#1f5eff"/>
+<text x="414.2" y="400.0" font-family="'SF Mono', Menlo, Consolas, monospace" font-size="11" text-anchor="start"><tspan fill="#0570de" font-weight="700">POST</tspan><tspan fill="#414552" dx="6">/v1/subscribe/{tid}/issue</tspan></text>
+<circle cx="405.8" cy="424.0" r="8" fill="#1f5eff"/><text x="405.8" y="428.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">4</text>
+<text x="419.8" y="428.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#414552" text-anchor="start">빌키확정 요청 (인증 후 10분 안)</text>
+<path d="M636,409 C662,409 662,472 636,472" fill="none" stroke="#a3acb9" stroke-width="1.4"/>
+<text x="668.0" y="436.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#8792a2" text-anchor="start">빌키</text>
+<text x="668.0" y="453.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#8792a2" text-anchor="start">발급</text>
+<line x1="626.0" y1="472" x2="381.0" y2="472" stroke="#1f5eff" stroke-width="1.4"/>
+<path d="M382.0,472.0 l7,-4.5 l0,9 z" fill="#1f5eff"/>
+<circle cx="420.9" cy="487.0" r="8" fill="#1f5eff"/><text x="420.9" y="491.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="10" font-weight="700" fill="#fff" text-anchor="middle">5</text>
+<text x="434.9" y="491.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#414552" text-anchor="start">빌키(bid) 응답, 가맹점 저장</text>
+<line x1="376.0" y1="539" x2="131.0" y2="539" stroke="#a3acb9" stroke-width="1.4"/>
+<path d="M132.0,539.0 l7,-4.5 l0,9 z" fill="#414552"/>
+<text x="255.0" y="558.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="12" font-weight="400" fill="#414552" text-anchor="middle">정기결제 등록 완료</text>
+<text x="380.0" y="608.0" font-family="Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif" font-size="11.5" font-weight="400" fill="#8792a2" text-anchor="middle">이후 빌키(bid)로 빌키승인, 빌키삭제 API를 호출합니다</text>
 </svg>
