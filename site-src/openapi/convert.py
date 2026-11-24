@@ -462,6 +462,20 @@ def flatten(obj, prefix=""):
     return out
 
 
+CODE_TABLES = [("API 응답코드", "../common/code.html#api-응답코드")]
+BILLING_ISSUE_TABLES = [("빌키확정 응답코드", "../api/payment-subscribe.html#빌키확정-응답코드")]
+
+
+def code_tables_for(path):
+    if path.startswith("/v1/subscribe/") and path.endswith("/issue"):
+        return CODE_TABLES + BILLING_ISSUE_TABLES
+    return CODE_TABLES
+
+
+def link_list(tables):
+    return ", ".join(f"[{title}]({href})" for title, href in tables)
+
+
 SHARED_EXAMPLES = [
     ("README.md", "결제(승인) 응답 예시", ("post", "/v1/payments/{tid}")),
     ("common/api.md", "Access token API 응답 예시", ("post", "/v1/access-token")),
@@ -679,7 +693,8 @@ def build(out_path):
         "info": {
             "title": "NicePay API",
             "version": "v1",
-            "description": "NicePay 결제 API 명세입니다. 각 항목의 설명과 예제는 [개발자 가이드](../index.html)의 원문 문서에서 옮겼습니다.",
+            "description": "NicePay 결제 API 명세입니다. 각 항목의 설명과 예제는 [개발자 가이드](../index.html)의 원문 문서에서 옮겼습니다.  \n"
+            f"resultCode 값의 의미는 {link_list(CODE_TABLES)} 표에서 확인합니다.",
         },
         "servers": [
             {"url": "https://api.nicepay.co.kr", "description": "운영"},
@@ -728,6 +743,11 @@ def build(out_path):
         apply_examples(req_schema, body, "c", {}, date_sample)
         own = flatten(ep["response_example"]) if ep["response_example"] else owned.get((method, path), {})
         apply_examples(res_schema, own, "d", shared, date_sample)
+        tables = code_tables_for(path)
+        result_code = res_schema.get("properties", {}).get("resultCode")
+        if result_code is not None:
+            note = f"코드표: {link_list(tables)}"
+            result_code["description"] = (result_code["description"] + "\n\n" if result_code.get("description") else "") + note
         guide = os.path.splitext(rel)[0] + ".html"
         desc = ep["description"]
         desc = (desc + "\n\n" if desc else "") + f"[가이드 문서에서 보기](../{guide})"
@@ -739,7 +759,7 @@ def build(out_path):
             "parameters": [],
             "responses": {
                 "200": {
-                    "description": "성공. 결과는 resultCode로 확인합니다.",
+                    "description": f"성공. 결과는 resultCode로 확인합니다. 코드별 의미는 {link_list(tables)} 표를 봅니다.",
                     "content": {"application/json": {"schema": res_schema}} if res_count else {},
                 }
             },
