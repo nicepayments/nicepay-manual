@@ -17,6 +17,7 @@ FOOTER_NAV = re.compile(r"^#{1,6}\s+더 알아보기\s*$")
 HR = re.compile(r"^\s*(---+|\*\*\*+)\s*$")
 DOC_INDEX_LINK = re.compile(r"^\s*\[전체 문서 목록\]\((\.\./)*README\.md\)\s*$")
 HTTP_METHOD = re.compile(r"<code>(GET|POST|PUT|PATCH|DELETE)</code>")
+TYPE_BADGE = re.compile(r'<img src="https://img\.shields\.io/badge/-(Object|Array|nullable)-[A-Za-z]+"\s*/?>')
 
 
 def _strip_emoji(text):
@@ -92,6 +93,18 @@ def _strip_decorative_emoji(lines):
     return out
 
 
+def _separate_tables_from_fences(lines):
+    out = []
+    in_fence = False
+    for line in lines:
+        if out and not in_fence and out[-1].lstrip().startswith("```") and line.lstrip().startswith("|"):
+            out.append("")
+        if line.lstrip().startswith("```"):
+            in_fence = not in_fence
+        out.append(line)
+    return out
+
+
 def _quickstart_only(lines):
     for i, line in enumerate(lines):
         m = HEADING.match(line)
@@ -103,6 +116,8 @@ def _quickstart_only(lines):
 def on_page_markdown(markdown, page, config, files):
     if page.file.src_uri == "index.md":
         return markdown
+    if page.file.src_uri not in _NAV_PAGES:
+        page.meta["search"] = {"exclude": True}
     lines = markdown.split("\n")
     if page.file.src_uri == "quickstart.md":
         lines = _quickstart_only(lines)
@@ -113,6 +128,7 @@ def on_page_markdown(markdown, page, config, files):
         lines = _drop_footer_nav(lines)
     lines = _quote_warnings_to_admonitions(lines)
     lines = _strip_decorative_emoji(lines)
+    lines = _separate_tables_from_fences(lines)
     return "\n".join(lines)
 
 
@@ -139,6 +155,7 @@ def on_page_content(html, page, config, files):
     html, renames = _github_style_ids(html)
     if renames:
         _rename_toc(page.toc, renames)
+    html = TYPE_BADGE.sub(r'<span class="type-label">\1</span>', html)
     html = HTTP_METHOD.sub(
         lambda m: f'<code class="http-method http-{m.group(1).lower()}">{m.group(1)}</code>', html
     )
@@ -150,6 +167,7 @@ def on_page_content(html, page, config, files):
 
 _PAGES = {}
 _NAV_ORDER = []
+_NAV_PAGES = set()
 FIRST_PARAGRAPH = re.compile(r"<p>(.*?)</p>", re.S)
 TAG = re.compile(r"<[^>]+>")
 
@@ -187,6 +205,8 @@ def on_nav(nav, config, files):
                 walk(item.children, item.title if section is None else section)
 
     walk(nav.items, None)
+    _NAV_PAGES.clear()
+    _NAV_PAGES.update(item.file.src_uri for _, item in _NAV_ORDER)
     return nav
 
 
