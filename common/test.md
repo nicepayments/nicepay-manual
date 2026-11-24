@@ -325,7 +325,7 @@ API 개발을 위한 각 인터페이스의 개발 명세가 필요하다면 �
 - [개발 준비](preparations.md) 👉 [회원가입](preparations.md#회원가입) | [API KEY확인](preparations.md#api-key-확인) | [방화벽 정책](preparations.md#방화벽-정책) | [IP 보안기능](preparations.md#ip-보안-기능) | [타임아웃 정보](preparations.md#타임아웃-정보)
 - [API·JS SDK](api.md) 👉 [URI 목록](api.md#uri-목록) | [JS SDK목록](api.md#js-sdk-목록) | [API KEY](api.md#api-key) | [API·JS SDK인증](api.md#apijs-sdk인증) | [Basic auth](api.md#basic-auth) | [Bearer token](api.md#bearer-token)
 - [TEST·샘플코드](test.md) 👉 [샌드박스 TEST](test.md#샌드박스test) | [샌드박스 활용](test.md#샌드박스-활용) | [웹로그 디버깅](test.md#웹로그-디버깅) | [샘플코드](test.md#샘플코드)
-- [코드집](code.md) 👉 [HTTP-상태코드](code.md#http-상태코드) | [카드코드](code.md#카드코드) | [은행코드](code.md#은행코드) | [JS SDK 응답코드](code.md#js-sdk-응답코드) | [API 응답코드](code.md#api-응답코드)
+- [코드집](code.md) 👉 [HTTP-상태코드](code.md#http-상태코드) | [카드코드](code.md#카드코드) | [은행코드](code.md#은행코드) | [API 응답코드](code.md#api-응답코드)
 
 ### 📚 문서
 `API 명세`와 `코드`가 포함된 기술문서 입니다.  
