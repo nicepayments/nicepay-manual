@@ -15,6 +15,7 @@ BLANKISH = re.compile(r"^\s*(<br\s*/?>)?\s*$")
 QUOTE_WARNING = re.compile(r"^>\s*#{3,6}\s+(.*?)\s*$")
 FOOTER_NAV = re.compile(r"^#{1,6}\s+더 알아보기\s*$")
 HR = re.compile(r"^\s*(---+|\*\*\*+)\s*$")
+DOC_INDEX_LINK = re.compile(r"^\s*\[전체 문서 목록\]\((\.\./)*README\.md\)\s*$")
 HTTP_METHOD = re.compile(r"<code>(GET|POST|PUT|PATCH|DELETE)</code>")
 
 
@@ -107,6 +108,7 @@ def on_page_markdown(markdown, page, config, files):
         lines = _quickstart_only(lines)
     lines = _drop_top_link_bar(lines)
     lines = [l for l in lines if not (LINK_BAR.match(l) and "더 알아보기" in l)]
+    lines = [l for l in lines if not DOC_INDEX_LINK.match(l)]
     if not page.file.src_uri.endswith("README.md"):
         lines = _drop_footer_nav(lines)
     lines = _quote_warnings_to_admonitions(lines)
