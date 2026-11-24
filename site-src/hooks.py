@@ -1,3 +1,4 @@
+import hashlib
 import html as htmllib
 import os
 import posixpath
@@ -218,3 +219,15 @@ def on_post_build(config):
         lines.append(f"- [{title}]({base}{src})" + (f": {desc}" if desc else ""))
     with open(os.path.join(site_dir, "llms.txt"), "w", encoding="utf-8") as f:
         f.write("\n".join(lines).strip() + "\n")
+
+
+ASSET_REF = re.compile(r'((?:href|src)="(?:\.\./)*assets/extra\.(?:css|js))"')
+
+
+def on_post_page(output, page, config):
+    versions = {}
+    for ext in ("css", "js"):
+        path = os.path.join(config["docs_dir"], "assets", f"extra.{ext}")
+        with open(path, "rb") as f:
+            versions[ext] = hashlib.sha256(f.read()).hexdigest()[:10]
+    return ASSET_REF.sub(lambda m: f'{m.group(1)}?v={versions[m.group(1).rsplit(".", 1)[1]]}"', output)
