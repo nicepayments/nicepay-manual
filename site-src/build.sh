@@ -9,5 +9,6 @@ cp -R api common management migration image .build/docs/
 cp README.md .build/docs/quickstart.md
 cp site-src/index.md .build/docs/index.md
 cp -R site-src/assets .build/docs/
+python3 site-src/diagrams/render.py .build/docs/image
 
 mkdocs build "$@"
