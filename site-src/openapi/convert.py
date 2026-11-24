@@ -537,6 +537,14 @@ def description_example(name, desc, schema_type, date_sample):
             value = text_value(name, rest, schema_type)
             if value is not None:
                 return value, "b"
+    defaults = [
+        m for line in lines for m in ENUM_ITEM.finditer(line)
+        if HANGUL.search(m.group(2)) and re.search(r"default", m.group(2), re.I)
+    ]
+    if len(defaults) == 1:
+        value = text_value(name, defaults[0].group(1), schema_type)
+        if value is not None:
+            return value, "a"
     first = None
     for n, line in enumerate(lines):
         first = next((m for m in ENUM_ITEM.finditer(line) if HANGUL.search(m.group(2))), None)
@@ -559,8 +567,24 @@ def description_example(name, desc, schema_type, date_sample):
     return None, None
 
 
-def pick_example(name, path, schema, direct, direct_kind, shared, date_sample):
+CANCEL_STATUS = "cancelled"
+CANCEL_FIELDS = {"status", "cancelledAt", "balanceAmt"}
+
+
+def cancel_example(name, schema, date_sample):
+    desc = schema.get("description", "")
+    if name == "status":
+        listed = {m.group(1) for line in desc.split("\n") for m in ENUM_ITEM.finditer(line)}
+        return (CANCEL_STATUS, "a") if CANCEL_STATUS in listed else (None, None)
+    if name == "cancelledAt" and re.search(r"ISO\s*8601", desc):
+        return date_sample, "e"
+    return None, None
+
+
+def pick_example(name, path, schema, direct, direct_kind, shared, date_sample, context=None):
     schema_type = schema.get("type")
+    if context == "cancel" and path in CANCEL_FIELDS:
+        return cancel_example(name, schema, date_sample)
     if path in direct:
         value = json_value(name, direct[path], schema_type)
         if value is not None:
@@ -575,15 +599,15 @@ def pick_example(name, path, schema, direct, direct_kind, shared, date_sample):
     return description_example(name, schema.get("description", ""), schema_type, date_sample)
 
 
-def apply_examples(schema, direct, direct_kind, shared, date_sample, prefix=""):
+def apply_examples(schema, direct, direct_kind, shared, date_sample, prefix="", context=None):
     for name, prop in schema.get("properties", {}).items():
         path = prefix + name
         if prop.get("type") == "object":
-            apply_examples(prop, direct, direct_kind, shared, date_sample, path + ".")
+            apply_examples(prop, direct, direct_kind, shared, date_sample, path + ".", context)
         elif prop.get("type") == "array":
-            apply_examples(prop.get("items", {}), direct, direct_kind, shared, date_sample, path + "[].")
+            apply_examples(prop.get("items", {}), direct, direct_kind, shared, date_sample, path + "[].", context)
         else:
-            value, _ = pick_example(name, path, prop, direct, direct_kind, shared, date_sample)
+            value, _ = pick_example(name, path, prop, direct, direct_kind, shared, date_sample, context)
             if value is not None:
                 prop["example"] = value
 
@@ -742,7 +766,8 @@ def build(out_path):
             path_values = curl_path_values(path, curl[1])
         apply_examples(req_schema, body, "c", {}, date_sample)
         own = flatten(ep["response_example"]) if ep["response_example"] else owned.get((method, path), {})
-        apply_examples(res_schema, own, "d", shared, date_sample)
+        context = "cancel" if "cancel" in path else None
+        apply_examples(res_schema, own, "d", shared, date_sample, context=context)
         tables = code_tables_for(path)
         result_code = res_schema.get("properties", {}).get("resultCode")
         if result_code is not None:
