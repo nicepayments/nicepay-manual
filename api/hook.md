@@ -30,17 +30,17 @@
 <br>
 
 ### 웹훅 기능 요약 
-- [추가](/management/admin.md#추가-1) : 결제수단을 선택하여 웹훅을 추가 하는 기능
-- [TEST 호출](/management/admin.md#test호출) : 웹훅 등록 후 등록된 `End-point`로 Test 전문을 전달하는 기능
-- [재전송](/management/admin.md#재전송) : 웹훅 전송 실패 처리 가이드
-- [로그](/management/admin.md#로그-1) : 전달된 웹훅의 로그 확인 가이드
+- [추가](../management/admin.md#추가-1) : 결제수단을 선택하여 웹훅을 추가 하는 기능
+- [TEST 호출](../management/admin.md#test호출) : 웹훅 등록 후 등록된 `End-point`로 Test 전문을 전달하는 기능
+- [재전송](../management/admin.md#재전송) : 웹훅 전송 실패 처리 가이드
+- [로그](../management/admin.md#로그-1) : 전달된 웹훅의 로그 확인 가이드
 
 <br>
 
 > #### ⚠️ 중요
 > `Response body`에 "OK” 문자열이 없는 경우 실패로 처리되기 때문에 주의가 필요 합니다.
 > 나이스페이먼츠에서 보내는 Content-Type은 application/json 타입이나, 가맹점에서 응답 시에는 Content-Type: text/html 타입으로 응답해주셔야 합니다.
-> [방화벽 정책](/common/preparations.md#방화벽-정책)을 통해 `Inbound IP` 를 제한하는 것을 권장하고 있습니다.   
+> [방화벽 정책](../common/preparations.md#방화벽-정책)을 통해 `Inbound IP` 를 제한하는 것을 권장하고 있습니다.   
 > 비즈니스 로직 처리 전 웹훅 전문에 포함된 위변조 검증값 `signature` 과 금액을 반드시 체크 해주세요.  
 
 <br>
@@ -181,21 +181,21 @@ API 개발을 위한 각 인터페이스의 개발 명세가 필요하다면 �
 
 ### 📌 공통
 개발 전 필요한 `공통`적인 가이드 입니다.  
-- [개발 준비](/common/preparations.md) 👉 [회원가입](/common/preparations.md#회원가입) | [API KEY확인](/common/preparations.md#api-key-확인) | [방화벽 정책](common/preparations.md#방화벽-정책) | [IP 보안기능](/common/preparations.md#ip-보안-기능) | [타임아웃 정보](/common/preparations.md#타임아웃-정보)
-- [API·JS SDK](/common/api.md) 👉 [URI 목록](/common/api.md#uri-목록) | [JS SDK목록](/common/api.md#js-sdk-목록) | [API KEY](/common/api.md#api-key) | [API·JS SDK인증](/common/api.md#apijs-sdk인증) | [Basic auth](/common/api.md#basic-auth) | [Bearer token](/common/api.md#bearer-token)
-- [TEST·샘플코드](/common/test.md) 👉 [샌드박스 TEST](/common/test.md#샌드박스test) | [샌드박스 활용](/common/test.md#샌드박스-활용) | [웹로그 디버깅](/common/test.md#웹로그-디버깅) | [샘플코드](/common/test.md#샘플코드)
-- [코드집](/common/code.md) 👉 [HTTP-상태코드](/common/code.md#http-상태코드) | [카드코드](/common/code.md#카드코드) | [은행코드](/common/code.md#은행코드) | [JS SDK 응답코드](/common/code.md#js-sdk-응답코드) | [API 응답코드](/common/code.md#api-응답코드)
+- [개발 준비](../common/preparations.md) 👉 [회원가입](../common/preparations.md#회원가입) | [API KEY확인](../common/preparations.md#api-key-확인) | [방화벽 정책](../common/preparations.md#방화벽-정책) | [IP 보안기능](../common/preparations.md#ip-보안-기능) | [타임아웃 정보](../common/preparations.md#타임아웃-정보)
+- [API·JS SDK](../common/api.md) 👉 [URI 목록](../common/api.md#uri-목록) | [JS SDK목록](../common/api.md#js-sdk-목록) | [API KEY](../common/api.md#api-key) | [API·JS SDK인증](../common/api.md#apijs-sdk인증) | [Basic auth](../common/api.md#basic-auth) | [Bearer token](../common/api.md#bearer-token)
+- [TEST·샘플코드](../common/test.md) 👉 [샌드박스 TEST](../common/test.md#샌드박스test) | [샌드박스 활용](../common/test.md#샌드박스-활용) | [웹로그 디버깅](../common/test.md#웹로그-디버깅) | [샘플코드](../common/test.md#샘플코드)
+- [코드집](../common/code.md) 👉 [HTTP-상태코드](../common/code.md#http-상태코드) | [카드코드](../common/code.md#카드코드) | [은행코드](../common/code.md#은행코드) | [JS SDK 응답코드](../common/code.md#js-sdk-응답코드) | [API 응답코드](../common/code.md#api-응답코드)
   
 ### 📚 문서
 `API 명세`와 `코드`가 포함된 기술문서 입니다.  
-- [결제·발급](/api/payment.md#) 👉 [결제창](/api/payment-window-server.md) | [빌링](/api/payment-subscribe.md) | [현금영수증](/api/payment-receipt.md) | [Access token](/api/payment-access-token.md)
-- [조회](/api/status.md) 👉 [거래 조회](/api/status-transaction.md) | [약관 조회](/api/status-terms.md) | [카드 이벤트 조회](/api/status-event.md) | [카드 무이자 조회](/api/status-interest.md)
-- [취소·환불·망취소](/api/cancel.md) 👉  [취소·환불](/api/cancel.md#취소환불) | [망 취소](/api/cancel.md#망취소)
-- [웹훅](/api/hook.md) 👉 [웹훅](/api/hook.md#웹훅)
-- [APP](/api/app.md) 👉 [iOS](/api/app-ios.md#ios) | [iOS Swift](/api/app-ios.md#ios-swift-웹뷰web-view개발-가이드) | [iOS Objective-c](/api/app-ios.md#ios-objective-c-웹뷰web-view개발-가이드) | [Android](/api/app-android.md#) | [Android java](/api/app-android.md#android-java-웹뷰web-view개발-가이드) | [Android kotlin](/api/app-android.md#android-kotlin-웹뷰web-view개발-가이드)
+- [결제·발급](payment.md) 👉 [결제창](payment-window-server.md) | [빌링](payment-subscribe.md) | [현금영수증](payment-receipt.md) | [Access token](payment-access-token.md)
+- [조회](status.md) 👉 [거래 조회](status-transaction.md) | [약관 조회](status-terms.md) | [카드 이벤트 조회](status-event.md) | [카드 무이자 조회](status-interest.md)
+- [취소·환불·망취소](cancel.md) 👉  [취소·환불](cancel.md#취소환불) | [망 취소](cancel.md#망취소)
+- [웹훅](hook.md) 👉 [웹훅](hook.md#웹훅)
+- [APP](app.md) 👉 [iOS](app-ios.md#ios) | [iOS Swift](app-ios.md#ios-swift-웹뷰web-view개발-가이드) | [iOS Objective-c](app-ios.md#ios-objective-c-웹뷰web-view개발-가이드) | [Android](app-android.md) | [Android java](app-android.md#android-java-웹뷰web-view개발-가이드) | [Android kotlin](app-android.md#android-kotlin-웹뷰web-view개발-가이드)
 
 ### ☸️ 운영
 `운영`에 필요한 정보 입니다.  
-- [지원환경](/management/user.md) 👉 [개발환경](/management/user.md#개발환경) | [지원 브라우저](/management/user.md#브라우저)
-- [오류관리](/management/user.md#오류관리) 👉 [오류관리](/management/user.md#오류관리)
-- [개발정보](/management/admin.md) 👉 [기능 요약](/management/admin.md#기능-요약) | [KEY 정보](/management/admin.md#key정보) | [ip보안(ip접근제한)](/management/admin.md#ip보안ip접근-제한) | [웹훅](/management/admin.md#웹훅) | [로그](/management/admin.md#로그)
+- [지원환경](../management/user.md) 👉 [개발환경](../management/user.md#개발환경) | [지원 브라우저](../management/user.md#브라우저)
+- [오류관리](../management/user.md#오류관리) 👉 [오류관리](../management/user.md#오류관리)
+- [개발정보](../management/admin.md) 👉 [기능 요약](../management/admin.md#기능-요약) | [KEY 정보](../management/admin.md#key정보) | [ip보안(ip접근제한)](../management/admin.md#ip보안ip접근-제한) | [웹훅](../management/admin.md#웹훅) | [로그](../management/admin.md#로그)

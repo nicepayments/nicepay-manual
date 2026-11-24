@@ -720,7 +720,7 @@ Content-type: json
 
 ## 승인 (결제)
 
-- 결제창 [JS SDK](/api/payment.md#js-sdk) Server승인 모델에서 카드사 인증 완료 후 처리 구간의 명세 입니다.
+- 결제창 [JS SDK](../api/payment.md#js-sdk) Server승인 모델에서 카드사 인증 완료 후 처리 구간의 명세 입니다.
 - 결제창을 통해 결제자가 카드사 및 결제 원천사에 접근하여 인증과정을 완료하면 나이스페이는 인증결과를 `AUTHNICE.requestPay()`의 object value로 전달된 `returnUrl`로 POST 합니다.
 - 가맹점은 POST 데이터의 금액 및 위변조 여부를 체크하고 응답된 tid을 승인 API로 전달 하면 💳 결제(승인)요청 처리가 완료 됩니다.
 
@@ -735,7 +735,7 @@ Content-type: json
 <img src="../image/payment-server-authorization.svg" width="800px">
 
 ### 예외처리
-- 승인 API 호출시 read-timeout이 발생한다면 [망 취소](/api/cancel.md#망취소)를 진행 해주세요.
+- 승인 API 호출시 read-timeout이 발생한다면 [망 취소](../api/cancel.md#망취소)를 진행 해주세요.
 
 <br>
 
@@ -884,7 +884,7 @@ Content-type: application/json
 <br>
 
 > #### ⚠️ 중요
-> [클라이언트 키](클라이언트-키)가 Client 승인 방식으로 발급 된 경우 Client승인 모델 💡 결제창 사용이 가능 합니다.  
+> [클라이언트 키](#클라이언트-키)가 Client 승인 방식으로 발급 된 경우 Client승인 모델 💡 결제창 사용이 가능 합니다.  
 > 대량 결제 트래픽이 예상되는 경우 Server승인 모델 💡 결제창을 사용 해주세요.  
 > 금액 변조 검증 미처리로 인한 모든 책임은 가맹점에 있습니다.
 
@@ -933,7 +933,7 @@ Content-type: application/json
 
 > #### ⚠️ 중요
 > Client 승인 모델을 사용하는 경우 모든 💳 결제(승인)건 별 금액 검증이 필요 합니다.
-> 사용자 네트워크 환경에 따라 인터페이스 응답의 유실이 발생 할 수 있어 [승인금액 검증 API](승인-금액-검증)를 활용하여 금액체크를 반드시 해야 합니다.
+> 사용자 네트워크 환경에 따라 인터페이스 응답의 유실이 발생 할 수 있어 [승인금액 검증 API](#승인-금액-검증)를 활용하여 금액체크를 반드시 해야 합니다.
 
 <br>
 
@@ -3793,12 +3793,12 @@ private class WebViewClientClass : WebViewClient() {
 - node.js, python, ruby, jsp, php, classic asp, .net
 - REST API
 - HTTP Status code
-- JS SDK를 통한 결제창 승인방식 옵션 👉[JS SDK 바로가기](/api/payment.md#js-sdk)
-- 원천사 응답코드 👉[API 응답코드 바로가기](/common/code.md#api-응답코드)
+- JS SDK를 통한 결제창 승인방식 옵션 👉[JS SDK 바로가기](../api/payment.md#js-sdk)
+- 원천사 응답코드 👉[API 응답코드 바로가기](../common/code.md#api-응답코드)
 - HTTP 클라이언트 `TLS 1.2`
-- [웹훅](/management/admin.md#기능설명-2)
-- [웹 로그를 통한 디버깅](/management/admin.md#기능설명-3)
-- 샌드박스를 활요한 TEST 및 리포팅 👉[개발정보 활용 바로가기](/management/admin.md#활용)
+- [웹훅](../management/admin.md#기능설명-2)
+- [웹 로그를 통한 디버깅](../management/admin.md#기능설명-3)
+- 샌드박스를 활요한 TEST 및 리포팅 👉[개발정보 활용 바로가기](../management/admin.md#활용)
 
 <br>
 
@@ -3871,7 +3871,7 @@ private class WebViewClientClass : WebViewClient() {
 <br>
 
 > #### 결제창 호출 후 버튼 동작이 정상적이지 않은 경우
-> JS SDK을 iframe에서 호출되는 경우 문제가 발생할 수 있으며 [JS SDK 옵션](/api/payment.md#js-sdk)을 통해 문제를 검토 합니다.
+> JS SDK을 iframe에서 호출되는 경우 문제가 발생할 수 있으며 [JS SDK 옵션](../api/payment.md#js-sdk)을 통해 문제를 검토 합니다.
 
 <br>
 
