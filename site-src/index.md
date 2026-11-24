@@ -13,7 +13,7 @@ hide:
 결제창 연동부터 승인, 조회, 취소, 웹훅까지 연동에 필요한 API 명세와 예제를 제공합니다.
 
 [빠른 시작](quickstart.md){ .landing-button .landing-button--primary }
-[API 문서](api/payment.md){ .landing-button }
+[API 레퍼런스](reference/index.html){ .landing-button }
 
 </div>
 
