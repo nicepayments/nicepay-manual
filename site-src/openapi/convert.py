@@ -320,6 +320,273 @@ def section_description(lines, hs, start, end):
     return ""
 
 
+TOKEN = re.compile(
+    r"\s+|//[^\n]*|(?P<str>['\"＂“”‘’])(?P<sval>.*?)['\"＂“”‘’]|(?P<atom>[A-Za-z0-9_.+\-]+)|(?P<punct>[{}\[\]:,])"
+)
+
+
+def tokens(text):
+    out = []
+    pos = 0
+    while pos < len(text):
+        m = TOKEN.match(text, pos)
+        if not m:
+            pos += 1
+            continue
+        pos = m.end()
+        if m.group("str") is not None:
+            out.append(("str", m.group("sval")))
+        elif m.group("atom") is not None:
+            out.append(("atom", m.group("atom")))
+        elif m.group("punct") is not None:
+            out.append(("punct", m.group("punct")))
+    return out
+
+
+def _atom_value(text):
+    if text == "true":
+        return True
+    if text == "false":
+        return False
+    if text == "null":
+        return None
+    if re.fullmatch(r"-?(0|[1-9]\d*)", text):
+        return int(text)
+    return text
+
+
+def _parse_value(toks, i):
+    kind, val = toks[i]
+    if kind == "punct" and val == "{":
+        obj = {}
+        i += 1
+        while i < len(toks):
+            kind, val = toks[i]
+            if kind == "punct" and val == ",":
+                i += 1
+                continue
+            if kind == "punct" and val == "}":
+                return obj, i + 1
+            if kind == "punct" or i + 2 >= len(toks) or toks[i + 1] != ("punct", ":"):
+                raise ValueError("object key")
+            obj[val], i = _parse_value(toks, i + 2)
+        raise ValueError("unclosed object")
+    if kind == "punct" and val == "[":
+        arr = []
+        i += 1
+        while i < len(toks):
+            kind, val = toks[i]
+            if kind == "punct" and val == ",":
+                i += 1
+                continue
+            if kind == "punct" and val == "]":
+                return arr, i + 1
+            item, i = _parse_value(toks, i)
+            arr.append(item)
+        raise ValueError("unclosed array")
+    if kind == "str":
+        return val, i + 1
+    if kind == "atom":
+        return _atom_value(val), i + 1
+    raise ValueError("value")
+
+
+def parse_object(text):
+    start = text.find("{")
+    if start < 0:
+        return None
+    toks = tokens(text[start:])
+    try:
+        value, _ = _parse_value(toks, 0)
+    except (ValueError, IndexError):
+        return None
+    return value if isinstance(value, dict) else None
+
+
+CURL_LINE = re.compile(r"curl\s+-X\s+(\w+)\s+['\"]https?://[^/'\"]+(/[^'\"?]*)")
+CURL_BODY = re.compile(r"-[dD]\s+'")
+
+
+def curl_parts(sample):
+    m = CURL_LINE.search(sample or "")
+    if not m:
+        return None
+    body = None
+    b = CURL_BODY.search(sample)
+    if b:
+        body = parse_object(sample[b.end():])
+    return m.group(1).lower(), m.group(2).rstrip("/") or "/", body
+
+
+def path_matches(template, actual):
+    pattern = re.sub(r"\\\{\w+\\\}", r"[^/]+", re.escape(template))
+    return re.fullmatch(pattern, actual) is not None
+
+
+def curl_path_values(template, actual):
+    values = {}
+    for t, a in zip(template.split("/"), actual.split("/")):
+        m = re.fullmatch(r"\{(\w+)\}", t)
+        if m and not a.startswith("{"):
+            values[m.group(1)] = a
+    return values
+
+
+def section_example(rel, heading):
+    with open(os.path.join(ROOT, rel), encoding="utf-8") as f:
+        lines = f.read().split("\n")
+    hs = headings(lines)
+    start = next((i for i, _, t in hs if t == heading), None)
+    if start is None:
+        return None
+    stop = next_heading(hs, start, lambda lv, t: True, len(lines)) or len(lines)
+    for _, body in code_blocks(lines, start, stop):
+        obj = parse_object(body)
+        if obj:
+            return obj
+    return None
+
+
+def flatten(obj, prefix=""):
+    out = {}
+    for key, value in obj.items():
+        path = prefix + key
+        if isinstance(value, dict):
+            out.update(flatten(value, path + "."))
+        elif isinstance(value, list):
+            for item in value[:1]:
+                if isinstance(item, dict):
+                    out.update(flatten(item, path + "[]."))
+        else:
+            out[path] = value
+    return out
+
+
+SHARED_EXAMPLES = [
+    ("README.md", "결제(승인) 응답 예시", ("post", "/v1/payments/{tid}")),
+    ("common/api.md", "Access token API 응답 예시", ("post", "/v1/access-token")),
+]
+EXAMPLE_MARK = re.compile(r"(?<![A-Za-z])(?:예시|예|ex\d*)\)\s*(.+)", re.I)
+ENUM_ITEM = re.compile(r"(?:^|(?<=[\s,/(\[]))([A-Za-z0-9_]+)\s*[:=]\s*([^\s/,][^,/]*)")
+HANGUL = re.compile(r"[가-힣]")
+JSON_TYPES = {"string": str, "integer": int, "boolean": bool}
+
+
+def literal_ok(name, value):
+    if value is None or value == "":
+        return False
+    if isinstance(value, str):
+        if re.fullmatch(r"\{.*\}", value.strip()) or value.endswith("..."):
+            return False
+        if name.lower().endswith("url") and not re.match(r"[a-z][a-z0-9+.-]*://", value, re.I):
+            return False
+        if name.lower().endswith("email") and "@" not in value:
+            return False
+    return True
+
+
+def json_value(name, value, schema_type):
+    wanted = JSON_TYPES.get(schema_type)
+    if wanted is None or type(value) is not wanted or not literal_ok(name, value):
+        return None
+    return value
+
+
+def text_value(name, text, schema_type):
+    text = text.strip()
+    quoted = re.match(r"['\"＂“”](.*?)['\"＂“”]", text)
+    if quoted:
+        text = quoted.group(1)
+    if schema_type == "integer":
+        m = re.match(r"\d+", text)
+        value = int(m.group(0)) if m else None
+    elif schema_type == "boolean":
+        value = {"true": True, "false": False}.get(text.lower())
+    elif schema_type == "string":
+        value = text
+    else:
+        value = None
+    return value if literal_ok(name, value) else None
+
+
+def description_example(name, desc, schema_type, date_sample):
+    lines = [line.strip() for line in desc.split("\n")]
+    assigned = re.search(r"(?<![A-Za-z0-9_])" + re.escape(name) + r"=(\S+)", desc, re.I)
+    if assigned:
+        value = text_value(name, assigned.group(1), schema_type)
+        if value is not None:
+            return value, "b"
+    for line in lines:
+        m = EXAMPLE_MARK.search(line)
+        if m:
+            rest = re.sub(r"\s*\(default\)\s*$", "", m.group(1).split(" / ")[0], flags=re.I)
+            value = text_value(name, rest, schema_type)
+            if value is not None:
+                return value, "b"
+    first = None
+    for n, line in enumerate(lines):
+        first = next((m for m in ENUM_ITEM.finditer(line) if HANGUL.search(m.group(2))), None)
+        if first:
+            earlier = "\n".join(lines[:n]) + line[: first.start()]
+            if re.search(r"(?<![A-Za-z0-9_])" + re.escape(first.group(1)) + r"(?![A-Za-z0-9_])", earlier):
+                return None, None
+            break
+    if first:
+        value = text_value(name, first.group(1), schema_type)
+        if value is not None:
+            return value, "a"
+    listed = re.search(r"\[\s*'([^']+)'", desc)
+    if listed and not first:
+        value = text_value(name, listed.group(1), schema_type)
+        if value is not None:
+            return value, "a"
+    if schema_type == "string" and literal_ok(name, date_sample) and re.search(r"ISO\s*8601", desc):
+        return date_sample, "e"
+    return None, None
+
+
+def pick_example(name, path, schema, direct, direct_kind, shared, date_sample):
+    schema_type = schema.get("type")
+    if path in direct:
+        value = json_value(name, direct[path], schema_type)
+        if value is not None:
+            return value, direct_kind
+    value, kind = description_example(name, schema.get("description", ""), schema_type, None)
+    if value is not None:
+        return value, kind
+    if path in shared and shared[path][1] == schema.get("description"):
+        value = json_value(name, shared[path][0], schema_type)
+        if value is not None:
+            return value, "d"
+    return description_example(name, schema.get("description", ""), schema_type, date_sample)
+
+
+def apply_examples(schema, direct, direct_kind, shared, date_sample, prefix=""):
+    for name, prop in schema.get("properties", {}).items():
+        path = prefix + name
+        if prop.get("type") == "object":
+            apply_examples(prop, direct, direct_kind, shared, date_sample, path + ".")
+        elif prop.get("type") == "array":
+            apply_examples(prop.get("items", {}), direct, direct_kind, shared, date_sample, path + "[].")
+        else:
+            value, _ = pick_example(name, path, prop, direct, direct_kind, shared, date_sample)
+            if value is not None:
+                prop["example"] = value
+
+
+def leaf_descriptions(schema, prefix=""):
+    out = {}
+    for name, prop in schema.get("properties", {}).items():
+        path = prefix + name
+        if prop.get("type") == "object":
+            out.update(leaf_descriptions(prop, path + "."))
+        elif prop.get("type") == "array":
+            out.update(leaf_descriptions(prop.get("items", {}), path + "[]."))
+        else:
+            out[path] = prop.get("description")
+    return out
+
+
 def find_endpoints(rel, lines):
     hs = headings(lines)
     total = len(lines)
@@ -370,8 +637,12 @@ def find_endpoints(rel, lines):
                 _, r_end = section_bounds(hs, resp, footer)
             r_end = min(r_end, footer)
             response_tables = tables_in(lines, resp, r_end)
+            response_example = next(
+                (obj for obj in (parse_object(b) for _, b in code_blocks(lines, resp, r_end)) if obj), None
+            )
         else:
             response_tables = []
+            response_example = None
         request_tables = tables_in(lines, req_start, req_end)
         samples = [b for _, b in code_blocks(lines, s_start, s_end) if "curl" in b]
         endpoints.append(
@@ -384,6 +655,7 @@ def find_endpoints(rel, lines):
                 "description": section_description(lines, hs, s_start, s_end),
                 "request_tables": request_tables,
                 "response_tables": response_tables,
+                "response_example": response_example,
                 "sample": samples[0] if samples else None,
             }
         )
@@ -424,74 +696,98 @@ def build(out_path):
         "paths": {},
     }
     report = []
+    entries = []
     for rel in SOURCES:
         _CURRENT_DIR[0] = os.path.dirname(rel)
         with open(os.path.join(ROOT, rel), encoding="utf-8") as f:
             lines = f.read().split("\n")
         for ep in find_endpoints(rel, lines):
-            method = ep["method"].lower()
-            path = ep["path"]
-            summary = names.get((ep["method"], path)) or re.sub(r"[\U0001F300-\U0001FAFF☀-➿]", "", ep["section"]).strip()
-            path_params = re.findall(r"\{(\w+)\}", path)
-            req_schema, req_count = merge_tables(ep["request_tables"])
-            res_schema, res_count = merge_tables(ep["response_tables"])
-            guide = os.path.splitext(rel)[0] + ".html"
-            desc = ep["description"]
-            desc = (desc + "\n\n" if desc else "") + f"[가이드 문서에서 보기](../{guide})"
-            op = {
-                "tags": [tag_for(method, path)],
-                "summary": summary,
-                "description": desc,
-                "operationId": re.sub(r"\W+", "_", f"{method}_{path}").strip("_"),
-                "parameters": [],
-                "responses": {
-                    "200": {
-                        "description": "성공. 결과는 resultCode로 확인합니다.",
-                        "content": {"application/json": {"schema": res_schema}} if res_count else {},
-                    }
-                },
+            entries.append((rel, ep, merge_tables(ep["request_tables"]), merge_tables(ep["response_tables"])))
+    owned = {}
+    shared = {}
+    for rel, heading, owner in SHARED_EXAMPLES:
+        flat = flatten(section_example(rel, heading) or {})
+        owned[owner] = flat
+        descs = next(
+            (leaf_descriptions(res[0]) for _, ep, _, res in entries if (ep["method"].lower(), ep["path"]) == owner), {}
+        )
+        for key, value in flat.items():
+            if key in descs:
+                shared.setdefault(key, (value, descs[key]))
+    date_sample = owned.get(SHARED_EXAMPLES[0][2], {}).get("ediDate")
+    for rel, ep, (req_schema, req_count), (res_schema, res_count) in entries:
+        method = ep["method"].lower()
+        path = ep["path"]
+        summary = names.get((ep["method"], path)) or re.sub(r"[\U0001F300-\U0001FAFF☀-➿]", "", ep["section"]).strip()
+        path_params = re.findall(r"\{(\w+)\}", path)
+        body, path_values = {}, {}
+        curl = curl_parts(ep["sample"])
+        if curl and curl[0] == method and path_matches(path, curl[1]):
+            body = flatten(curl[2] or {})
+            path_values = curl_path_values(path, curl[1])
+        apply_examples(req_schema, body, "c", {}, date_sample)
+        own = flatten(ep["response_example"]) if ep["response_example"] else owned.get((method, path), {})
+        apply_examples(res_schema, own, "d", shared, date_sample)
+        guide = os.path.splitext(rel)[0] + ".html"
+        desc = ep["description"]
+        desc = (desc + "\n\n" if desc else "") + f"[가이드 문서에서 보기](../{guide})"
+        op = {
+            "tags": [tag_for(method, path)],
+            "summary": summary,
+            "description": desc,
+            "operationId": re.sub(r"\W+", "_", f"{method}_{path}").strip("_"),
+            "parameters": [],
+            "responses": {
+                "200": {
+                    "description": "성공. 결과는 resultCode로 확인합니다.",
+                    "content": {"application/json": {"schema": res_schema}} if res_count else {},
+                }
+            },
+        }
+        props = req_schema.get("properties", {})
+        for p in path_params:
+            pschema = props.pop(p, {"type": "string"})
+            param = {
+                "name": p,
+                "in": "path",
+                "required": True,
+                "schema": {"type": "string"},
+                "description": pschema.get("description", ""),
             }
-            props = req_schema.get("properties", {})
-            for p in path_params:
-                pschema = props.pop(p, {"type": "string"})
-                op["parameters"].append(
-                    {
-                        "name": p,
-                        "in": "path",
-                        "required": True,
-                        "schema": {"type": "string"},
-                        "description": pschema.get("description", ""),
+            example = path_values.get(p, pschema.get("example"))
+            if example is not None:
+                param["example"] = example
+            op["parameters"].append(param)
+        if "required" in req_schema:
+            req_schema["required"] = [r for r in req_schema["required"] if r in props]
+            if not req_schema["required"]:
+                del req_schema["required"]
+        if props:
+            if method == "get":
+                required = set(req_schema.get("required", []))
+                for name, schema in props.items():
+                    param = {
+                        "name": name,
+                        "in": "query",
+                        "required": name in required,
+                        "schema": {k: v for k, v in schema.items() if k not in ("description", "example")},
+                        "description": schema.get("description", ""),
                     }
-                )
-            if "required" in req_schema:
-                req_schema["required"] = [r for r in req_schema["required"] if r in props]
-                if not req_schema["required"]:
-                    del req_schema["required"]
-            if props:
-                if method == "get":
-                    required = set(req_schema.get("required", []))
-                    for name, schema in props.items():
-                        op["parameters"].append(
-                            {
-                                "name": name,
-                                "in": "query",
-                                "required": name in required,
-                                "schema": {k: v for k, v in schema.items() if k != "description"},
-                                "description": schema.get("description", ""),
-                            }
-                        )
-                else:
-                    op["requestBody"] = {"required": True, "content": {"application/json": {"schema": req_schema}}}
-            if not op["parameters"]:
-                del op["parameters"]
-            if not op["responses"]["200"]["content"]:
-                del op["responses"]["200"]["content"]
-            if ep["sample"]:
-                op["x-codeSamples"] = [{"lang": "Shell", "label": "cURL (문서 예제)", "source": ep["sample"].strip()}]
-            if path == "/v1/access-token":
-                op["security"] = [{"basicAuth": []}]
-            spec["paths"].setdefault(path, {})[method] = op
-            report.append((ep["source"], ep["line"], ep["method"], path, summary, req_count, res_count))
+                    if "example" in schema:
+                        param["example"] = schema["example"]
+                    op["parameters"].append(param)
+            else:
+                op["requestBody"] = {"required": True, "content": {"application/json": {"schema": req_schema}}}
+        if not op["parameters"]:
+            del op["parameters"]
+        if not op["responses"]["200"]["content"]:
+            del op["responses"]["200"]["content"]
+        if ep["sample"]:
+            op["x-codeSamples"] = [{"lang": "Shell", "label": "cURL (문서 예제)", "source": ep["sample"].strip()}]
+        if path == "/v1/access-token":
+            op["security"] = [{"basicAuth": []}]
+        spec["paths"].setdefault(path, {})[method] = op
+        report.append((ep["source"], ep["line"], ep["method"], path, summary, req_count, res_count))
     for path, ops in spec["paths"].items():
         donors = [op for op in ops.values() if op["responses"]["200"].get("content")]
         for op in ops.values():
