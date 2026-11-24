@@ -56,7 +56,7 @@ API, 웹훅의 요청 응답 로그를 통해 빠른 디버깅
 
 <br>
 
-### 결제창 승인방식 [결제창 JS SDK 검토하기](../api/payment.md#js-sdk) 
+### 결제창 승인방식 [결제창 JS SDK 검토하기](../api/payment.md#결제창) 
 선택된 결제창 승인 방식은 클라이언트 키 항목에 표기 됩니다 
 - Server승인 모델 : 결제창 인증(카드사 및 원천사)과 💳 승인(결제) API 호출이 분리된 모델
 - Client승인 모델 : 결제창의 인증과 승인이 동시에 처리되어 응답 모델 Client승인 모델이 제공됩니다. 
@@ -222,7 +222,7 @@ API 개발을 위한 각 인터페이스의 개발 명세가 필요하다면 �
 - [개발 준비](../common/preparations.md) 👉 [회원가입](../common/preparations.md#회원가입) | [API KEY확인](../common/preparations.md#api-key-확인) | [방화벽 정책](../common/preparations.md#방화벽-정책) | [IP 보안기능](../common/preparations.md#ip-보안-기능) | [타임아웃 정보](../common/preparations.md#타임아웃-정보)
 - [API·JS SDK](../common/api.md) 👉 [URI 목록](../common/api.md#uri-목록) | [JS SDK목록](../common/api.md#js-sdk-목록) | [API KEY](../common/api.md#api-key) | [API·JS SDK인증](../common/api.md#apijs-sdk인증) | [Basic auth](../common/api.md#basic-auth) | [Bearer token](../common/api.md#bearer-token)
 - [TEST·샘플코드](../common/test.md) 👉 [샌드박스 TEST](../common/test.md#샌드박스test) | [샌드박스 활용](../common/test.md#샌드박스-활용) | [웹로그 디버깅](../common/test.md#웹로그-디버깅) | [샘플코드](../common/test.md#샘플코드)
-- [코드집](../common/code.md) 👉 [HTTP-상태코드](../common/code.md#http-상태코드) | [카드코드](../common/code.md#카드코드) | [은행코드](../common/code.md#은행코드) | [JS SDK 응답코드](../common/code.md#js-sdk-응답코드) | [API 응답코드](../common/code.md#api-응답코드)
+- [코드집](../common/code.md) 👉 [HTTP-상태코드](../common/code.md#http-상태코드) | [카드코드](../common/code.md#카드코드) | [은행코드](../common/code.md#은행코드) | [API 응답코드](../common/code.md#api-응답코드)
   
 ### 📚 문서
 `API 명세`와 `코드`가 포함된 기술문서 입니다.  

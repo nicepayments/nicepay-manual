@@ -224,7 +224,7 @@ Authorization: Bearer <token>
 
 #### Bearer Token 생성 예시
 `Bearer token` 생성을 위해 `Access token` API 호출 합니다.  
-Access token API호출을 위해 Basic 인증 스킴이 활용되며, `Credentials` 생성 방법은 [Basic auth 가이드](#basic-auth)를 참고 해주세요.
+Access token API호출을 위해 Basic 인증 스킴이 활용되며, `Credentials` 생성 방법은 [Basic auth 가이드](../common/api.md#basic-auth)를 참고 해주세요.
 
 ```shell
 curl -X POST "https://api.nicepay.co.kr/v1/access-token" \
@@ -331,18 +331,18 @@ Content-type: application/json;charset=utf-8
 | API                                  | 샌드박스 지원여부 | Method | Endpoint                     | 제약사항    |
 |:-------------------------------------|:---------:|:------:|:-----------------------------|:--------|
 | [AccessToken 발급](#access-token)      |     ○     | `POST` | /v1/access-token             |         |
-| [결제창 승인](#승인--결제-)                   |     ○     | `POST` | /v1/payments/{tid}           | 임의 값 응답 |
+| [결제창 승인](#승인-결제)                   |     ○     | `POST` | /v1/payments/{tid}           | 임의 값 응답 |
 | [취소 요청](#취소환불망취소)                    |     △     | `POST` | /v1/payments/{tid}/cancel    | 부분취소 불가 |
-| [거래조회-tid](#거래조회--with-tid-)         |     ○     | `GET`  | /v1/payments/{tid}           |         |
-| [거래조회-orderId](#거래조회--with-orderid-) |     ○     | `GET`  | /v1/payments/find/{orderId}  |         |
-| [빌키승인](#빌키승인)                        |     ○     | `POST` | /v1/subscribe/{bid}/payments | 임의 값 응답 | 
-| [빌키삭제](#빌키삭제)                        |     ○     | `POST` | /v1/subscribe/{bid}/expire   |         |
+| [거래조회-tid](#거래조회with-tid)         |     ○     | `GET`  | /v1/payments/{tid}           |         |
+| [거래조회-orderId](#거래조회with-orderid) |     ○     | `GET`  | /v1/payments/find/{orderId}  |         |
+| [빌키승인](#빌키-승인)                        |     ○     | `POST` | /v1/subscribe/{bid}/payments | 임의 값 응답 | 
+| [빌키삭제](#빌키-삭제)                        |     ○     | `POST` | /v1/subscribe/{bid}/expire   |         |
 | [약관조회](#약관-조회)                       |     ×     | `GET`  | /v1/terms                    |         |
 | [N정통Epay승인](#epay)                   |     ×     | `POST` | /v1/epay                     |         |
 | [현금영수증 발급](#현금영수증-발급)                |     ○     | `POST` | /v1/receipt/                 |         |
 | [현금영수증 취소](#현금영수증-취소)                |     ×     | `POST` | /v1/receipt/{tid}/cancel     |         |
 | [현금영수증 거래조회](#현금영수증-조회)              |     ○     | `GET`  | /v1/receipt/{tid}            |         | 
-| [카드 이벤트 조회](#카드-이벤트)                 |     ×     | `GET`  | /v1/card/event               |         |
+| [카드 이벤트 조회](../api/status-event.md#카드-이벤트)                 |     ×     | `GET`  | /v1/card/event               |         |
 | [카드 무이자정보 조회](#카드-무이자-조회)            |     ×     | `GET`  | /v1/card/interest-free       |         |
 | [승인금액검증](#승인-금액-검증)                  |     ○     | `POST` | /v1/check-amount/{tid}       |         |
 
@@ -455,18 +455,18 @@ API요청이 실패하는 경우 상세로그를 확인하여 쉽게 디버깅 �
 | API                                  | Method | Endpoint                     |
 |:-------------------------------------|:------:|:-----------------------------|
 | [AccessToken 발급](#access-token)      | `POST` | /v1/access-token             |
-| [결제창 승인](#승인--결제-)                   | `POST` | /v1/payments/{tid}           |
+| [결제창 승인](#승인-결제)                   | `POST` | /v1/payments/{tid}           |
 | [취소 요청](#취소환불망취소)                    | `POST` | /v1/payments/{tid}/cancel    |
-| [거래조회-tid](#거래조회--with-tid-)         | `GET`  | /v1/payments/{tid}           |
-| [거래조회-orderId](#거래조회--with-orderid-) | `GET`  | /v1/payments/find/{orderId}  |
-| [빌키승인](#빌키승인)                        | `POST` | /v1/subscribe/{bid}/payments |
-| [빌키삭제](#빌키삭제)                        | `POST` | /v1/subscribe/{bid}/expire   |
+| [거래조회-tid](#거래조회with-tid)         | `GET`  | /v1/payments/{tid}           |
+| [거래조회-orderId](#거래조회with-orderid) | `GET`  | /v1/payments/find/{orderId}  |
+| [빌키승인](#빌키-승인)                        | `POST` | /v1/subscribe/{bid}/payments |
+| [빌키삭제](#빌키-삭제)                        | `POST` | /v1/subscribe/{bid}/expire   |
 | [약관조회](#약관-조회)                       | `GET`  | /v1/terms                    |
 | [N정통Epay승인](#epay)                   | `POST` | /v1/epay                     |
 | [현금영수증 발급](#현금영수증-발급)                | `POST` | /v1/receipt/                 |
 | [현금영수증 취소](#현금영수증-취소)                | `POST` | /v1/receipt/{tid}/cancel     |
 | [현금영수증 거래조회](#현금영수증-조회)              | `GET`  | /v1/receipt/{tid}            |
-| [카드 이벤트 조회](#카드-이벤트)                 | `GET`  | /v1/card/event               |
+| [카드 이벤트 조회](../api/status-event.md#카드-이벤트)                 | `GET`  | /v1/card/event               |
 | [카드 무이자정보 조회](#카드-무이자-조회)            | `GET`  | /v1/card/interest-free       |
 | [승인금액검증](#승인-금액-검증)                  | `POST` | /v1/check-amount/{tid}       |
 
@@ -520,10 +520,10 @@ function serverAuth() {
 ### Over-view
 <img src="../image/payment-token.svg" width="800px">
 
-- [Bearer token](#bearer-token)방식 authorization을 활용하여 API를 호출하는 경우 활용 합니다.
+- [Bearer token](../common/api.md#bearer-token)방식 authorization을 활용하여 API를 호출하는 경우 활용 합니다.
 
 > #### ⚠️ 중요
-> [시크릿 키](#시크릿-키)를 [Basic auth](#basic-auth) 방식으로 생성한 경우 API 호출시 token 관리는 생략 할 수 있습니다.
+> [시크릿 키](#시크릿-키)를 [Basic auth](../common/api.md#basic-auth) 방식으로 생성한 경우 API 호출시 token 관리는 생략 할 수 있습니다.
 
 
 ### 샘플 코드
@@ -573,7 +573,7 @@ Content-type: application/json
 
 > #### ⚠️ 중요
 > [클라이언트 키](#클라이언트-키)가 Server 승인 방식으로 발급 된 경우 Server승인 모델 결제창 사용이 가능 합니다.  
-> [시크릿 키](#시크릿-키) 생성이 [Bearer token](#bearer-token) 방식인 경우 결제(승인)API 호출전 token 생성과정이 추가 됩니다.
+> [시크릿 키](#시크릿-키) 생성이 [Bearer token](../common/api.md#bearer-token) 방식인 경우 결제(승인)API 호출전 token 생성과정이 추가 됩니다.
 
 ### Over-view
 
@@ -720,7 +720,7 @@ Content-type: json
 
 ## 승인 (결제)
 
-- 결제창 [JS SDK](../api/payment.md#js-sdk) Server승인 모델에서 카드사 인증 완료 후 처리 구간의 명세 입니다.
+- 결제창 [JS SDK](../api/payment.md#결제창) Server승인 모델에서 카드사 인증 완료 후 처리 구간의 명세 입니다.
 - 결제창을 통해 결제자가 카드사 및 결제 원천사에 접근하여 인증과정을 완료하면 나이스페이는 인증결과를 `AUTHNICE.requestPay()`의 object value로 전달된 `returnUrl`로 POST 합니다.
 - 가맹점은 POST 데이터의 금액 및 위변조 여부를 체크하고 응답된 tid을 승인 API로 전달 하면 💳 결제(승인)요청 처리가 완료 됩니다.
 
@@ -728,7 +728,7 @@ Content-type: json
 
 > #### ⚠️ 중요
 > [클라이언트 키](#클라이언트-키)가 Server 승인 방식으로 발급 된 경우 Server승인 모델 결제창 사용이 가능 합니다.  
-> [시크릿 키](#시크릿-키) 생성이 [Bearer token](#bearer-token) 방식인 경우 결제(승인)API 호출전 token 생성과정이 추가 됩니다.
+> [시크릿 키](#시크릿-키) 생성이 [Bearer token](../common/api.md#bearer-token) 방식인 경우 결제(승인)API 호출전 token 생성과정이 추가 됩니다.
 
 
 ### Over-view
@@ -1827,7 +1827,7 @@ Content-type: application/json;charset=utf-8
 | Parameter       |   Type   |  필수   |  Byte  | 상세 설명                                                                                                                                                                                                                         |
 |:----------------|:--------:|:-----:|:------:|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | orderId         |  String  |   O   |   64   | 상점 거래 고유번호<br>가맹점에서 관리하는 Unique한 주문번호 또는 결제번호<br> 결제된 orderId로 재호출 불가                                                                                                                                                         |
-| encData         |  String  |   O   |   -    | 결제정보 암호화 데이터 [encData 상세정보 참고](#encdata-상세-정보)<br>결제정보 암호화 생성 규칙 [encData 암호화 정보 참고](#encdata-암호화-정보)<br>- Hex(AES(authFlag=value&cardNo=value&track2Data=value&cardExpire=value&TRID=value&CAVV=value&XID=value&ECI=value))  |
+| encData         |  String  |   O   |   -    | 결제정보 암호화 데이터 [encData 상세정보 참고](../api/payment-epay.md#encdata-상세-정보)<br>결제정보 암호화 생성 규칙 [encData 암호화 정보 참고](../api/payment-epay.md#encdata-암호화-정보)<br>- Hex(AES(authFlag=value&cardNo=value&track2Data=value&cardExpire=value&TRID=value&CAVV=value&XID=value&ECI=value))  |
 | amount          |   Int    |   O   |   12   | 결제 금액                                                                                                                                                                                                                         |
 | goodsName       |  String  |   O   |   40   | 상품명                                                                                                                                                                                                                           |
 | cardCode        |  String  |   O   |   2    | 카드사 코드                                                                                                                                                                                                                        |
@@ -1969,7 +1969,7 @@ Content-type: application/json
 
 ## 거래 조회
 
-- 결제(승인) API를 호출 후 `Http-client`의 [timeout](#타임아웃-정보)이 발생하여 [결제취소](#취소--환불) 혹은 [망 취소](#망취소)를 고려해야 하는 경우
+- 결제(승인) API를 호출 후 `Http-client`의 [timeout](#타임아웃-정보)이 발생하여 [결제취소](#취소환불) 혹은 [망 취소](#망취소)를 고려해야 하는 경우
 - 특정 결제(승인) 건의 데이터가 일부 유실되어 조회가 필요한 경우
 - 결제(승인) 건의 데이터 위변조가 의심되어 원본 데이터 정보 체크가 필요한 경우
 
@@ -2343,8 +2343,8 @@ Content-type: application/json
 
 # 취소·환불·망취소
 
-- [취소/환불](#취소--환불)
-  - [결제수단별 취소/환불](#결제수단별-취소환불)
+- [취소/환불](#취소환불)
+  - [결제수단별 취소/환불](#결제수단-별-취소환불)
 - [망취소](#망취소)
 
 ## 취소·환불
@@ -2722,10 +2722,10 @@ Content-type: application/json
 - [웹훅 발송 흐름](#웹훅-발송-흐름)
 - [웹훅 발송 시점](#웹훅-발송-시점)
 - [웹훅 URL 추가](#웹훅-url-추가) : 결제수단을 선택하여 웹훅을 추가 하는 기능
-- [웹훅 TEST 호출](#웹훅-test호출) : 웹훅 등록 후 등록된 `End-point`로 Test 전문을 전달하는 기능
+- [웹훅 TEST 호출](#웹훅-테스트-호출) : 웹훅 등록 후 등록된 `End-point`로 Test 전문을 전달하는 기능
 - [웹훅 재전송](#웹훅-재전송) : 웹훅 전송 실패시 처리 가이드
 - [웹훅 로그](#웹훅-로그) : 전달된 웹훅의 로그 확인 가이드
-- [웹훅 응답 명세](#웹훅-응답-명세)
+- [웹훅 응답 명세](#결제통보-응답-명세-merchant---nicepayment)
 
 🔔 웹훅은 API의 이벤트를 `Server-side`로 응답 받아 추가적인 비즈니스 로직을 구현 할 수 있는 기능으로  
 가상계좌 처럼 계좌 생성과 입금시점 차이가 발생하는 결제 수단을 사용하는 경우 반드시 구현이 필요 합니다.  
@@ -2941,26 +2941,26 @@ Content-type: text/html;charset=utf-8
 
 # iOS
 
-- [공통사항](#iOS-공통사항)
-  - [지원환경](#iOS-지원환경)
-  - [개발흐름](#iOS-개발흐름)
-  - [appScheme 설정 - Client 승인 모델](#iOS-appscheme-설정---client-승인-모델)
-  - [appScheme 설정 - Server 승인 모델](#iOS-appscheme-설정---server-승인-모델)
+- [공통사항](#ios-공통사항)
+  - [지원환경](#ios-지원환경)
+  - [개발흐름](#ios-개발흐름)
+  - [appScheme 설정 - Client 승인 모델](#appscheme-설정---client-승인-모델)
+  - [appScheme 설정 - Server 승인 모델](#appscheme-설정---server-승인-모델)
 
-  - [URL Scheme 설정](#iOS-url-scheme-설정)
-  - [3rd 어플리케이션 URL Scheme 등록](#iOS-3rd-어플리케이션-url-scheme-등록)
-  - [3rd URL Scheme 리스트](#iOS-3rd-url-scheme-리스트)
-  - [네트워크 보안 예외 설정](#iOS-네트워크-보안-예외-설정)
+  - [URL Scheme 설정](#url-scheme-설정)
+  - [3rd 어플리케이션 URL Scheme 등록](#3rd-party-app-url-scheme-등록)
+  - [3rd URL Scheme 리스트](#3rd-url-scheme-리스트)
+  - [네트워크 보안 예외 설정](#네트워크-보안-예외-설정)
 
-- [iOS-Swift 웹뷰(web-view)개발 가이드](#ios-swift-웹뷰--web-view--개발-가이드)
-  - [결제 페이지 호출](#ios-swift-결제-페이지-호출)
-  - [URL 처리 및 3rd 어플리케이션 호출](#ios-swift-url-처리-및-3rd-어플리케이션-호출)
-  - [자바 스크립트 팝업 처리](#ios-swift-자바스크립트-팝업-처리)
+- [iOS-Swift 웹뷰(web-view)개발 가이드](#ios-swift-웹-뷰web-view개발-가이드)
+  - [결제 페이지 호출](#결제-페이지-호출)
+  - [URL 처리 및 3rd 어플리케이션 호출](#url-처리-및-3rd-party-app-호출)
+  - [자바 스크립트 팝업 처리](#자바스크립트-팝업-처리)
 
-- [iOS-Objective-C 웹뷰(web-view)개발 가이드](#ios-objective-c-웹뷰--web-view--개발-가이드)
-  - [결제 페이지 호출](#ios-objective-c-결제-페이지-호출)
-  - [URL 처리 및 3rd 어플리케이션 호출](#ios-objective-c-url-처리-및-3rd-어플리케이션-호출)
-  - [자바 스크립트 팝업 처리](#ios-objective-c-자바스크립트-팝업-처리)
+- [iOS-Objective-C 웹뷰(web-view)개발 가이드](#ios-objective-c-웹-뷰web-view개발-가이드)
+  - [결제 페이지 호출](#결제-페이지-호출-1)
+  - [URL 처리 및 3rd 어플리케이션 호출](#url-처리-및-3rd-party-app-호출-1)
+  - [자바 스크립트 팝업 처리](#자바스크립트-팝업-처리-1)
 
 
 ## iOS 공통사항
@@ -3367,22 +3367,22 @@ Object-C
 
 # Android
 
-- [지원 환경](#Android-지원-환경)
-- [개발 흐름](#Android-개발-흐름)
-- [공통사항](#Android-공통사항)
-  - [appScheme 설정 - Server 승인 모델, Client 승인 모델](#android-appscheme-설정--server-승인-모델-client-승인-모델)
-  - [권한 설정](#Android-권한-설정)
-  - [네트워크 보안정책 설정](#Android-네트워크-보안정책-설정)
+- [지원 환경](#android-지원-환경)
+- [개발 흐름](#android-개발-흐름)
+- [공통사항](#android-공통사항)
+  - [appScheme 설정 - Server 승인 모델, Client 승인 모델](#appscheme-설정--server-승인-모델-client-승인-모델)
+  - [권한 설정](#android-권한-설정)
+  - [네트워크 보안정책 설정](#android-네트워크-보안정책-설정)
 
-- [Android-java 웹뷰(web-view)개발 가이드](#android-java-웹뷰--web-view--개발-가이드)
+- [Android-java 웹뷰(web-view)개발 가이드](#android-java-웹-뷰web-view개발-가이드)
   - [Android-java 기본 설정 및 자바스크립트 허용](#android-java-기본-설정-및-자바스크립트-허용)
   - [Android-java 캐시 및 쿠키 설정](#android-java-캐시-및-쿠키-설정)
-  - [Android-java 결제 페이지 호출](#Android-java-결제-페이지-호출)
+  - [Android-java 결제 페이지 호출](#android-java-결제-페이지-호출)
   - [Android-java URL 및 Intent 처리](#android-java-uri-및-intent-처리)
-- [Android-kotlin 웹뷰(web-view)개발 가이드](#android-kotlin-웹뷰--web-view--개발-가이드)
+- [Android-kotlin 웹뷰(web-view)개발 가이드](#android-kotlin-웹-뷰web-view개발-가이드)
 	- [Android-kotlin 기본 설정 및 자바스크립트 허용](#android-kotlin-기본-설정-및-자바스크립트-허용)
 	- [Android-kotlin 캐시 및 쿠키 설정](#android-kotlin-캐시-및-쿠키-설정)
-	- [Android-kotlin 결제 페이지 호출](#Android-kotlin-결제-페이지-호출)
+	- [Android-kotlin 결제 페이지 호출](#android-kotlin-결제-페이지-호출)
 	- [Android-kotlin URL 및 Intent 처리](#android-kotlin-uri-및-intent-처리)
 
 ## Android 지원 환경
@@ -3793,7 +3793,7 @@ private class WebViewClientClass : WebViewClient() {
 - node.js, python, ruby, jsp, php, classic asp, .net
 - REST API
 - HTTP Status code
-- JS SDK를 통한 결제창 승인방식 옵션 👉[JS SDK 바로가기](../api/payment.md#js-sdk)
+- JS SDK를 통한 결제창 승인방식 옵션 👉[JS SDK 바로가기](../api/payment.md#결제창)
 - 원천사 응답코드 👉[API 응답코드 바로가기](../common/code.md#api-응답코드)
 - HTTP 클라이언트 `TLS 1.2`
 - [웹훅](../management/admin.md#기능설명-2)
@@ -3871,7 +3871,7 @@ private class WebViewClientClass : WebViewClient() {
 <br>
 
 > #### 결제창 호출 후 버튼 동작이 정상적이지 않은 경우
-> JS SDK을 iframe에서 호출되는 경우 문제가 발생할 수 있으며 [JS SDK 옵션](../api/payment.md#js-sdk)을 통해 문제를 검토 합니다.
+> JS SDK을 iframe에서 호출되는 경우 문제가 발생할 수 있으며 [JS SDK 옵션](../api/payment.md#결제창)을 통해 문제를 검토 합니다.
 
 <br>
 
@@ -3889,7 +3889,7 @@ private class WebViewClientClass : WebViewClient() {
 
 # 코드집
 
-[HTTP-상태코드](#http-상태코드) | [카드코드](#카드코드) | [은행코드](#은행코드) | [API 응답코드](#API-응답코드) 
+[HTTP-상태코드](#http-상태코드) | [카드코드](#카드코드) | [은행코드](#은행코드) | [API 응답코드](#api-응답코드) 
 
 <br>
 

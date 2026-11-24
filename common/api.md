@@ -59,7 +59,7 @@ JS SDK호출은 [클라이언트 키](api.md#클라이언트-키)의 인증을 �
 - [JS SDK 인증](api.md#js-sdk-인증)    
 
 ### JS SDK 정보  
-- [JS SDK(client / server 승인)](../api/payment.md#js-sdk)
+- [JS SDK(client / server 승인)](../api/payment.md#결제창)
   
 >  사용될 JS SDK 모델에 따라 필요한 클라이언트 키 타입이 상이 합니다.  
 > [키 발급 방법](../management/admin.md#기능설명)을 확인하고 알맞은 클라이언트 키를 통해 결제창을 호출 해 주세요.  
@@ -250,7 +250,7 @@ API 개발을 위한 각 인터페이스의 개발 명세가 필요하다면 �
 - [개발 준비](preparations.md) 👉 [회원가입](preparations.md#회원가입) | [API KEY확인](preparations.md#api-key-확인) | [방화벽 정책](preparations.md#방화벽-정책) | [IP 보안기능](preparations.md#ip-보안-기능) | [타임아웃 정보](preparations.md#타임아웃-정보)
 - [API·JS SDK](api.md) 👉 [URI 목록](api.md#uri-목록) | [JS SDK목록](api.md#js-sdk-목록) | [API KEY](api.md#api-key) | [API·JS SDK인증](api.md#apijs-sdk인증) | [Basic auth](api.md#basic-auth) | [Bearer token](api.md#bearer-token)
 - [TEST·샘플코드](test.md) 👉 [샌드박스 TEST](test.md#샌드박스test) | [샌드박스 활용](test.md#샌드박스-활용) | [웹로그 디버깅](test.md#웹로그-디버깅) | [샘플코드](test.md#샘플코드)
-- [코드집](code.md) 👉 [HTTP-상태코드](code.md#http-상태코드) | [카드코드](code.md#카드코드) | [은행코드](code.md#은행코드) | [JS SDK 응답코드](code.md#js-sdk-응답코드) | [API 응답코드](code.md#api-응답코드)
+- [코드집](code.md) 👉 [HTTP-상태코드](code.md#http-상태코드) | [카드코드](code.md#카드코드) | [은행코드](code.md#은행코드) | [API 응답코드](code.md#api-응답코드)
   
 ### 📚 문서
 `API 명세`와 `코드`가 포함된 기술문서 입니다.  

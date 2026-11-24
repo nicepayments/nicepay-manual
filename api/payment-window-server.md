@@ -172,7 +172,7 @@ Accept: application/x-www-form-urlencoded
 <img src="../image/payment-server-authorization.svg" width="800px"> 
 
 ### 설명
-- 결제창 [JS SDK](payment.md#js-sdk) Server승인 모델에서 카드사 인증 완료 후 처리 구간의 명세 입니다.
+- 결제창 [JS SDK](payment.md#결제창) Server승인 모델에서 카드사 인증 완료 후 처리 구간의 명세 입니다.
 - 결제창을 통해 결제자가 카드사 및 결제 원천사에 접근하여 인증과정을 완료하면 나이스페이는 인증결과를 `AUTHNICE.requestPay()`의 object value로 전달된 `returnUrl`로 POST 합니다.
 - 가맹점은 POST 데이터의 금액 및 위변조 여부를 체크하고 응답된 tid을 승인 API로 전달 하면 💳 결제(승인)요청 처리가 완료 됩니다. 
 
@@ -329,7 +329,7 @@ API 개발을 위한 각 인터페이스의 개발 명세가 필요하다면 �
 - [개발 준비](../common/preparations.md) 👉 [회원가입](../common/preparations.md#회원가입) | [API KEY확인](../common/preparations.md#api-key-확인) | [방화벽 정책](../common/preparations.md#방화벽-정책) | [IP 보안기능](../common/preparations.md#ip-보안-기능) | [타임아웃 정보](../common/preparations.md#타임아웃-정보)
 - [API·JS SDK](../common/api.md) 👉 [URI 목록](../common/api.md#uri-목록) | [JS SDK목록](../common/api.md#js-sdk-목록) | [API KEY](../common/api.md#api-key) | [API·JS SDK인증](../common/api.md#apijs-sdk인증) | [Basic auth](../common/api.md#basic-auth) | [Bearer token](../common/api.md#bearer-token)
 - [TEST·샘플코드](../common/test.md) 👉 [샌드박스 TEST](../common/test.md#샌드박스test) | [샌드박스 활용](../common/test.md#샌드박스-활용) | [웹로그 디버깅](../common/test.md#웹로그-디버깅) | [샘플코드](../common/test.md#샘플코드)
-- [코드집](../common/code.md) 👉 [HTTP-상태코드](../common/code.md#http-상태코드) | [카드코드](../common/code.md#카드코드) | [은행코드](../common/code.md#은행코드) | [JS SDK 응답코드](../common/code.md#js-sdk-응답코드) | [API 응답코드](../common/code.md#api-응답코드)
+- [코드집](../common/code.md) 👉 [HTTP-상태코드](../common/code.md#http-상태코드) | [카드코드](../common/code.md#카드코드) | [은행코드](../common/code.md#은행코드) | [API 응답코드](../common/code.md#api-응답코드)
   
 ### 📚 문서
 `API 명세`와 `코드`가 포함된 기술문서 입니다.  
