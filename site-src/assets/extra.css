@@ -254,6 +254,12 @@ pre {
   color: var(--nd-muted);
 }
 
+.md-nav__source {
+  color: var(--nd-text-2);
+  background-color: var(--nd-surface);
+  border-bottom: 1px solid var(--nd-border);
+}
+
 /* right toc */
 .md-nav--secondary .md-nav__title {
   font-size: 0.6rem;
@@ -513,6 +519,114 @@ pre {
   color: var(--nd-text);
 }
 
+@media screen and (max-width: 44.9375em) {
+  .md-typeset table:not([class]):not([data-spec]) th {
+    white-space: nowrap;
+  }
+
+  .md-typeset table:not([class]):not([data-spec]) td {
+    word-break: keep-all;
+  }
+
+  .md-typeset table:not([class]):not([data-spec]) th:first-child,
+  .md-typeset table:not([class]):not([data-spec]) td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: var(--md-default-bg-color);
+  }
+
+  .md-typeset table[data-spec],
+  .md-typeset table[data-spec] tbody {
+    display: block;
+  }
+
+  .md-typeset table[data-spec] thead {
+    display: none;
+  }
+
+  .md-typeset table[data-spec] tr {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.15em 0.7em;
+    padding: 0.75em 0;
+    border-top: 1px solid var(--nd-border);
+  }
+
+  .md-typeset table[data-spec] tr:first-child {
+    border-top: 0;
+  }
+
+  .md-typeset table[data-spec] tr.spec-depth-1 {
+    margin-left: 0.6em;
+    padding-left: 0.8em;
+    border-left: 2px solid var(--nd-border);
+  }
+
+  .md-typeset table[data-spec] tr.spec-depth-2 {
+    margin-left: 1.2em;
+    padding-left: 0.8em;
+    border-left: 2px solid var(--nd-border);
+  }
+
+  .md-typeset table[data-spec] td {
+    display: block;
+    padding: 0;
+    border: 0;
+    font-weight: 400;
+    color: var(--nd-muted);
+  }
+
+  .md-typeset table[data-spec] td.spec-empty {
+    display: none;
+  }
+
+  .md-typeset table[data-spec] td.spec-name {
+    font-family: var(--md-code-font-family);
+    font-weight: 600;
+    color: var(--nd-text);
+    overflow-wrap: anywhere;
+  }
+
+  .md-typeset table[data-spec] td.spec-type {
+    font-family: var(--md-code-font-family);
+    font-size: 0.92em;
+  }
+
+  .md-typeset table[data-spec] td.spec-req,
+  .md-typeset table[data-spec] td.spec-size {
+    font-size: 0.92em;
+  }
+
+  .md-typeset table[data-spec] td.spec-size::before,
+  .md-typeset table[data-spec] td.spec-req:not(.spec-required)::before {
+    content: attr(data-label) " ";
+  }
+
+  .md-typeset table[data-spec] td.spec-required {
+    font-size: 0;
+  }
+
+  .md-typeset table[data-spec] td.spec-required::after {
+    content: attr(data-label);
+    font-size: 0.64rem;
+    font-weight: 600;
+    color: #b3530a;
+  }
+
+  [data-md-color-scheme="slate"] .md-typeset table[data-spec] td.spec-required::after {
+    color: #f0a43a;
+  }
+
+  .md-typeset table[data-spec] td.spec-desc {
+    flex: 0 0 100%;
+    margin-top: 0.25em;
+    color: var(--nd-text-2);
+    overflow-wrap: anywhere;
+  }
+}
+
 /* http method labels */
 .md-typeset code.http-method {
   font-size: 0.85em;
@@ -717,4 +831,82 @@ pre {
   background: transparent;
   border: 0;
   padding: 0;
+}
+
+/* diagrams */
+.md-typeset .diagram {
+  display: block;
+}
+
+.md-typeset .diagram__scroll {
+  display: block;
+}
+
+.md-typeset .diagram__open {
+  display: none;
+}
+
+@media screen and (max-width: 44.9375em) {
+  .md-typeset .diagram__scroll {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+  }
+
+  .md-typeset .diagram__scroll img {
+    width: 760px;
+    max-width: none;
+  }
+
+  .md-typeset .diagram__open {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.65rem;
+    color: var(--nd-muted);
+  }
+
+  .md-typeset .diagram__open::before {
+    content: "좌우로 밀어서 보거나 ";
+  }
+}
+
+[data-md-color-scheme="slate"] .md-typeset .diagram__light,
+[data-md-color-scheme="default"] .md-typeset .diagram__dark {
+  display: none;
+}
+
+/* screenshots */
+.md-typeset img.screenshot {
+  border: 1px solid var(--nd-border);
+  border-radius: 8px;
+}
+
+/* back to top */
+[dir] .md-top {
+  top: auto !important;
+  bottom: 1.2rem;
+  left: auto;
+  right: 1.2rem;
+  margin: 0;
+  padding: 0.3rem 0.7rem;
+  font-size: 0.65rem;
+  border: 1px solid var(--nd-border);
+  box-shadow: none;
+  transform: none;
+}
+
+[dir] .md-top[hidden] {
+  transform: translateY(0.2rem);
+}
+
+/* narrow content gutter */
+@media screen and (max-width: 44.9375em) {
+  .md-main .md-content > .md-content__inner {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .md-main .md-content > .md-path {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
