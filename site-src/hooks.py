@@ -426,11 +426,73 @@ def _rename_toc(items, renames):
         _rename_toc(item.children, renames)
 
 
+HTML_HEADING = re.compile(r'<h([1-6]) id="([^"]+)">(.*?)</h\1>', re.S)
+HEADERLINK = re.compile(r'<a class="headerlink"[^>]*>.*?</a>', re.S)
+OBJECT_LABEL = re.compile(r'<span class="type-label">(Object|Array)</span>')
+SPACER = re.compile(r"(\s*<p>\s*<br\s*/?>\s*</p>\s*)+$")
+
+
+def _fold_candidates(heads):
+    marks = set()
+    for n, (_, _, level, _, inner) in enumerate(heads):
+        if OBJECT_LABEL.search(inner):
+            marks.add(n)
+        if _cell_text(HEADERLINK.sub("", inner)) != "공통":
+            continue
+        for m in range(n + 1, len(heads)):
+            lv, text = heads[m][2], _cell_text(HEADERLINK.sub("", heads[m][4]))
+            if lv < level or (lv == level and "명세" in text):
+                break
+            if lv == level:
+                marks.add(m)
+    runs, run = [], []
+    for n in sorted(marks):
+        if run and (n != run[-1] + 1 or heads[n][2] != heads[run[-1]][2]):
+            runs.append(run)
+            run = []
+        run.append(n)
+    if run:
+        runs.append(run)
+    return [n for r in runs if len(r) >= 2 for n in r]
+
+
+def _fold_sections(html):
+    heads = [(m.start(), m.end(), int(m.group(1)), m.group(2), m.group(3)) for m in HTML_HEADING.finditer(html)]
+    folds = set(_fold_candidates(heads))
+    if not folds:
+        return html, set()
+    out, pos, hidden = [], 0, set()
+    for n in sorted(folds):
+        start, end, level, hid, inner = heads[n]
+        if start < pos:
+            continue
+        stop = next((h[0] for h in heads[n + 1:] if h[2] <= level), len(html))
+        hidden.update(h[3] for h in heads[n:] if h[0] < stop)
+        body = SPACER.sub("", html[end:stop])
+        out.append(SPACER.sub("", html[pos:start]))
+        out.append(
+            f'<details class="spec-fold"><summary><h{level} id="{hid}">{inner}</h{level}></summary>'
+            f"{body}</details>"
+        )
+        pos = stop
+    out.append(html[pos:])
+    return "".join(out), hidden
+
+
+def _drop_toc(items, ids):
+    items[:] = [item for item in items if item.id not in ids]
+    for item in items:
+        _drop_toc(item.children, ids)
+
+
 def on_page_content(html, page, config, files):
     html, renames = _github_style_ids(html)
     if renames:
         _rename_toc(page.toc, renames)
     html = TYPE_BADGE.sub(r'<span class="type-label">\1</span>', html)
+    if page.file.src_uri in _NAV_PAGES:
+        html, folded = _fold_sections(html)
+        _drop_toc(page.toc.items, folded)
     html = HTTP_METHOD.sub(
         lambda m: f'<code class="http-method http-{m.group(1).lower()}">{m.group(1)}</code>', html
     )
