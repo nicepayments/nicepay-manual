@@ -232,7 +232,7 @@ Content-type: application/json
 
 
 ### 샘플코드
-아이콘을 클릭하면 언어별 샘플코드를 확인 할 수 있습니다.
+언어를 클릭하면 언어별 샘플코드를 확인 할 수 있습니다.
 
 <div align="left"> 
  <a href="https://github.com/nicepayments/nicepay-node">
