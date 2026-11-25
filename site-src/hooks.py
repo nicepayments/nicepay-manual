@@ -640,7 +640,25 @@ def _toc_size(items):
     return sum(1 + _toc_size(item.children) for item in items)
 
 
+SITE_TITLE_SUFFIX = " 개발자 가이드"
+
+
+def _split_site_title(output, config):
+    name = config["site_name"]
+    if not name.endswith(SITE_TITLE_SUFFIX):
+        return output
+    head = name[: -len(SITE_TITLE_SUFFIX)]
+    marked = f'{head}<span class="site-title-suffix">{SITE_TITLE_SUFFIX}</span>'
+    return re.sub(
+        r'(<div class="md-header__topic">\s*<span class="md-ellipsis">\s*)' + re.escape(name),
+        lambda m: m.group(1) + marked,
+        output,
+        count=1,
+    )
+
+
 def on_post_page(output, page, config):
+    output = _split_site_title(output, config)
     if _grouped_toc(page):
         output = output.replace(SECONDARY_NAV, 'class="md-nav md-nav--secondary toc-grouped"')
     versions = {}
