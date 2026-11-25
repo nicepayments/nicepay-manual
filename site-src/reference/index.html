@@ -322,6 +322,31 @@
         agent: { disabled: true },
         mcp: { disabled: true },
         defaultHttpClient: { targetKey: "shell", clientKey: "curl" },
+        featuredClients: ["shell/curl", "node/fetch", "python/requests", "java/nethttp", "php/curl"],
+        hiddenClients: {
+          c: true,
+          clojure: true,
+          csharp: true,
+          dart: true,
+          fsharp: true,
+          go: true,
+          http: true,
+          js: true,
+          julia: true,
+          kotlin: true,
+          objc: true,
+          ocaml: true,
+          powershell: true,
+          r: true,
+          ruby: true,
+          rust: true,
+          swift: true,
+          shell: ["httpie", "wget"],
+          node: ["axios", "ofetch", "undici"],
+          python: ["python3", "httpx_sync", "httpx_async", "aiohttp"],
+          java: ["asynchttp", "okhttp", "unirest"],
+          php: ["guzzle", "laravel"],
+        },
         metaData: { title: "API 레퍼런스 - NicePay 개발자 가이드" },
         localization: {
           translations: {
@@ -516,6 +541,7 @@
             --scalar-background-2: #f6f8fa;
             --scalar-background-3: #eef1f5;
             --scalar-border-color: #e3e8ee;
+            --scalar-code-number: #b3530a;
           }
           .dark-mode {
             --scalar-color-1: #e3e8ee;
@@ -536,6 +562,55 @@
             --scalar-card-surface: #1d222c;
             --scalar-card-surface-raised: #252b37;
           }
+          .light-mode .scalar-card.dark-mode {
+            color-scheme: light;
+            --scalar-scrollbar-color: inherit;
+            --scalar-scrollbar-color-active: inherit;
+            --scalar-button-1: inherit;
+            --scalar-button-1-hover: inherit;
+            --scalar-button-1-color: inherit;
+            --scalar-shadow-1: inherit;
+            --scalar-shadow-2: inherit;
+            --scalar-lifted-brightness: inherit;
+            --scalar-backdrop-brightness: inherit;
+            --scalar-background-1: inherit;
+            --scalar-background-2: inherit;
+            --scalar-background-3: inherit;
+            --scalar-background-accent: inherit;
+            --scalar-color-1: inherit;
+            --scalar-color-2: inherit;
+            --scalar-color-3: inherit;
+            --scalar-color-accent: inherit;
+            --scalar-border-color: inherit;
+            --scalar-color-green: inherit;
+            --scalar-color-red: inherit;
+            --scalar-color-yellow: inherit;
+            --scalar-color-blue: inherit;
+            --scalar-color-orange: inherit;
+            --scalar-color-purple: inherit;
+            --scalar-color-query: inherit;
+            --scalar-link-color: inherit;
+            --scalar-link-color-hover: inherit;
+            --scalar-tooltip-background: inherit;
+            --scalar-tooltip-color: inherit;
+            --scalar-color-danger: inherit;
+            --scalar-background-alert: inherit;
+            --scalar-background-danger: inherit;
+            --scalar-code-keyword: inherit;
+            --scalar-code-string: inherit;
+            --scalar-code-number: inherit;
+            --scalar-code-function: inherit;
+            --scalar-code-builtin: inherit;
+            --scalar-code-type: inherit;
+            --scalar-code-parameter: inherit;
+            --scalar-code-property: inherit;
+            --scalar-code-comment: inherit;
+            --scalar-code-punctuation: inherit;
+            --scalar-code-addition: inherit;
+            --scalar-code-deletion: inherit;
+            --scalar-card-surface: #ffffff;
+            --scalar-card-surface-raised: #f6f8fa;
+          }
           .scalar-app .darklight-reference button[aria-pressed],
           .scalar-app button:has(.sidebar-search-placeholder) {
             display: none;
@@ -544,6 +619,16 @@
           .scalar-app .markdown a:visited {
             color: var(--scalar-color-accent);
             text-decoration: none;
+          }
+          .scalar-app .download-button,
+          .scalar-app .download-button span {
+            color: var(--scalar-color-accent);
+            text-decoration: none;
+          }
+          .scalar-app .download-button:hover span {
+            text-decoration: underline;
+            text-decoration-color: currentColor;
+            text-underline-offset: 2px;
           }
           .scalar-app .markdown a:hover {
             text-decoration: underline;
