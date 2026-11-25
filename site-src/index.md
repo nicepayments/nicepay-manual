@@ -100,4 +100,18 @@ hide:
 
 </div>
 
+<div class="landing-section landing-docs" markdown>
+
+### 문서 구성
+
+| 문서 | 담은 내용 | 이럴 때 보세요 |
+|---|---|---|
+| 개발자 가이드 | 연동 흐름, 결제창 호출(JS SDK), 웹훅 수신 명세, 앱 연동, 코드집 | 처음 연동하거나 결제 흐름을 이해할 때 |
+| [API 레퍼런스](reference/index.html) | 서버 API의 엔드포인트별 요청, 응답 명세와 예제 | 필드를 하나씩 확인하며 구현할 때 |
+| [GitHub 저장소](https://github.com/nicepayments/nicepay-manual) | 두 문서의 Markdown 원문 | 변경 이력을 보거나 수정을 제안할 때 |
+
+API 레퍼런스는 개발자 가이드의 API 명세 표로 만듭니다. 결제창 호출, 웹훅 수신, 앱 연동은 개발자 가이드에만 있습니다. 가이드의 각 API 제목 아래 "API 레퍼런스에서 보기" 링크를 누르면 같은 API의 레퍼런스로 이동합니다.
+
+</div>
+
 </div>
