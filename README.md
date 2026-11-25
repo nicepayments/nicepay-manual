@@ -1,5 +1,5 @@
 <h3 align="center">
-  🚀 NICEPAY for Startup 개발자 가이드
+  🚀 NICEPAY for start 개발자 가이드
 </h3>
 
 <!-- https://github.com/denvercoder1/readme-typing-svg -->

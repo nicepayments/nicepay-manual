@@ -8,7 +8,7 @@ hide:
 
 <div class="landing-hero" markdown>
 
-# NICEPAY for Startup 개발자 가이드
+# NICEPAY for start 개발자 가이드
 
 나이스페이 포스타트의 결제창 연동부터 승인, 조회, 취소, 웹훅까지 연동에 필요한 API 명세와 예제를 제공합니다.
 
