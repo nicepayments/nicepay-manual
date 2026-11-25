@@ -715,9 +715,9 @@ def build(out_path):
     spec = {
         "openapi": "3.1.0",
         "info": {
-            "title": "NicePay API",
+            "title": "NICEPAY for Startup API",
             "version": "v1",
-            "description": "NicePay 결제 API 명세입니다. 각 항목의 설명과 예제는 [개발자 가이드](../index.html)의 원문 문서에서 옮겼습니다.  \n"
+            "description": "NICEPAY for Startup(나이스페이 포스타트) 결제 API 명세입니다. 각 항목의 설명과 예제는 [개발자 가이드](../index.html)의 원문 문서에서 옮겼습니다.  \n"
             f"resultCode 값의 의미는 {link_list(CODE_TABLES)} 표에서 확인합니다.",
         },
         "servers": [

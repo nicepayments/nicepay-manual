@@ -602,7 +602,7 @@ def on_post_build(config):
     lines = [
         f"# {config['site_name']}",
         "",
-        "> NicePay 결제 연동 가이드와 API 명세입니다. 각 항목은 Markdown 원문 주소입니다.",
+        "> NICEPAY for Startup(나이스페이 포스타트) 결제 연동 가이드와 API 명세입니다. 각 항목은 Markdown 원문 주소입니다.",
         "",
     ]
     current = object()
