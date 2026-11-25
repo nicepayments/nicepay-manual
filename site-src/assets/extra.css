@@ -282,6 +282,22 @@ pre {
   font-weight: 500;
 }
 
+@media screen and (min-width: 76.25em) {
+  .md-nav--secondary.toc-grouped > .md-nav__list > .md-nav__item > .md-nav {
+    margin: 0.2em 0 0.3em 0.1rem;
+    border-left: 1px solid var(--nd-border);
+  }
+}
+
+.md-nav--secondary.toc-grouped > .md-nav__list > .md-nav__item:not(:has(.md-nav__link--active)) > .md-nav {
+  display: none;
+}
+
+.md-nav--secondary.toc-grouped > .md-nav__list > .md-nav__item:has(.md-nav__link--active) > .md-nav__link:not(.md-nav__link--active) {
+  color: var(--nd-text);
+  font-weight: 600;
+}
+
 /* breadcrumb */
 .md-main .md-content > .md-path {
   padding: 1.4rem 0.8rem 0;
