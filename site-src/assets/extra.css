@@ -445,6 +445,23 @@ pre {
   background-color: var(--nd-code-bg);
 }
 
+.md-typeset .highlight span.filename {
+  margin-top: 1em;
+  padding: 0.45em 1em;
+  font-family: var(--md-code-font-family);
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: var(--nd-muted);
+  background: var(--nd-code-bg);
+  border: 1px solid var(--nd-border);
+  border-radius: 8px 8px 0 0;
+}
+
+.md-typeset .highlight span.filename + pre > code {
+  border-top: 0;
+  border-radius: 0 0 8px 8px;
+}
+
 .md-typeset .md-code__button {
   color: var(--nd-muted);
 }
@@ -964,6 +981,25 @@ pre {
 .md-typeset img.screenshot {
   border: 1px solid var(--nd-border);
   border-radius: 8px;
+}
+
+/* sdk links */
+.md-typeset ul.sdk-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.2rem;
+  margin: 0.6em 0 1em;
+  padding: 0;
+  list-style: none;
+}
+
+.md-typeset ul.sdk-links li {
+  margin: 0;
+}
+
+.md-typeset ul.sdk-links a {
+  font-size: 0.75rem;
+  font-weight: 600;
 }
 
 /* back to top */
