@@ -488,9 +488,11 @@ pre {
   text-align: left !important;
 }
 
-.md-typeset table:not([class]) th,
-.md-typeset table:not([class]) td {
-  word-break: keep-all;
+@media screen and (min-width: 60em) {
+  .md-typeset table:not([class]) th,
+  .md-typeset table:not([class]) td {
+    word-break: keep-all;
+  }
 }
 
 .md-typeset table:not([class]) td:last-child {
