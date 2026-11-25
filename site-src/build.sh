@@ -16,6 +16,7 @@ for svg in .build/diagrams/*.svg; do
     exit 1
   fi
 done
+python3 site-src/diagrams/render.py .build/docs/image/dark dark > /dev/null
 mkdir -p .build/docs/reference
 cp site-src/reference/index.html .build/docs/reference/index.html
 python3 site-src/openapi/convert.py .build/docs/reference/openapi.json > /dev/null

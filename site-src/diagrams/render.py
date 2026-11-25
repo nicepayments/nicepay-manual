@@ -7,19 +7,55 @@ from specs import CIDR, PLACEHOLDER, SEQUENCES
 FONT = "Pretendard, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif"
 MONO = "'SF Mono', Menlo, Consolas, monospace"
 
-INK = "#1a1f36"
-TEXT = "#414552"
-MUTED = "#8792a2"
-FAINT = "#c1c9d2"
-LINE = "#a3acb9"
-BORDER = "#e3e8ee"
-SURFACE = "#f6f8fa"
-ACCENT = "#1f5eff"
-ACCENT_BG = "#f3f6ff"
-AMBER = "#d97706"
-AMBER_BG = "#fffaf0"
-DANGER = "#df1b41"
-METHOD_COLOR = {"GET": "#228403", "POST": "#0570de", "PUT": "#b3530a", "PATCH": "#b3530a", "DELETE": "#df1b41"}
+THEMES = {
+    "light": {
+        "INK": "#1a1f36",
+        "TEXT": "#414552",
+        "MUTED": "#8792a2",
+        "FAINT": "#c1c9d2",
+        "LINE": "#a3acb9",
+        "BORDER": "#e3e8ee",
+        "SURFACE": "#f6f8fa",
+        "BG": "#ffffff",
+        "MARK_BG": "#fff",
+        "ON_ACCENT": "#fff",
+        "ACCENT": "#1f5eff",
+        "ACCENT_BG": "#f3f6ff",
+        "ACCENT_SOFT": "#c9d6ff",
+        "AMBER": "#d97706",
+        "AMBER_BG": "#fffaf0",
+        "DANGER": "#df1b41",
+        "DANGER_BG": "#fdecef",
+        "METHOD_COLOR": {"GET": "#228403", "POST": "#0570de", "PUT": "#b3530a", "PATCH": "#b3530a", "DELETE": "#df1b41"},
+    },
+    "dark": {
+        "INK": "#e3e8ee",
+        "TEXT": "#c1c9d2",
+        "MUTED": "#8792a2",
+        "FAINT": "#4a5263",
+        "LINE": "#6b7585",
+        "BORDER": "#2c323d",
+        "SURFACE": "#161a22",
+        "BG": "#0e1117",
+        "MARK_BG": "#0e1117",
+        "ON_ACCENT": "#0e1117",
+        "ACCENT": "#7aa2ff",
+        "ACCENT_BG": "#131b2e",
+        "ACCENT_SOFT": "#2c3f73",
+        "AMBER": "#f0a43a",
+        "AMBER_BG": "#1f1a10",
+        "DANGER": "#ff6b81",
+        "DANGER_BG": "#2a1319",
+        "METHOD_COLOR": {"GET": "#5cc93b", "POST": "#58a6ff", "PUT": "#f0883e", "PATCH": "#f0883e", "DELETE": "#ff6b81"},
+    },
+}
+
+
+def use_theme(name):
+    globals().update(THEMES[name])
+
+
+use_theme("light")
 
 WIDTH = 760
 LANE_X = {2: [180, 480], 3: [130, 380, 630]}
@@ -39,7 +75,8 @@ def text_width(s, size):
     return w
 
 
-def t(x, y, s, size=12, fill=TEXT, anchor="middle", weight=400, family=FONT):
+def t(x, y, s, size=12, fill=None, anchor="middle", weight=400, family=FONT):
+    fill = fill or TEXT
     return (
         f'<text x="{x:.1f}" y="{y:.1f}" font-family="{family}" font-size="{size}" '
         f'font-weight="{weight}" fill="{fill}" text-anchor="{anchor}">{escape(s)}</text>'
@@ -68,7 +105,7 @@ def arrowhead(x, y, direction, color):
 
 def error_mark(x, y):
     return (
-        f'<circle cx="{x:.1f}" cy="{y:.1f}" r="8" fill="#fff" stroke="{DANGER}" stroke-width="1.6"/>'
+        f'<circle cx="{x:.1f}" cy="{y:.1f}" r="8" fill="{MARK_BG}" stroke="{DANGER}" stroke-width="1.6"/>'
         f'<path d="M{x-3.2:.1f},{y-3.2:.1f} l6.4,6.4 M{x+3.2:.1f},{y-3.2:.1f} l-6.4,6.4" '
         f'stroke="{DANGER}" stroke-width="1.6" stroke-linecap="round"/>'
     )
@@ -77,7 +114,7 @@ def error_mark(x, y):
 def number_badge(x, y, n):
     return (
         f'<circle cx="{x:.1f}" cy="{y - 4:.1f}" r="8" fill="{ACCENT}"/>'
-        + t(x, y, str(n), 10, "#fff", weight=700)
+        + t(x, y, str(n), 10, ON_ACCENT, weight=700)
     )
 
 
@@ -230,7 +267,7 @@ class Sequence:
         height = self.y + (34 if self.spec.get("footnote") else 18)
         out = [
             f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{height}" viewBox="0 0 {WIDTH} {height}">',
-            f'<rect x="0.5" y="0.5" width="{WIDTH - 1}" height="{height - 1}" rx="12" fill="#ffffff" stroke="{BORDER}"/>',
+            f'<rect x="0.5" y="0.5" width="{WIDTH - 1}" height="{height - 1}" rx="12" fill="{BG}" stroke="{BORDER}"/>',
         ]
         for lane in self.lanes:
             x = self.x[lane]
@@ -251,7 +288,7 @@ class Sequence:
                 out.append(
                     f'<rect x="{x0 + 10}" y="{g["y0"] - 10}" width="{w:.0f}" height="20" rx="10" fill="{stroke}"/>'
                 )
-                out.append(t(x0 + 10 + w / 2, g["y0"] + 4, g["title"], 11, "#fff", weight=700))
+                out.append(t(x0 + 10 + w / 2, g["y0"] + 4, g["title"], 11, ON_ACCENT, weight=700))
         for lane in self.lanes:
             x = self.x[lane]
             w = text_width(lane, 13) + 28
@@ -274,7 +311,7 @@ def render_cidr(spec):
     height = 190
     out = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{WIDTH}" height="{height}" viewBox="0 0 {WIDTH} {height}">',
-        f'<rect x="0.5" y="0.5" width="{WIDTH - 1}" height="{height - 1}" rx="12" fill="#ffffff" stroke="{BORDER}"/>',
+        f'<rect x="0.5" y="0.5" width="{WIDTH - 1}" height="{height - 1}" rx="12" fill="{BG}" stroke="{BORDER}"/>',
     ]
     octets = spec["address"].split(".")
     for i, octet in enumerate(octets):
@@ -288,8 +325,8 @@ def render_cidr(spec):
     for i, bit in enumerate(bits):
         ox = x0 + (i // 8) * gap_octet + i * cell
         host = i >= prefix
-        fill = "#fdecef" if host else ACCENT_BG
-        stroke = DANGER if host else "#c9d6ff"
+        fill = DANGER_BG if host else ACCENT_BG
+        stroke = DANGER if host else ACCENT_SOFT
         out.append(f'<rect x="{ox + 1}" y="64" width="{cell - 2}" height="24" rx="3" fill="{fill}" stroke="{stroke}"/>')
         out.append(t(ox + cell / 2, 81, bit, 11, DANGER if host else ACCENT, weight=600, family=MONO))
     end = x0 + (prefix // 8) * gap_octet + prefix * cell - (gap_octet if prefix % 8 == 0 and prefix < 32 else 0)
@@ -316,7 +353,8 @@ def render_placeholder(spec):
     )
 
 
-def main(out_dir):
+def main(out_dir, theme="light"):
+    use_theme(theme)
     os.makedirs(out_dir, exist_ok=True)
     written = []
     for name, spec in SEQUENCES.items():
@@ -332,4 +370,4 @@ def main(out_dir):
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(*sys.argv[1:3])
