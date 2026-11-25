@@ -694,3 +694,25 @@ pre {
   margin: 0;
   padding: 0;
 }
+
+/* reference links */
+.md-typeset .ref-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.6rem;
+  margin: 0.4em 0 0.8em;
+  font-size: 0.7rem;
+}
+
+.md-typeset .ref-link a {
+  font-weight: 600;
+}
+
+.md-typeset .ref-link code {
+  font-size: 0.65rem;
+  color: var(--nd-muted);
+  background: transparent;
+  border: 0;
+  padding: 0;
+}
