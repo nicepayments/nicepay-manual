@@ -31,6 +31,12 @@ CELL = re.compile(r"<(t[hd])([^>]*)>(.*?)</\1>", re.S)
 NAME_KEYS = {"parameter", "value", "필드", "오브젝트", "구분", ""}
 TYPE_KEYS = {"type", "타입"}
 SIZE_KEYS = {"byte", "크기", "길이"}
+FENCE_OPEN = re.compile(r"^(\s*)```\s*([\w#+.-]*)\s*$")
+SDK_BADGES = re.compile(
+    r'<div align="left">\s*((?:<a href="[^"]+">\s*<img src="https://img\.shields\.io/badge/[^"]*style=for-the-badge[^"]*">\s*</a>\s*)+)</div>'
+)
+SDK_BADGE = re.compile(r'<a href="([^"]+)">\s*<img src="https://img\.shields\.io/badge/([^"?]+)\?[^"]*">\s*</a>')
+SDK_NAMES = {"node.js": "Node.js", "python": "Python", "ruby": "Ruby", "asp": "ASP", "java": "Java", "php": "PHP", ".net": ".NET"}
 IMG = re.compile(r"<img\b[^>]*>")
 SRC = re.compile(r'\ssrc="([^"]+)"')
 RASTER = re.compile(r"\.(png|jpe?g|gif|webp)(\?.*)?$", re.I)
@@ -208,6 +214,37 @@ def _separate_tables_from_fences(lines):
             in_fence = not in_fence
         out.append(line)
     return out
+
+
+def _label_fences_to_titles(lines):
+    out = []
+    in_fence = False
+    i = 0
+    while i < len(lines):
+        if lines[i].lstrip().startswith("```"):
+            in_fence = not in_fence
+        label = None if not in_fence else FENCE_OPEN.match(lines[i])
+        if label and i + 2 < len(lines) and lines[i + 2].strip() == "```" and not lines[i + 1].lstrip().startswith("```"):
+            text = lines[i + 1].strip()
+            j = i + 3
+            while j < len(lines) and not lines[j].strip():
+                j += 1
+            code = FENCE_OPEN.match(lines[j]) if j < len(lines) else None
+            if text and '"' not in text and code and code.group(1) == label.group(1):
+                out.append(f'{code.group(1)}```{code.group(2)} title="{text}"')
+                i = j + 1
+                continue
+        out.append(lines[i])
+        i += 1
+    return out
+
+
+def _sdk_links(match):
+    items = []
+    for href, badge in SDK_BADGE.findall(match.group(1)):
+        name = badge.rsplit("-", 1)[0]
+        items.append(f'<li><a href="{href}">{htmllib.escape(SDK_NAMES.get(name, name))}</a></li>')
+    return '<ul class="sdk-links">' + "".join(items) + "</ul>"
 
 
 def _cell_text(cell):
@@ -390,6 +427,7 @@ def on_page_markdown(markdown, page, config, files):
         page.meta["search"] = {"exclude": True}
     lines = markdown.split("\n")
     lines = _insert_reference_links(lines, page.file.src_uri)
+    lines = _label_fences_to_titles(lines)
     if page.file.src_uri == "quickstart.md":
         lines = _quickstart_only(lines)
         page.meta["hide"] = ["navigation"]
@@ -490,6 +528,7 @@ def on_page_content(html, page, config, files):
     if renames:
         _rename_toc(page.toc, renames)
     html = TYPE_BADGE.sub(r'<span class="type-label">\1</span>', html)
+    html = SDK_BADGES.sub(_sdk_links, html)
     if page.file.src_uri in _NAV_PAGES:
         html, folded = _fold_sections(html)
         _drop_toc(page.toc.items, folded)
