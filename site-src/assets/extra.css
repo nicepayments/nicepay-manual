@@ -240,6 +240,21 @@ pre {
     margin-right: max(1.2rem, (100% - 40rem) / 2);
   }
 
+  .md-main__inner:has(> .md-sidebar--secondary:not([hidden])) > .md-content {
+    flex: 0 1 42rem;
+    margin-left: auto;
+  }
+
+  .md-main__inner:has(> .md-content) > .md-sidebar--secondary:not([hidden]) {
+    margin-right: auto;
+  }
+
+  [dir] .md-main .md-main__inner:has(> .md-sidebar--secondary:not([hidden])) > .md-content > .md-content__inner,
+  [dir] .md-main .md-main__inner:has(> .md-sidebar--secondary:not([hidden])) > .md-content > .md-path {
+    margin-left: 1.2rem;
+    margin-right: 0.8rem;
+  }
+
   .md-main:has(.md-sidebar--primary:not([hidden])) {
     background: linear-gradient(var(--nd-border), var(--nd-border)) 12.1rem 0 / 1px 100% no-repeat;
   }
