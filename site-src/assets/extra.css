@@ -1102,3 +1102,9 @@ pre {
     padding-right: 0;
   }
 }
+
+@media screen and (max-width: 44.9375em) {
+  .site-title-suffix {
+    display: none;
+  }
+}
