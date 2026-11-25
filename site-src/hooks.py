@@ -15,6 +15,11 @@ HEADING = re.compile(r"^(#{1,6})\s+(.*?)\s*$")
 LINK_BAR = re.compile(r"^\s*\[[^\]]+\]\([^)]*\)(\s*\|\s*\[[^\]]+\]\([^)]*\))*\s*$")
 BLANKISH = re.compile(r"^\s*(<br\s*/?>)?\s*$")
 QUOTE_WARNING = re.compile(r"^>\s*#{3,6}\s+(.*?)\s*$")
+HEADING_WARNING = re.compile(r"^#{3,6}\s+(⚠️?.*?)\s*$")
+SITE_HEADINGS = {
+    "api/payment-window-server.md": {"결제창 (Server 승인 모델-JS SDK)": "결제창 호출 (JS SDK)"},
+    "api/payment-window-client.md": {"결제창 (Client 승인 모델-JS SDK)": "결제창 호출 (JS SDK)"},
+}
 FOOTER_NAV = re.compile(r"^#{1,6}\s+더 알아보기\s*$")
 HR = re.compile(r"^\s*(---+|\*\*\*+)\s*$")
 DOC_INDEX_LINK = re.compile(r"^\s*\[전체 문서 목록\]\((\.\./)*README\.md\)\s*$")
@@ -82,6 +87,95 @@ def _quote_warnings_to_admonitions(lines):
         out.extend(("    " + b) if b.strip() else "" for b in body)
         out.append("")
     return out
+
+
+def _heading_warnings_to_admonitions(lines):
+    out = []
+    in_fence = False
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        if line.lstrip().startswith("```"):
+            in_fence = not in_fence
+        m = None if in_fence else HEADING_WARNING.match(line)
+        if not m:
+            out.append(line)
+            i += 1
+            continue
+        title = _strip_emoji(m.group(1)) or "중요"
+        body = []
+        i += 1
+        while i < len(lines) and not HEADING.match(lines[i]):
+            body.append(lines[i])
+            i += 1
+        while body and not body[-1].strip():
+            body.pop()
+        while body and not body[0].strip():
+            body.pop(0)
+        if out and out[-1].strip():
+            out.append("")
+        out.append(f'!!! warning "{title}"')
+        out.append("")
+        out.extend(("    " + b) if b.strip() else "" for b in body)
+        out.append("")
+    return out
+
+
+def _headings_outside_fences(lines):
+    in_fence = False
+    for i, line in enumerate(lines):
+        if line.lstrip().startswith("```"):
+            in_fence = not in_fence
+            continue
+        m = None if in_fence else HEADING.match(line)
+        if m:
+            yield i, len(m.group(1)), m.group(2)
+
+
+def _next_content(lines, start):
+    for i in range(start, len(lines)):
+        if lines[i].strip():
+            return i
+    return None
+
+
+def _promote_headings(lines, after):
+    for i, level, text in list(_headings_outside_fences(lines)):
+        if i > after and level > 1:
+            lines[i] = "#" * (level - 1) + " " + text
+    return lines
+
+
+def _normalize_titles(lines, src, config):
+    renames = SITE_HEADINGS.get(src, {})
+    if renames:
+        slugify = config["mdx_configs"]["toc"]["slugify"]
+        for i, level, text in _headings_outside_fences(lines):
+            if text in renames:
+                lines[i] = f"{'#' * level} {renames[text]} {{#{slugify(text, '-')}}}"
+    headings = list(_headings_outside_fences(lines))
+    if not headings:
+        return lines
+    h2s = [h for h in headings if h[1] == 2]
+    first = _next_content(lines, 0)
+    top = next((h for h in headings if h[0] == first), None)
+    if top is None:
+        return lines
+    if top[1] == 1:
+        nxt = _next_content(lines, top[0] + 1)
+        if len(h2s) == 1 and h2s[0][0] == nxt:
+            lines[top[0]] = "# " + h2s[0][2]
+            del lines[nxt]
+            return _promote_headings(lines, top[0])
+        return lines
+    if top[1] == 2 and not any(h[1] == 1 for h in headings):
+        if len(h2s) == 1:
+            lines[top[0]] = "# " + top[2]
+            return _promote_headings(lines, top[0])
+        nxt = _next_content(lines, top[0] + 1)
+        if any(h[0] == nxt and h[1] == 2 for h in headings):
+            lines[top[0]] = "# " + top[2]
+    return lines
 
 
 def _strip_decorative_emoji(lines):
@@ -305,6 +399,9 @@ def on_page_markdown(markdown, page, config, files):
     if not page.file.src_uri.endswith("README.md"):
         lines = _drop_footer_nav(lines)
     lines = _quote_warnings_to_admonitions(lines)
+    lines = _heading_warnings_to_admonitions(lines)
+    if page.file.src_uri in _NAV_PAGES and page.file.src_uri != "quickstart.md":
+        lines = _normalize_titles(lines, page.file.src_uri, config)
     lines = _strip_decorative_emoji(lines)
     lines = _separate_tables_from_fences(lines)
     return "\n".join(lines)
