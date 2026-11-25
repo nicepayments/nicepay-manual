@@ -6,6 +6,10 @@
 <p align="center">
   <img src="https://readme-typing-svg.herokuapp.com?lines=Hello!+Nicepay+%7Bdevelopers%7D&center=true&width=360&height=50">
 </p>
+
+<p align="center">
+  웹에서 보기: <a href="https://nicepayments.github.io/nicepay-manual/">개발자 가이드</a> | <a href="https://nicepayments.github.io/nicepay-manual/reference/index.html">API 레퍼런스</a>
+</p>
                            
 <br>
 
