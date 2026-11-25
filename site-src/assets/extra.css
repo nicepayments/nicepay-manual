@@ -63,10 +63,6 @@ pre {
   max-width: none;
 }
 
-.md-main__inner.md-grid {
-  max-width: 72rem;
-}
-
 /* header */
 .md-header,
 .md-tabs {
@@ -76,6 +72,7 @@ pre {
 }
 
 .md-header__inner {
+  position: relative;
   height: 2.8rem;
   padding: 0 0.6rem;
 }
@@ -85,7 +82,8 @@ pre {
 }
 
 [dir] .md-header__title {
-  flex: 0 0 11rem;
+  flex: 0 1 auto;
+  min-width: 0;
   margin-left: 0.4rem;
   margin-right: 1rem;
   font-size: 0.8rem;
@@ -98,20 +96,58 @@ pre {
 }
 
 .md-header__title .md-header__topic:first-child {
+  position: static;
   opacity: 1;
   transform: none;
+}
+
+.md-search {
+  order: 1;
+  margin: 0 auto;
+}
+
+.md-header__option {
+  order: 2;
+}
+
+.md-header__inner > label.md-header__button[for="__search"] {
+  order: 3;
+}
+
+[dir] .md-header__source {
+  order: 4;
 }
 
 @media screen and (max-width: 59.984375em) {
   [dir] .md-header__title {
     flex: 1 1 auto;
-    min-width: 0;
     margin-right: 0.4rem;
   }
 }
 
-.md-search {
-  margin: 0 auto;
+@media screen and (min-width: 60em) {
+  [dir] .md-header__source {
+    margin-left: 0.2rem;
+    margin-right: 0.4rem;
+  }
+
+  [dir] .md-sidebar--secondary .md-sidebar__scrollwrap {
+    margin-right: 0.6rem;
+  }
+}
+
+@media screen and (min-width: 76.25em) {
+  .md-search {
+    position: absolute;
+    inset: 0;
+    width: fit-content;
+    height: fit-content;
+    margin: auto;
+  }
+
+  .md-header__option {
+    margin-left: auto;
+  }
 }
 
 .md-search__inner {
@@ -198,10 +234,18 @@ pre {
 }
 
 @media screen and (min-width: 76.25em) {
-  .md-main .md-content > .md-content__inner,
-  .md-main .md-content > .md-path {
-    margin-left: 1.2rem;
-    margin-right: 1.2rem;
+  [dir] .md-main .md-main__inner > .md-content > .md-content__inner,
+  [dir] .md-main .md-main__inner > .md-content > .md-path {
+    margin-left: max(1.2rem, (100% - 40rem) / 2);
+    margin-right: max(1.2rem, (100% - 40rem) / 2);
+  }
+
+  .md-main:has(.md-sidebar--primary:not([hidden])) {
+    background: linear-gradient(var(--nd-border), var(--nd-border)) 12.1rem 0 / 1px 100% no-repeat;
+  }
+
+  [dir] .md-sidebar--primary .md-sidebar__scrollwrap {
+    margin-left: 0.4rem;
   }
 }
 
