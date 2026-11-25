@@ -1,9 +1,11 @@
 import hashlib
 import html as htmllib
+import importlib.util
 import os
 import posixpath
 import re
 import shutil
+import urllib.parse
 
 DUPLICATE_ID = re.compile(r'id="([^"]+)_(\d+)"')
 EMOJI = re.compile(
@@ -113,12 +115,68 @@ def _quickstart_only(lines):
     return lines
 
 
+def _load_convert():
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "openapi", "convert.py")
+    spec = importlib.util.spec_from_file_location("nicepay_openapi_convert", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+_CONVERT = _load_convert()
+
+
+def _reference_href(src, method, path):
+    tag = _CONVERT.tag_for(method.lower(), path)
+    slug = urllib.parse.quote(re.sub(r"\s+", "-", tag.strip().lower()), safe="")
+    base = posixpath.relpath("reference/index.html", posixpath.dirname(src) or ".")
+    return f"{base}#tag/{slug}/{method.upper()}{path}"
+
+
+def _anchor_heading(lines, line_no):
+    if lines[line_no].lstrip().startswith("|"):
+        for i in range(line_no + 1, len(lines)):
+            m = HEADING.match(lines[i])
+            if m and "요청" in m.group(2) and "명세" in m.group(2).replace(" ", ""):
+                return i
+        return None
+    in_fence = False
+    last = None
+    for i, line in enumerate(lines[:line_no]):
+        if line.lstrip().startswith("```"):
+            in_fence = not in_fence
+            continue
+        if not in_fence and HEADING.match(line):
+            last = i
+    return last
+
+
+def _insert_reference_links(lines, src):
+    if src not in _CONVERT.SOURCES:
+        return lines
+    _CONVERT._CURRENT_DIR[0] = posixpath.dirname(src)
+    inserts = {}
+    for ep in _CONVERT.find_endpoints(src, lines):
+        at = _anchor_heading(lines, ep["line"] - 1)
+        if at is None:
+            continue
+        href = htmllib.escape(_reference_href(src, ep["method"], ep["path"]))
+        label = htmllib.escape(f'{ep["method"]} {ep["path"]}')
+        inserts.setdefault(at, []).append(
+            f'<p class="ref-link"><a href="{href}">API 레퍼런스에서 보기</a><code>{label}</code></p>'
+        )
+    for at in sorted(inserts, reverse=True):
+        lines = lines[: at + 1] + [""] + inserts[at] + [""] + lines[at + 1 :]
+    return lines
+
+
 def on_page_markdown(markdown, page, config, files):
     if page.file.src_uri == "index.md":
         return markdown
     if page.file.src_uri not in _NAV_PAGES:
         page.meta["search"] = {"exclude": True}
     lines = markdown.split("\n")
+    lines = _insert_reference_links(lines, page.file.src_uri)
     if page.file.src_uri == "quickstart.md":
         lines = _quickstart_only(lines)
     lines = _drop_top_link_bar(lines)

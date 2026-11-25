@@ -1,8 +1,8 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
 
 :root {
-  --md-text-font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", sans-serif;
-  --md-code-font-family: "SF Mono", SFMono-Regular, ui-monospace, Menlo, Consolas, monospace;
+  --md-text-font: "Pretendard Variable", Pretendard;
+  --md-code-font: "SF Mono";
   --nd-accent: #1f5eff;
   --nd-text: #1a1f36;
   --nd-text-2: #414552;
@@ -43,6 +43,10 @@
   --nd-code-fg: #e3e8ee;
 }
 
+html {
+  font-size: 125%;
+}
+
 body,
 input {
   font-family: var(--md-text-font-family);
@@ -60,7 +64,7 @@ pre {
 }
 
 .md-main__inner.md-grid {
-  max-width: 66rem;
+  max-width: 72rem;
 }
 
 /* header */
@@ -80,7 +84,7 @@ pre {
   display: none;
 }
 
-.md-header__title {
+[dir] .md-header__title {
   flex: 0 0 11rem;
   margin-left: 0.4rem;
   margin-right: 1rem;
@@ -99,7 +103,7 @@ pre {
 }
 
 @media screen and (max-width: 59.984375em) {
-  .md-header__title {
+  [dir] .md-header__title {
     flex: 1 1 auto;
     min-width: 0;
     margin-right: 0.4rem;
@@ -111,12 +115,12 @@ pre {
 }
 
 .md-search__inner {
-  width: 13rem;
+  width: 14rem;
 }
 
 .md-search__form,
 .md-search__form:hover {
-  height: 1.6rem;
+  height: 1.8rem;
   background: var(--md-default-bg-color) !important;
   border: 1px solid var(--nd-border);
   border-radius: 6px;
@@ -127,7 +131,7 @@ pre {
 .md-search__input:hover {
   background: transparent;
   color: var(--nd-text);
-  font-size: 0.65rem;
+  font-size: 0.7rem;
 }
 
 .md-search__input::placeholder {
@@ -139,7 +143,7 @@ pre {
 }
 
 .md-source {
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   color: var(--nd-muted);
 }
 
@@ -152,8 +156,8 @@ pre {
   border-bottom: 1px solid var(--nd-border);
 }
 
-.md-tabs__list {
-  margin-left: 0.6rem;
+[dir] .md-tabs__list {
+  margin-left: 0.4rem;
   contain: none;
 }
 
@@ -164,7 +168,7 @@ pre {
 
 .md-tabs__link {
   margin-top: 0.55rem;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   font-weight: 500;
   color: var(--nd-text-2);
   opacity: 1;
@@ -181,15 +185,29 @@ pre {
 
 /* layout */
 
-.md-main .md-content__inner {
-  max-width: 34rem;
-  margin: 0 auto 2rem;
+.md-main .md-content > .md-content__inner,
+.md-main .md-content > .md-path {
+  max-width: 40rem;
+  margin-left: 0.8rem;
+  margin-right: 0.8rem;
+}
+
+.md-main .md-content > .md-content__inner {
+  margin-bottom: 2rem;
   padding: 0.6rem 0.8rem 0;
+}
+
+@media screen and (min-width: 76.25em) {
+  .md-main .md-content > .md-content__inner,
+  .md-main .md-content > .md-path {
+    margin-left: 1.2rem;
+    margin-right: 1.2rem;
+  }
 }
 
 /* left nav */
 .md-nav {
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   line-height: 1.5;
 }
 
@@ -225,7 +243,7 @@ pre {
 }
 
 .md-nav--primary .md-nav__item--section > .md-nav__link {
-  font-size: 0.55rem;
+  font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   color: var(--nd-muted);
@@ -238,7 +256,7 @@ pre {
 
 /* right toc */
 .md-nav--secondary .md-nav__title {
-  font-size: 0.55rem;
+  font-size: 0.6rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -248,7 +266,7 @@ pre {
 }
 
 .md-nav--secondary .md-nav__link {
-  font-size: 0.62rem;
+  font-size: 0.65rem;
   margin-top: 0.45em;
   color: var(--nd-text-2);
 }
@@ -259,11 +277,9 @@ pre {
 }
 
 /* breadcrumb */
-.md-content > .md-path {
-  max-width: 34rem;
-  margin: 0 auto;
+.md-main .md-content > .md-path {
   padding: 1.4rem 0.8rem 0;
-  font-size: 0.6rem;
+  font-size: 0.65rem;
 }
 
 .md-path__link {
@@ -272,13 +288,13 @@ pre {
 
 /* typography */
 .md-typeset {
-  font-size: 0.7rem;
-  line-height: 1.65;
+  font-size: 0.8rem;
+  line-height: 1.7;
   color: var(--nd-text-2);
 }
 
 .md-typeset h1 {
-  font-size: 1.35rem;
+  font-size: 1.6rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   line-height: 1.3;
@@ -287,7 +303,7 @@ pre {
 }
 
 .md-typeset h2 {
-  font-size: 0.95rem;
+  font-size: 1.2rem;
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--nd-text);
@@ -295,7 +311,7 @@ pre {
 }
 
 .md-typeset h3 {
-  font-size: 0.78rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--nd-text);
   margin: 1.8em 0 0.5em;
@@ -303,7 +319,7 @@ pre {
 
 .md-typeset h4,
 .md-typeset h5 {
-  font-size: 0.7rem;
+  font-size: 0.8rem;
   font-weight: 700;
   color: var(--nd-text);
   margin: 1.5em 0 0.4em;
@@ -378,7 +394,7 @@ pre {
 
 .md-typeset .page-action {
   font: inherit;
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   font-weight: 500;
   color: var(--nd-muted);
   background: none;
@@ -393,7 +409,7 @@ pre {
 }
 
 .md-typeset .page-actions + p {
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   line-height: 1.55;
   color: var(--nd-text);
 }
@@ -415,7 +431,7 @@ pre {
   border: 1px solid var(--nd-border);
   border-radius: 8px;
   padding: 0.9em 1em;
-  font-size: 0.62rem;
+  font-size: 0.65rem;
   line-height: 1.6;
 }
 
@@ -446,7 +462,7 @@ pre {
 .md-typeset table:not([class]) {
   display: table;
   width: 100%;
-  font-size: 0.62rem;
+  font-size: 0.7rem;
   line-height: 1.55;
   border: 0;
   border-radius: 0;
@@ -458,7 +474,8 @@ pre {
   background: transparent;
   color: var(--nd-muted);
   font-weight: 600;
-  font-size: 0.58rem;
+  font-size: 0.65rem;
+  min-width: 0;
   border-bottom: 1px solid var(--nd-border);
   padding: 0.5em 0.8em 0.5em 0;
   text-align: left !important;
@@ -469,6 +486,17 @@ pre {
   padding: 0.6em 0.8em 0.6em 0;
   vertical-align: top;
   text-align: left !important;
+}
+
+@media screen and (min-width: 60em) {
+  .md-typeset table:not([class]) th,
+  .md-typeset table:not([class]) td {
+    word-break: keep-all;
+  }
+}
+
+.md-typeset table:not([class]) td:last-child {
+  overflow-wrap: anywhere;
 }
 
 .md-typeset table:not([class]) tr:first-child td {
@@ -506,7 +534,7 @@ pre {
   margin-left: 0.4em;
   padding: 0 0.4em;
   font-family: var(--md-code-font-family);
-  font-size: 0.55rem;
+  font-size: 0.6rem;
   font-weight: 500;
   line-height: 1.6;
   letter-spacing: 0;
@@ -519,7 +547,7 @@ pre {
 /* admonitions */
 .md-typeset .admonition,
 .md-typeset details {
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   border: 0;
   border-left: 2px solid #d97706;
   border-radius: 0;
@@ -568,7 +596,7 @@ pre {
 }
 
 .md-footer-meta__inner {
-  font-size: 0.55rem;
+  font-size: 0.6rem;
 }
 
 /* landing */
@@ -666,5 +694,27 @@ pre {
 
 .md-content > .md-path .md-path__list {
   margin: 0;
+  padding: 0;
+}
+
+/* reference links */
+.md-typeset .ref-link {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.2rem 0.6rem;
+  margin: 0.4em 0 0.8em;
+  font-size: 0.7rem;
+}
+
+.md-typeset .ref-link a {
+  font-weight: 600;
+}
+
+.md-typeset .ref-link code {
+  font-size: 0.65rem;
+  color: var(--nd-muted);
+  background: transparent;
+  border: 0;
   padding: 0;
 }
