@@ -689,6 +689,92 @@ pre {
   margin-bottom: 0;
 }
 
+/* folded sub-object tables */
+.md-typeset details.spec-fold {
+  font-size: inherit;
+  color: inherit;
+  border: 0;
+  border-top: 1px solid var(--nd-border);
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.md-typeset :not(details.spec-fold) + details.spec-fold,
+.md-typeset details.spec-fold:first-child {
+  margin-top: 1.2em;
+}
+
+.md-typeset details.spec-fold:not(:has(+ details.spec-fold)) {
+  border-bottom: 1px solid var(--nd-border);
+  margin-bottom: 1.2em;
+}
+
+.md-typeset details.spec-fold:focus-within {
+  box-shadow: none;
+}
+
+.md-typeset details.spec-fold > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 0;
+  padding: 0.55rem 0;
+  margin: 0;
+  font-weight: inherit;
+  color: var(--nd-text);
+  background: transparent;
+  border-radius: 0;
+  cursor: pointer;
+  list-style: none;
+}
+
+.md-typeset details.spec-fold > summary::after {
+  position: static;
+  order: -1;
+  flex: none;
+  width: 0.8rem;
+  height: 0.8rem;
+  color: var(--nd-muted);
+  transform: rotate(0deg);
+}
+
+.md-typeset details.spec-fold[open] > summary::after {
+  transform: rotate(90deg);
+}
+
+.md-typeset details.spec-fold > summary:hover::after {
+  color: var(--nd-text);
+}
+
+.md-typeset details.spec-fold > summary.focus-visible {
+  outline: 2px solid var(--nd-accent);
+  outline-offset: 2px;
+}
+
+.md-typeset details.spec-fold > summary > :is(h2, h3, h4, h5, h6) {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.5;
+  color: var(--nd-text);
+}
+
+.md-typeset details.spec-fold .md-typeset__scrollwrap {
+  margin: 0 0 0.9em;
+}
+
+.md-typeset details.spec-fold .md-typeset__table {
+  padding: 0;
+}
+
+.md-typeset details.spec-fold > :not(summary):first-of-type {
+  margin-top: 0.2em;
+}
+
 .md-typeset blockquote {
   border-left: 2px solid var(--nd-border);
   color: var(--nd-text-2);

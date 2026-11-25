@@ -11,3 +11,25 @@ document.addEventListener("click", async (event) => {
   }
   setTimeout(() => { button.textContent = label; }, 1500);
 });
+
+const openFoldForHash = () => {
+  let id;
+  try {
+    id = decodeURIComponent(location.hash.slice(1));
+  } catch (error) {
+    return;
+  }
+  const target = id && document.getElementById(id);
+  if (!target) return;
+  let fold = target.closest("details.spec-fold");
+  if (!fold) return;
+  const inSummary = target.closest("summary") === fold.querySelector(":scope > summary");
+  while (fold) {
+    fold.open = true;
+    fold = fold.parentElement.closest("details.spec-fold");
+  }
+  if (!inSummary) target.scrollIntoView();
+};
+
+window.addEventListener("hashchange", openFoldForHash);
+openFoldForHash();
