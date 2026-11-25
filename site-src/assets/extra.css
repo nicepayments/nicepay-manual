@@ -659,6 +659,12 @@ pre {
 .md-typeset code.http-patch { color: #b3530a; }
 .md-typeset code.http-delete { color: #df1b41; }
 
+[data-md-color-scheme="slate"] .md-typeset code.http-get { color: #3fb950; }
+[data-md-color-scheme="slate"] .md-typeset code.http-post { color: #58a6ff; }
+[data-md-color-scheme="slate"] .md-typeset code.http-put,
+[data-md-color-scheme="slate"] .md-typeset code.http-patch { color: #e0913a; }
+[data-md-color-scheme="slate"] .md-typeset code.http-delete { color: #ff7b72; }
+
 /* type labels */
 .md-typeset .type-label {
   display: inline-block;
@@ -981,6 +987,10 @@ pre {
 .md-typeset img.screenshot {
   border: 1px solid var(--nd-border);
   border-radius: 8px;
+}
+
+[data-md-color-scheme="slate"] .md-typeset img.screenshot {
+  filter: brightness(0.85);
 }
 
 /* sdk links */
