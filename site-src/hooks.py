@@ -20,6 +20,15 @@ HR = re.compile(r"^\s*(---+|\*\*\*+)\s*$")
 DOC_INDEX_LINK = re.compile(r"^\s*\[전체 문서 목록\]\((\.\./)*README\.md\)\s*$")
 HTTP_METHOD = re.compile(r"<code>(GET|POST|PUT|PATCH|DELETE)</code>")
 TYPE_BADGE = re.compile(r'<img src="https://img\.shields\.io/badge/-(Object|Array|nullable)-[A-Za-z]+"\s*/?>')
+TABLE = re.compile(r"<table>(.*?)</table>", re.S)
+ROW = re.compile(r"<tr>(.*?)</tr>", re.S)
+CELL = re.compile(r"<(t[hd])([^>]*)>(.*?)</\1>", re.S)
+NAME_KEYS = {"parameter", "value", "필드", "오브젝트", "구분", ""}
+TYPE_KEYS = {"type", "타입"}
+SIZE_KEYS = {"byte", "크기", "길이"}
+IMG = re.compile(r"<img\b[^>]*>")
+SRC = re.compile(r'\ssrc="([^"]+)"')
+RASTER = re.compile(r"\.(png|jpe?g|gif|webp)(\?.*)?$", re.I)
 
 
 def _strip_emoji(text):
@@ -107,6 +116,116 @@ def _separate_tables_from_fences(lines):
     return out
 
 
+def _cell_text(cell):
+    text = htmllib.unescape(TAG.sub("", cell)).replace("\u3000", "")
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _with_attrs(attrs, classes, label=None):
+    extra = f' class="{" ".join(classes)}"'
+    if label:
+        extra += f' data-label="{htmllib.escape(label)}"'
+    return attrs + extra
+
+
+def _spec_roles(headers):
+    keys = [_cell_text(h).lower() for h in headers]
+    type_at = next((i for i, k in enumerate(keys) if k in TYPE_KEYS), None)
+    if not type_at or any(k not in NAME_KEYS for k in keys[:type_at]):
+        return None
+    roles = ["name"] * type_at + ["type"]
+    for k in keys[type_at + 1:]:
+        roles.append("req" if k == "필수" else "size" if k in SIZE_KEYS else "desc")
+    if "desc" not in roles:
+        return None
+    return roles
+
+
+def _spec_row(row, roles, labels):
+    cells = CELL.findall(row)
+    if len(cells) != len(roles) or any(tag != "td" for tag, _, _ in cells):
+        return row, 0
+    texts = [_cell_text(body) for _, _, body in cells]
+    named = [i for i, r in enumerate(roles) if r == "name" and texts[i]]
+    depth = named[0] if named else 0
+    out = []
+    for i, ((tag, attrs, body), role, text) in enumerate(zip(cells, roles, texts)):
+        label = None
+        if role == "name":
+            classes = ["spec-name" if named and i == named[-1] else "spec-group"]
+        elif role == "req":
+            classes = ["spec-req"] + (["spec-required"] if text == "O" else [])
+            label = labels[i]
+        elif role == "size":
+            classes = ["spec-size"]
+            label = labels[i]
+            text = "" if text == "-" else text
+        else:
+            classes = ["spec-" + role]
+        if not text:
+            classes.append("spec-empty")
+        out.append(f"<{tag}{_with_attrs(attrs, classes, label)}>{body}</{tag}>")
+    return "\n" + "\n".join(out) + "\n", depth
+
+
+def _spec_table(match):
+    body = match.group(1)
+    rows = ROW.findall(body)
+    if not rows:
+        return match.group(0)
+    headers = [c for tag, _, c in CELL.findall(rows[0]) if tag == "th"]
+    roles = _spec_roles(headers)
+    if not roles or len(headers) != len(roles):
+        return match.group(0)
+    labels = [_cell_text(h) for h in headers]
+
+    def row(m):
+        if "<th" in m.group(1):
+            return m.group(0)
+        inner, depth = _spec_row(m.group(1), roles, labels)
+        cls = f' class="spec-depth-{depth}"' if depth else ""
+        return f"<tr{cls}>{inner}</tr>"
+
+    return "<table data-spec>" + ROW.sub(row, body) + "</table>"
+
+
+def _diagram_img(tag, src, dark_src):
+    light = tag.replace(f'src="{src}"', f'src="{src}#only-light"', 1)
+    dark = tag.replace(f'src="{src}"', f'src="{dark_src}#only-dark"', 1)
+    return (
+        '<span class="diagram">'
+        f'<span class="diagram__scroll">{light}{dark}</span>'
+        '<span class="diagram__open">'
+        f'<a class="diagram__light" href="{src}" target="_blank" rel="noopener">원본 크기로 열기</a>'
+        f'<a class="diagram__dark" href="{dark_src}" target="_blank" rel="noopener">원본 크기로 열기</a>'
+        "</span></span>"
+    )
+
+
+def _images(html, page, config):
+    dark_dir = os.path.join(config["docs_dir"], "image", "dark")
+    page_dir = posixpath.dirname(page.file.src_uri)
+
+    def image(m):
+        tag = m.group(0)
+        src_m = SRC.search(tag)
+        if not src_m:
+            return tag
+        src = src_m.group(1)
+        if RASTER.search(src):
+            return tag if "class=" in tag else tag[:-1].rstrip("/ ") + ' class="screenshot">'
+        if "://" in src or not src.endswith(".svg"):
+            return tag
+        resolved = posixpath.normpath(posixpath.join(page_dir, src))
+        name = posixpath.basename(resolved)
+        if posixpath.dirname(resolved) != "image" or not os.path.exists(os.path.join(dark_dir, name)):
+            return tag
+        dark_src = posixpath.join(posixpath.dirname(src), "dark", name)
+        return _diagram_img(tag, src, dark_src)
+
+    return IMG.sub(image, html)
+
+
 def _quickstart_only(lines):
     for i, line in enumerate(lines):
         m = HEADING.match(line)
@@ -179,6 +298,7 @@ def on_page_markdown(markdown, page, config, files):
     lines = _insert_reference_links(lines, page.file.src_uri)
     if page.file.src_uri == "quickstart.md":
         lines = _quickstart_only(lines)
+        page.meta["hide"] = ["navigation"]
     lines = _drop_top_link_bar(lines)
     lines = [l for l in lines if not (LINK_BAR.match(l) and "더 알아보기" in l)]
     lines = [l for l in lines if not DOC_INDEX_LINK.match(l)]
@@ -218,6 +338,8 @@ def on_page_content(html, page, config, files):
         lambda m: f'<code class="http-method http-{m.group(1).lower()}">{m.group(1)}</code>', html
     )
     _PAGES[page.file.src_uri] = _summary(html)
+    html = TABLE.sub(_spec_table, html)
+    html = _images(html, page, config)
     if page.file.src_uri != "index.md":
         html = _insert_page_actions(html, page)
     return html
