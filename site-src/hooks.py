@@ -624,7 +624,25 @@ def on_post_build(config):
 ASSET_REF = re.compile(r'((?:href|src)="(?:\.\./)*assets/extra\.(?:css|js))"')
 
 
+SECONDARY_NAV = 'class="md-nav md-nav--secondary"'
+GROUPED_TOC_MIN_ITEMS = 12
+
+
+def _grouped_toc(page):
+    items = list(page.toc.items) if page.toc else []
+    if items and items[0].level == 1:
+        items = items[0].children
+    groups = [item for item in items if item.children]
+    return len(groups) >= 2 and _toc_size(items) >= GROUPED_TOC_MIN_ITEMS
+
+
+def _toc_size(items):
+    return sum(1 + _toc_size(item.children) for item in items)
+
+
 def on_post_page(output, page, config):
+    if _grouped_toc(page):
+        output = output.replace(SECONDARY_NAV, 'class="md-nav md-nav--secondary toc-grouped"')
     versions = {}
     for ext in ("css", "js"):
         path = os.path.join(config["docs_dir"], "assets", f"extra.{ext}")
